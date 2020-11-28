@@ -1,8 +1,8 @@
 package pojo;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>按钮资源类</p>
+ * <h3>URM</h3>
+ * <p>按钮资源表部分字段</p>
  * btnResourceName 按钮资源名称
  * menuResources 菜单名称 菜单是按钮上级
  * url 按钮的页面资源的访问路径

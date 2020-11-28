@@ -3,8 +3,8 @@ package po;
 import java.sql.Timestamp;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>按钮的页面资源</p>
+ * <h3>URM</h3>
+ * <p>页面标签类</p>
  * btnResourceId 按钮的id
  * btnResourceType 按钮的类型
  * value 按钮的页面资源

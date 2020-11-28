@@ -1,6 +1,5 @@
 package service.role.btn.resource;
 
-import constant.ConstantClassField;
 import service.resource.BtnResourceService;
 import service.role.menu.resource.RoleMenuResourceService;
 import util.JdbcUtil;
@@ -11,8 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>RolePowerService</p>
+ * <h3>URM</h3>
+ * <p>角色按钮资源表的服务方法</p>
  *
  * @author : 李雷
  * @date : 2020-11-26 11:23
@@ -37,10 +36,10 @@ public class RoleBtnResourceService {
 
     public static Integer addRoleBtnResource(Integer btnResourceId,Integer roleId) {
         if(ifSaveByBtnResourceIdAndRoleId(btnResourceId,roleId)) {
-            return ConstantClassField.RESULT_ZERO;
+            return 0;
         }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        int result = ConstantClassField.RESULT_ZERO;
+        int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("insert into role_btn_resource(menu_resource_id," +
                     "role_id) values(?,?)");
@@ -51,7 +50,7 @@ public class RoleBtnResourceService {
             throwables.printStackTrace();
         }
         Integer menuResourceId = BtnResourceService.selectMenuResourceIdById(btnResourceId);
-        if(!menuResourceId.equals(ConstantClassField.RESULT_ZERO)) {
+        if(!menuResourceId.equals(0)) {
             RoleMenuResourceService.addRoleMenuResource(menuResourceId,roleId);
         }
         return result;

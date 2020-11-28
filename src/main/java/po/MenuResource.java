@@ -3,7 +3,7 @@ package po;
 import java.sql.Timestamp;
 
 /**
- * <h3>UserPowerControl</h3>
+ * <h3>URM</h3>
  * <p>菜单资源类</p>
  * name 菜单名称
  * type 菜单所属的类型

@@ -1,8 +1,8 @@
 package pojo;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>按钮的页面资源</p>
+ * <h3>URM</h3>
+ * <p>页面标签表部分字段</p>
  * btnResourceId 按钮的id
  * btnResourceType 按钮的类型
  * value 按钮的页面资源

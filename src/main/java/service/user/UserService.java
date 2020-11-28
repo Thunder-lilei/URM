@@ -1,7 +1,5 @@
 package service.user;
 
-import constant.ConstantClassColumn;
-import constant.ConstantClassField;
 import po.User;
 import pojo.UserPojo;
 import util.JdbcUtil;
@@ -12,15 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>UserServiceImpl</p>
+ * <h3>URM</h3>
+ * <p>用户表的服务方法</p>
  *
  * @author : 李雷
  * @date : 2020-11-23 09:54
  **/
 public class UserService {
-    private static final String MESSAGE_ADD_SUCCESS = "成功";
-    private static final String MESSAGE_ADD_LOSE = "失败";
 
 
     public static UserPojo selectByUsername(String username) {
@@ -32,10 +28,10 @@ public class UserService {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 userPojo = new UserPojo();
-                userPojo.setId(rs.getInt(ConstantClassColumn.ID));
-                userPojo.setUserName(rs.getString(ConstantClassColumn.USERNAME));
-                userPojo.setPassword(rs.getString(ConstantClassColumn.PASSWORD));
-                userPojo.setNickname(rs.getString(ConstantClassColumn.NICKNAME));
+                userPojo.setId(rs.getInt("id"));
+                userPojo.setUserName(rs.getString("user_name"));
+                userPojo.setPassword(rs.getString("password"));
+                userPojo.setNickname(rs.getString("nickname"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -45,13 +41,13 @@ public class UserService {
 
     public static Integer selectIdByUsername(String username) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        int result = ConstantClassField.RESULT_ZERO;
+        int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("SELECT id FROM sys_user where user_name = ?");
             pstat.setString(1,username);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                result = rs.getInt(ConstantClassColumn.ID);
+                result = rs.getInt("id");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -62,7 +58,7 @@ public class UserService {
     public static String addUser(User user) {
         UserPojo userPojo = selectByUsername(user.getUserName());
         if(userPojo != null) {
-            return MESSAGE_ADD_LOSE;
+            return "失败";
         }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         try {
@@ -71,11 +67,11 @@ public class UserService {
             pstat.setString(1,user.getUserName());
             pstat.setString(2,user.getPassword());
             pstat.setString(3, user.getNickname());
-            if(pstat.executeUpdate() == 1) {return MESSAGE_ADD_SUCCESS;}
+            if(pstat.executeUpdate() == 1) {return "成功";}
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return MESSAGE_ADD_LOSE;
+        return "失败";
     }
 
 }

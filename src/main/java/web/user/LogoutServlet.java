@@ -8,19 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>${登出}</p>
- * session中查询user
+ * <h3>URM</h3>
+ * <p>登出</p>
+ * 清空session
  * @author : 李雷
  * @date : 2020-11-24 10:16
  **/
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
-    private static final String SESSION_USER = "user";
-    private static final String REQUEST_MESSAGE = "message";
-    private static final String REQUEST_ERROR_LOGIN = "请登录";
-    private static final String PAGES_LOGIN = "user/login.jsp";
-    private static final String PAGES_INDEX = "index.jsp";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -29,12 +24,12 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if(request.getSession().getAttribute(SESSION_USER) !=null) {
+        if(request.getSession().getAttribute("user") !=null) {
             request.getSession().invalidate();
-            response.sendRedirect(PAGES_INDEX);
+            response.sendRedirect("index.jsp");
         }else {
-            request.setAttribute(REQUEST_MESSAGE,REQUEST_ERROR_LOGIN);
-            request.getRequestDispatcher(PAGES_LOGIN).forward(request,response);
+            request.setAttribute("message","请登录");
+            request.getRequestDispatcher("user/login.jsp").forward(request,response);
         }
     }
 }

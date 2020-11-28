@@ -11,41 +11,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * <h3>UserPowerControl</h3>
+ * <h3>URM</h3>
  * <p>${登录}</p>
  * 根据用户名搜索用户
  * 对比密码正确后，扣除密码存储session
+ * 登陆失败携带错误信息返回登录页面
  * @author : 李雷
  * @date : 2020-11-21 22:07
  **/
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
-    private static final String REQUEST_NAME = "username";
-    private static final String REQUEST_PASSWORD = "password";
-    private static final String REQUEST_MESSAGE = "message";
-    private static final String REQUEST_ERROR_PASSWORD = "密码错误";
-    private static final String REQUEST_ERROR_USERNAME = "用户名错误";
-    private static final String SESSION_USER = "user";
-    private static final String PAGES_CONTROL = "pages/control.jsp";
-    private static final String PAGES_LOGIN = "user/login.jsp";
-    private static final String REQUEST_CHARACTER = "utf-8";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding(REQUEST_CHARACTER);
-        UserPojo userPojo = UserService.selectByUsername(request.getParameter(REQUEST_NAME));
+        request.setCharacterEncoding("utf-8");
+        UserPojo userPojo = UserService.selectByUsername(request.getParameter("username"));
         if(userPojo !=null) {
-            if(userPojo.getPassword().equals(request.getParameter(REQUEST_PASSWORD))) {
+            if(userPojo.getPassword().equals(request.getParameter("password"))) {
                 userPojo.setPassword(null);
-                request.getSession().setAttribute(SESSION_USER,userPojo);
-                response.sendRedirect(PAGES_CONTROL);
+                request.getSession().setAttribute("user",userPojo);
+                response.sendRedirect("pages/control.jsp");
             }else {
-                request.setAttribute(REQUEST_MESSAGE,REQUEST_ERROR_PASSWORD);
-                request.getRequestDispatcher(PAGES_LOGIN).forward(request,response);
+                request.setAttribute("message","密码错误");
+                request.getRequestDispatcher("user/login.jsp").forward(request,response);
             }
         }else {
-            request.setAttribute(REQUEST_MESSAGE,REQUEST_ERROR_USERNAME);
-            request.getRequestDispatcher(PAGES_LOGIN).forward(request,response);
+            request.setAttribute("message","用户名错误");
+            request.getRequestDispatcher("user/login.jsp").forward(request,response);
         }
     }
 

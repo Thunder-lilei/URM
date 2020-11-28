@@ -1,7 +1,5 @@
 package service.resource;
 
-import constant.ConstantClassColumn;
-import constant.ConstantClassField;
 import po.MenuResource;
 import util.JdbcUtil;
 
@@ -13,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>FatherPowerImpl</p>
+ * <h3>URM</h3>
+ * <p>菜单资源表的服务方法</p>
  *
  * @author : 李雷
  * @date : 2020-11-24 11:08
@@ -28,8 +26,8 @@ public class MenuResourceService {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 MenuResource menuResource = new MenuResource();
-                menuResource.setId(rs.getInt(ConstantClassColumn.ID));
-                menuResource.setName(rs.getString(ConstantClassColumn.NAME));
+                menuResource.setId(rs.getInt("id"));
+                menuResource.setName(rs.getString("name"));
                 list.add(menuResource);
             }
 
@@ -50,8 +48,8 @@ public class MenuResourceService {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 MenuResource menuResource = new MenuResource();
-                menuResource.setId(rs.getInt(ConstantClassColumn.ID));
-                menuResource.setName(rs.getString(ConstantClassColumn.NAME));
+                menuResource.setId(rs.getInt("id"));
+                menuResource.setName(rs.getString("name"));
                 list.add(menuResource);
             }
         } catch (SQLException throwables) {
@@ -62,13 +60,13 @@ public class MenuResourceService {
 
     public static Integer selectIdByName(String name) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        int result = ConstantClassField.RESULT_ZERO;
+        int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("select id from sys_menu_resource_id where name = ?");
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                result = rs.getInt(ConstantClassColumn.ID);
+                result = rs.getInt("id");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -84,7 +82,7 @@ public class MenuResourceService {
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                type = rs.getString(ConstantClassColumn.TYPE);
+                type = rs.getString("type");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

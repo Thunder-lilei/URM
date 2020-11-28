@@ -3,7 +3,7 @@ package po;
 import java.sql.Timestamp;
 
 /**
- * <h3>UserPowerControl</h3>
+ * <h3>URM</h3>
  * <p>按钮资源类</p>
  * btnResourceName 按钮资源名称
  * menuResources 菜单名称 菜单是按钮上级

@@ -1,7 +1,5 @@
 package service.resource;
 
-import constant.ConstantClassColumn;
-import constant.ConstantClassField;
 import pojo.BtnResourcePojo;
 import util.JdbcUtil;
 
@@ -13,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>power方法</p>
+ * <h3>URM</h3>
+ * <p>按钮资源表的服务方法</p>
  *
  * @author : 李雷
  * @date : 2020-11-24 14:21
@@ -28,12 +26,12 @@ public class BtnResourceService {
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
-                return rs.getInt(ConstantClassColumn.ID);
+                return rs.getInt("id");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return ConstantClassField.ID_ZERO;
+        return 0;
     }
 
     public static List<BtnResourcePojo> selectBtnResourcesByUserIdAndMenuResourceName(Integer userId, String name) {
@@ -48,11 +46,11 @@ public class BtnResourceService {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 BtnResourcePojo power = new BtnResourcePojo();
-                power.setId(rs.getInt(ConstantClassColumn.ID));
-                power.setBtnResourceName(rs.getString(ConstantClassColumn.BTN_RESOURCE_NAME));
-                power.setMenuResourceName(rs.getString(ConstantClassColumn.MENU_RESOURCE_NAME));
-                power.setUrl(rs.getString(ConstantClassColumn.URL));
-                power.setBtnResourceNickname(rs.getString(ConstantClassColumn.BNT_RESOURCE_NICKNAME));
+                power.setId(rs.getInt("id"));
+                power.setBtnResourceName(rs.getString("btn_resource_name"));
+                power.setMenuResourceName(rs.getString("menu_resource_name"));
+                power.setUrl(rs.getString("url"));
+                power.setBtnResourceNickname(rs.getString("btn_resource_nickname"));
                 list.add(power);
             }
         } catch (SQLException throwables) {
@@ -70,7 +68,7 @@ public class BtnResourceService {
             pstat.setInt(1,powerId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                menuResourceName = rs.getString(ConstantClassColumn.MENU_RESOURCE_NAME);
+                menuResourceName = rs.getString("menu_resource_name");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -80,11 +78,11 @@ public class BtnResourceService {
     }
 
     public static Integer addBtnResource(BtnResourcePojo btnResourcePojo) {
-        if (!selectBtnReourceIdByName(btnResourcePojo.getBtnResourceName()).equals(ConstantClassField.RESULT_ZERO)) {
-            return ConstantClassField.RESULT_ZERO;
+        if (!selectBtnReourceIdByName(btnResourcePojo.getBtnResourceName()).equals(0)) {
+            return 0;
         }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        int result = ConstantClassField.RESULT_ZERO;
+        int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("insert into sys_btn_resource(btn_resource_name" +
                     ",menu_resource_name,url,btn_resource_type,btn_resource_nickname) values(?,?,?,?,?)");

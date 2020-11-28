@@ -57,7 +57,7 @@
             %>
         </div>
         <div style="width: 85%;border: 1px solid blue;display: block;">
-            <div style="border: 1px solid blue;width: 100%;">
+            <div style="width: 100%;">
                 <p style="color: red;text-align: center">${requestScope.message}</p>
                 <%
                     List<String> inputlist = (List<String>) (request.getSession().getAttribute("list"));

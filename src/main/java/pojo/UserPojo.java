@@ -1,8 +1,8 @@
 package pojo;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>UserPOJO</p>
+ * <h3>URM</h3>
+ * <p>用户表的部分字段</p>
  * userName 登录用的用户名
  * password 登录密码
  * nickname 显示的用户昵称

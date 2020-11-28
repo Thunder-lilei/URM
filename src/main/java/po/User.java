@@ -3,7 +3,7 @@ package po;
 import java.sql.Timestamp;
 
 /**
- * <h3>UserPowerControl</h3>
+ * <h3>URM</h3>
  * <p>用户信息表</p>
  * userName 登录用的用户名
  * password 登录密码

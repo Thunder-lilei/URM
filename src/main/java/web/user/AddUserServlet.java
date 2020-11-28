@@ -11,34 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * <h3>UserPowerControl</h3>
- * <p>${description}</p>
- *
+ * <h3>URM</h3>
+ * <p>新增用户</p>
+ * 获取填写的用户信息
+ * 移除本次的页面标签session
  * @author : 李雷
  * @date : 2020-11-24 17:13
  **/
 @WebServlet("/AddUserServlet")
 public class AddUserServlet extends HttpServlet {
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String NICKNAME = "nickname";
-    private static final String REQUEST_MESSAGE = "message";
-    private static final String REQUEST_LIST = "list";
-    private static final String REQUEST_ACTION = "action";
-    private static final String PAGES_CONTROL = "pages/control.jsp";
-    private static final String REQUEST_CHARACTER = "utf-8";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding(REQUEST_CHARACTER);
+        request.setCharacterEncoding("utf-8");
         User user = new User();
-        user.setUserName(request.getParameter(USERNAME));
-        user.setPassword(request.getParameter(PASSWORD));
-        user.setNickname(request.getParameter(NICKNAME));
-        request.setAttribute(REQUEST_MESSAGE,UserService.addUser(user));
-        request.getSession().removeAttribute(REQUEST_LIST);
-        request.getSession().removeAttribute(REQUEST_ACTION);
-        request.getRequestDispatcher(PAGES_CONTROL).forward(request,response);
+        user.setUserName(request.getParameter("username"));
+        user.setPassword(request.getParameter("password"));
+        user.setNickname(request.getParameter("nickname"));
+        request.setAttribute("message",UserService.addUser(user));
+        request.getSession().removeAttribute("list");
+        request.getSession().removeAttribute("action");
+        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 
     @Override
