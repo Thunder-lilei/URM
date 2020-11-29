@@ -1,7 +1,5 @@
 package web.power;
 
-import pojo.BtnResourcePojo;
-import service.resource.BtnResourceService;
 import service.resource.value.BtnResourceValueService;
 
 import javax.servlet.ServletException;

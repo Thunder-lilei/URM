@@ -1,8 +1,5 @@
 package web.user;
 
-import pojo.UserPojo;
-import service.user.UserService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

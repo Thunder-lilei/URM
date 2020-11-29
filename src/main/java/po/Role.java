@@ -4,19 +4,17 @@ import java.sql.Timestamp;
 
 /**
  * <h3>URM</h3>
- * <p>菜单资源类</p>
- * name 菜单名称
- * type 菜单所属的类型
+ * <p>角色类</p>
+ *
  * @author : 李雷
- * @date : 2020-11-24 11:06
+ * @date : 2020-11-29 00:46
  **/
-
-public class MenuResource {
-    private Integer id;
-    private String name;
-    private String type;
-    private Timestamp createTime;
-    private Timestamp updateTime;
+public class Role {
+    Integer id;
+    String type;
+    String roleName;
+    Timestamp createTime;
+    Timestamp updateTime;
 
     public Integer getId() {
         return id;
@@ -26,20 +24,20 @@ public class MenuResource {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Timestamp getCreateTime() {

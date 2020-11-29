@@ -1,7 +1,6 @@
 package web.user;
 
 import po.User;
-import service.user.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +19,7 @@ import java.io.IOException;
  **/
 @WebServlet("/AddUserServlet")
 public class AddUserServlet extends HttpServlet {
+    UserService userService = new UserService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class AddUserServlet extends HttpServlet {
         user.setUserName(request.getParameter("username"));
         user.setPassword(request.getParameter("password"));
         user.setNickname(request.getParameter("nickname"));
-        request.setAttribute("message",UserService.addUser(user));
+        request.setAttribute("message",userService.addUser(user));
         request.getSession().removeAttribute("list");
         request.getSession().removeAttribute("action");
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);

@@ -1,9 +1,5 @@
 package web.roleUser;
 
-import service.role.RoleService;
-import service.role.user.RoleUserService;
-import service.user.UserService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
