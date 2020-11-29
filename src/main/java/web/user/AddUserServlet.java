@@ -1,6 +1,7 @@
 package web.user;
 
 import po.User;
+import serviceImpl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ import java.io.IOException;
  **/
 @WebServlet("/AddUserServlet")
 public class AddUserServlet extends HttpServlet {
-    UserService userService = new UserService();
+    UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

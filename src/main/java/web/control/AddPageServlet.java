@@ -26,10 +26,6 @@ public class AddPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
-        List<String> list = BtnResourceValueService.selectBtnResourceValueInputByBtnResourceId(id);
-        String action = BtnResourceValueService.selectBtnResourceValueActionByBtnResourceId(id);
-        request.getSession().setAttribute("list",list);
-        request.getSession().setAttribute("action",action);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 }

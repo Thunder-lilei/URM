@@ -1,5 +1,8 @@
 package web.user;
 
+import po.User;
+import serviceImpl.user.UserServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,15 +21,16 @@ import java.io.IOException;
  **/
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
+    UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setCharacterEncoding("utf-8");
-        UserPojo userPojo = UserService.selectByUsername(request.getParameter("username"));
-        if(userPojo !=null) {
-            if(userPojo.getPassword().equals(request.getParameter("password"))) {
-                userPojo.setPassword(null);
-                request.getSession().setAttribute("user",userPojo);
+        User user = userService.selectByUsername(request.getParameter("username"));
+        if(user !=null) {
+            if(user.getPassword().equals(request.getParameter("password"))) {
+                user.setPassword(null);
+                request.getSession().setAttribute("user",user);
                 response.sendRedirect("pages/control.jsp");
             }else {
                 request.setAttribute("message","密码错误");

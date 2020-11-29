@@ -1,5 +1,9 @@
 package web.roleUser;
 
+import serviceImpl.role.RoleServiceImpl;
+import serviceImpl.role.user.RoleUserServiceImpl;
+import serviceImpl.user.UserServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,17 +22,20 @@ import java.io.IOException;
  **/
 @WebServlet("/AddRoleUserServlet")
 public class AddRoleUserServlet extends HttpServlet {
+    UserServiceImpl userService = new UserServiceImpl();
+    RoleServiceImpl roleService = new RoleServiceImpl();
+    RoleUserServiceImpl roleUserService = new RoleUserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        Integer userId = UserService.selectIdByUsername(request.getParameter("name"));
+        Integer userId = userService.selectIdByUsername(request.getParameter("name"));
         String[] checkbox = request.getParameterValues("checkbox");
         Integer addRoleSize = 0;
         for(String s : checkbox) {
-            Integer roleId = RoleService.selectIdByName(s);
+            Integer roleId = roleService.selectIdByName(s);
             if (!roleId.equals(0) && !userId.equals(0)) {
-                if (!RoleUserService.insertRoleUser(roleId,userId).equals(0)) {
+                if (!roleUserService.insertRoleUser(roleId,userId).equals(0)) {
                     ++addRoleSize;
                 }
             }

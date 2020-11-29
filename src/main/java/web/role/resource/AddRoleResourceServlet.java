@@ -1,6 +1,8 @@
-package web.rolePower;
+package web.role.resource;
 
-import service.role.btn.resource.RoleBtnResourceService;
+import serviceImpl.resource.ResourceServiceImpl;
+import serviceImpl.role.RoleServiceImpl;
+import serviceImpl.role.resource.RoleResourceServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,24 +20,27 @@ import java.io.IOException;
  * @author : 李雷
  * @date : 2020-11-26 11:10
  **/
-@WebServlet("/AddRolePowerServlet")
-public class AddRolePowerServlet extends HttpServlet {
+@WebServlet(name = "AddRoleResourceServlet")
+public class AddRoleResourceServlet extends HttpServlet {
+    RoleServiceImpl roleService = new RoleServiceImpl();
+    ResourceServiceImpl resourceService = new ResourceServiceImpl();
+    RoleResourceServiceImpl roleResourceService = new RoleResourceServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        Integer roleId = RoleService.selectIdByName(request.getParameter("name"));
+        Integer roleId = roleService.selectIdByName(request.getParameter("name"));
         String[] checkbox = request.getParameterValues("checkbox");
-        Integer addRolePowerSize = 0;
+        Integer addRoleResourceSize = 0;
         for (String s : checkbox) {
-            Integer powerId = BtnResourceService.selectBtnReourceIdByName(s);
-            if (!roleId.equals(0) && !powerId.equals(0)) {
-                if (!RoleBtnResourceService.addRoleBtnResource(powerId,roleId).equals(0)) {
-                    ++addRolePowerSize;
+            Integer resourceId = resourceService.selectBtnReourceIdByName(s);
+            if (!roleId.equals(0) && !resourceId.equals(0)) {
+                if (!roleResourceService.insertRoleResource(roleId,resourceId).equals(0)) {
+                    ++addRoleResourceSize;
                 }
             }
         }
-        request.setAttribute("message","成功赋予角色"+addRolePowerSize+"个权限");
+        request.setAttribute("message","成功赋予角色"+addRoleResourceSize+"个权限");
         request.getSession().removeAttribute("list");
         request.getSession().removeAttribute("action");
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);

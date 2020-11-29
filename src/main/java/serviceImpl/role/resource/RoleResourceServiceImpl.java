@@ -13,7 +13,7 @@ import service.role.resource.RoleResourceService;
 public class RoleResourceServiceImpl implements RoleResourceService {
     RoleResourceDao roleResourceDao = new RoleResourceDao();
 
-    public Integer insertRoleMenuResource(Integer resourceId,Integer roleId) {
+    public Integer insertRoleResource(Integer resourceId,Integer roleId) {
         return roleResourceDao.addRoleResource(resourceId,roleId);
     }
 

@@ -1,9 +1,7 @@
-<%@ page import="service.resource.MenuResourceService" %>
-<%@ page import="po.MenuResource" %>
 <%@ page import="java.util.List" %>
-<%@ page import="service.resource.BtnResourceService" %>
-<%@ page import="pojo.UserPojo" %>
-<%@ page import="pojo.BtnResourcePojo" %>
+<%@ page import="po.User" %>
+<%@ page import="po.Resource" %>
+<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
 <%--
   Created by IntelliJ IDEA.
   User: lilei
@@ -11,13 +9,13 @@
   Time: 17:15
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>管理页面</title>
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <%
-        UserPojo userPojo = (UserPojo) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
     %>
 </head>
 <body>
@@ -38,16 +36,17 @@
     <div style="width: 100%;display: flex; border: 1px solid blue;">
         <div style="width: 15%;border: 1px solid blue;">
             <%
-                List<MenuResource> list = MenuResourceService.getMenuResourceByUserId(userPojo.getId());
-                for (MenuResource menuResource : list) {
+                ResourceServiceImpl resourceService = new ResourceServiceImpl();
+                List<Resource> menuResourcelist = resourceService.getMenuResourceByUserId(user.getId());
+                for (Resource menuResource : menuResourcelist) {
             %>
-            <p style="font-size: 25px;color: cornflowerblue;text-align: center;"><%=menuResource.getName()%></p>
+            <p style="font-size: 25px;color: cornflowerblue;text-align: center;"><%=menuResource.getResourceName()%></p>
             <%
-                List<BtnResourcePojo> btnResourcePojoList = BtnResourceService.selectBtnResourcesByUserIdAndMenuResourceName(userPojo.getId(),
-                        menuResource.getName());
-                for (BtnResourcePojo btnResourcePojo : btnResourcePojoList) {
+                List<Resource> btnResourceList = resourceService.selectBtnResourcesByUserIdAndMenuResourceId(user.getId(),
+                        menuResource.getId());
+                for (Resource btnResource : btnResourceList) {
             %>
-            <a href="${pageContext.request.contextPath}<%=btnResourcePojo.getUrl()%>?id=<%=btnResourcePojo.getId()%>"> <p style="color: black ;text-align: center"><%=btnResourcePojo.getBtnResourceNickname()%></p> </a>
+            <a href="${pageContext.request.contextPath}/<%=btnResource.getResourceType()%>PageServlet?id=<%=btnResource.getId()%>"> <p style="color: black ;text-align: center"><%=btnResource.getResourceName()%></p> </a>
             <%
                 }
             %>

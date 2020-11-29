@@ -8,7 +8,7 @@ package service.role.resource;
  * @date : 2020-11-29 15:38
  **/
 public interface RoleResourceService {
-    public Integer insertRoleMenuResource(Integer resourceId,Integer roleId);
+    public Integer insertRoleResource(Integer resourceId,Integer roleId);
 
     public Boolean ifSaveByRoleIdAndMenuResourceId(Integer roleId,Integer resourceId);
 }

@@ -50,7 +50,7 @@ public class ResourceDao {
                 Resource resource = new Resource();
                 resource.setId(rs.getInt("id"));
                 resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType("resource_type");
+                resource.setResourceType(rs.getString("resource_type"));
                 resource.setMenuResourceId(rs.getInt("menu_resource_id"));
                 resource.setCreateTime(rs.getTimestamp("create_time"));
                 resource.setUpdateTime(rs.getTimestamp("update_time"));
@@ -75,7 +75,7 @@ public class ResourceDao {
                 Resource resource = new Resource();
                 resource.setId(rs.getInt("id"));
                 resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType("resource_type");
+                resource.setResourceType(rs.getString("resource_type"));
                 resource.setMenuResourceId(rs.getInt("menu_resource_id"));
                 resource.setCreateTime(rs.getTimestamp("create_time"));
                 resource.setUpdateTime(rs.getTimestamp("update_time"));
@@ -98,7 +98,7 @@ public class ResourceDao {
                 resource = new Resource();
                 resource.setId(rs.getInt("id"));
                 resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType("resource_type");
+                resource.setResourceType(rs.getString("resource_type"));
                 resource.setMenuResourceId(rs.getInt("menu_resource_id"));
                 resource.setCreateTime(rs.getTimestamp("create_time"));
                 resource.setUpdateTime(rs.getTimestamp("update_time"));
@@ -122,7 +122,7 @@ public class ResourceDao {
                 Resource resource = new Resource();
                 resource.setId(rs.getInt("id"));
                 resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType("resource_type");
+                resource.setResourceType(rs.getString("resource_type"));
                 resource.setMenuResourceId(rs.getInt("menu_resource_id"));
                 resource.setCreateTime(rs.getTimestamp("create_time"));
                 resource.setUpdateTime(rs.getTimestamp("update_time"));

@@ -13,8 +13,12 @@ import java.util.List;
  **/
 public interface ResourceService {
     public Integer selectBtnReourceIdByName(String name);
+
     public List<Resource> getAllMenuResource();
+
     public List<Resource> getMenuResourceByUserId(Integer id);
+
     public Integer selectMenuResourceIdByName(String resource_name);
+
     public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId);
 }
