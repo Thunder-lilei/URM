@@ -22,7 +22,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where name = ?");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where role_name = ?");
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -54,5 +54,23 @@ public class RoleDao {
             throwables.printStackTrace();
         }
         return roleList;
+    }
+    public Role selectById(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Role role = null;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where id = ?");
+            pstat.setInt(1,id);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                role = new Role();
+                role.setId(rs.getInt("id"));
+                role.setRoleName(rs.getString("role_name"));
+                role.setType(rs.getString("type"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return role;
     }
 }

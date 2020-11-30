@@ -33,4 +33,7 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> selectAll() {
         return roleDao.selectAll();
     }
+
+    @Override
+    public String selectNameById(Integer id) {return roleDao.selectById(id).getRoleName();}
 }

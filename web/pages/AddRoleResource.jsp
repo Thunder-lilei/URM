@@ -24,7 +24,7 @@
             <%
                 for (Role role : roleList){
                     %>
-            <option value="<%=role.getId()%>>"><%=role.getRoleName()%></option>
+            <option value="<%=role.getId()%>"><%=role.getRoleName()%></option>
                     <%
                 };
             %>

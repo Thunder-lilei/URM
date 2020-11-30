@@ -13,6 +13,10 @@ import java.util.List;
  **/
 public interface RoleService {
     Role selectByName(String name);
+
     Integer selectIdByName(String name);
+
     List<Role> selectAll();
+
+    String selectNameById(Integer id);
 }

@@ -27,17 +27,17 @@ public class AddRoleResourceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        Integer roleId = roleService.selectIdByName(request.getParameter("roleId"));
+        String roleId = request.getParameter("roleId");
         String[] btnResourceId = request.getParameterValues("btnResourceId");
         Integer addRoleResourceSize = 0;
         if (btnResourceId != null) {
             for (String s : btnResourceId) {
-                if (!roleResourceService.insertRoleResource(roleId,Integer.parseInt(s)).equals(0)) {
+                if (!roleResourceService.insertRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {
                     ++addRoleResourceSize;
                 }
             }
         }
-        request.setAttribute("message","成功赋予角色"+addRoleResourceSize+"个权限");
+        request.setAttribute("message","成功赋予"+roleService.selectNameById(Integer.parseInt(roleId))+addRoleResourceSize+"个权限");
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

@@ -10,5 +10,5 @@ package service.role.resource;
 public interface RoleResourceService {
     Integer insertRoleResource(Integer resourceId,Integer roleId);
 
-    Boolean ifSaveByRoleIdAndMenuResourceId(Integer roleId,Integer resourceId);
+    Boolean ifSaveByRoleIdAndResourceId(Integer roleId,Integer resourceId);
 }

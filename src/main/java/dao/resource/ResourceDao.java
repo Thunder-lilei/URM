@@ -91,8 +91,9 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where menu_resource_id " +
-                    "= 0 and id = ANY(select resource_id from role_resource where role_id = ?)");
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where menu_resource_id = 0 " +
+                    "and id = ANY(select resource_id from role_resource where role_id = ANY(select role_id from role_user " +
+                    "where user_id = ?))");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -156,5 +157,26 @@ public class ResourceDao {
             throwables.printStackTrace();
         }
         return list;
+    }
+    public Resource selectResourceById(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Resource resource = null;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ?");
+            pstat.setInt(1,id);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                resource = new Resource();
+                resource.setId(rs.getInt("id"));
+                resource.setResourceName(rs.getString("resource_name"));
+                resource.setResourceType(rs.getString("resource_type"));
+                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
+                resource.setCreateTime(rs.getTimestamp("create_time"));
+                resource.setUpdateTime(rs.getTimestamp("update_time"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resource;
     }
 }
