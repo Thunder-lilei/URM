@@ -12,24 +12,29 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>查询用户</p>
- * 按照用户名进行查询
- * 查询出结果后清空密码返回给前端
+ * <p>更新用户信息</p>
+ *
  * @author : 李雷
- * @date : 2020-11-30 16:40
+ * @date : 2020-11-30 16:58
  **/
-@WebServlet("/SelectUserServlet")
-public class SelectUserServlet extends HttpServlet {
+@WebServlet("/UpdateUserServlet")
+public class UpdateUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        User user = userService.selectByUsername(request.getParameter("userName"));
-        if (user!=null) {
-            user.setPassword(null);
-            request.setAttribute("selectUser",user);
+        User updateUser = (User) request.getSession().getAttribute("updateUser");
+        if(updateUser!=null) {
+            updateUser.setUserName(request.getParameter("userName"));
+            updateUser.setNickname(request.getParameter("nickname"));
+            updateUser.setPassword(request.getParameter("password"));
+            if (!userService.updateUser(updateUser).equals(0)) {
+                request.setAttribute("message","更新完成！");
+            }else {
+                request.setAttribute("message","更新失败!");
+            }
         }else {
-            request.setAttribute("message","请检查用户名!");
+            request.setAttribute("message","未能找到需要更新信息的用户！");
         }
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }

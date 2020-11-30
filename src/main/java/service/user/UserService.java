@@ -11,7 +11,10 @@ import po.User;
  **/
 public interface UserService {
     User selectByUsername(String username);
+
     Integer selectIdByUsername(String username);
 
     Integer addUser(User user);
+
+    Integer updateUser(User user);
 }

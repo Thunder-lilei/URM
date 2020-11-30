@@ -53,4 +53,19 @@ public class UserDao {
         }
         return result;
     }
+    public Integer updateUserById(User user) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET user_name = ?,nickname = ?,password = ? WHERE id = ?");
+            pstat.setString(1,user.getUserName());
+            pstat.setString(2,user.getNickname());
+            pstat.setString(3,user.getPassword());
+            pstat.setInt(4,user.getId());
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 }

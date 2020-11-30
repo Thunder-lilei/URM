@@ -39,7 +39,7 @@
                         menuResource.getId());
                 for (Resource btnResource : btnResourceList) {
             %>
-            <button style="color: white;font-size: 20px;" onclick=document.getElementById("selectUserPage").innerHTML='';document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
+            <button style="color: white;font-size: 20px;" onclick=document.getElementById("updateUserPage").innerHTML='';document.getElementById("selectUserPage").innerHTML='';document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
                 <%=btnResource.getResourceName()%>
             </button>
             <br/>
@@ -75,6 +75,42 @@
                 %>
             </div>
         </div>
+            <div id="updateUserPage" style="width: 100%;">
+                <div style="padding: 100px 100px 10px;width: 50%;">
+                    <%
+                        User updateUser = (User) request.getAttribute("updateUser");
+                        if(updateUser!=null) {
+                    %>
+                    <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/UpdateUserServlet">
+                        <div class="input-group">
+                            <span class="input-group-addon">用户名</span>
+                            <input name="userName" type="text" class="form-control" value="<%=updateUser.getUserName()%>">
+                        </div>
+                        <br/>
+                        <div class="input-group">
+                            <span class="input-group-addon">昵称</span>
+                            <input name="nickname" type="text" class="form-control" value="<%=updateUser.getNickname()%>">
+                        </div>
+                        <br/>
+                        <div class="input-group">
+                            <span class="input-group-addon">密码</span>
+                            <input name="password" type="password" class="form-control" value="<%=updateUser.getPassword()%>">
+                        </div>
+                        <br/>
+                        <div class="input-group">
+                            <span class="input-group-addon">确认密码</span>
+                            <input type="password" class="form-control" value="<%=updateUser.getNickname()%>">
+                        </div>
+                        <br/>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default">提交</button>
+                        </div>
+                    </form>
+                    <%
+                        };
+                    %>
+                </div>
+            </div>
     </div>
 </body>
 <script>
