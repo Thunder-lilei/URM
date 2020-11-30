@@ -28,6 +28,10 @@ public class AddRoleResourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String roleId = request.getParameter("roleId");
+        if (roleId.equals("0")) {
+            request.setAttribute("message","请选择角色！");
+            request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        }
         String[] btnResourceId = request.getParameterValues("btnResourceId");
         Integer addRoleResourceSize = 0;
         if (btnResourceId != null) {

@@ -39,7 +39,7 @@
                         menuResource.getId());
                 for (Resource btnResource : btnResourceList) {
             %>
-            <button style="color: white;font-size: 20px;" onclick=$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
+            <button style="color: white;font-size: 20px;" onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
                 <%=btnResource.getResourceName()%>
             </button>
             <br/>
@@ -51,7 +51,7 @@
             %>
         </div>
         <div style="width: 80%;display: block;margin-left: 2%">
-            <h1><span class="label label-danger">${requestScope.message}</span></h1>
+            <h1><span id="messageSpan" class="label label-danger">${requestScope.message}</span></h1>
             <div id="page" style="width: 100%;">
             </div>
         </div>
@@ -59,8 +59,5 @@
 </body>
 <script>
     $("#header").load("../pages/header.jsp");
-    function onPage(pageName) {
-        $("#page").load("../pages/"+pageName+".jsp");
-    }
 </script>
 </html>
