@@ -11,24 +11,38 @@
   <meta charset="utf-8">
   <title>用户权限管理系统</title>
   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
-<h1>主页</h1>
-<h2>欢迎访问用户权限管理系统</h2>
+<body style="background-color: F4606C">
+<div id = "header"></div>
+<div style="width: 100%;text-align: center;color: white">
+  <h2>欢迎访问用户权限管理系统</h2>
+</div>
+
 <%
   if(request.getSession().getAttribute("user") !=null) {
 %>
-<h2 style="color: blue">${sessionScope.user.nickname}</h2>
-<br>
-<a href="${pageContext.request.contextPath}/LogoutServlet">登出</a>
-<a href="${pageContext.request.contextPath}/pages/control.jsp">管理页面</a>
+<div style="width: 100%">
+  <br>
+  <div class="btn-group btn-group-lg" style="width: 100%;text-align: center">
+    <a href="${pageContext.request.contextPath}/pages/control.jsp">
+      <button type="button" class="btn btn-default">管理页面</button>
+    </a>
+  </div>
+</div>
 <%
 }else {
 %>
-<a href="${pageContext.request.contextPath}/user/login.jsp">登录页面</a>
+<div style="width: 100%;text-align: center" class="btn-group btn-group-lg">
+  <a href="${pageContext.request.contextPath}/user/login.jsp"><button type="button" class="btn btn-default">登录</button></a>
+</div>
 <%
   }
 %>
 <br>
 </body>
+<script>
+  $("#header").load("../pages/header.jsp");
+</script>
 </html>

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class JdbcUtil {
 
 	private final String driver = "com.mysql.jdbc.Driver";
-	private final String url = "jdbc:mysql://localhost:3306/UserPowerControl?useUnicode=true&characterEncoding=utf8&useOldAliasMetadataBehavior=true";
+	private final String url = "jdbc:mysql://localhost:3306/urm?useUnicode=true&characterEncoding=utf8&useOldAliasMetadataBehavior=true";
 	private final String user = "root";
 	private final String password = "1234";
 	public static JdbcUtil INSTANCE;

@@ -26,9 +26,9 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         User user = new User();
-        user.setUserName(request.getParameter("username"));
+        user.setUserName(request.getParameter("userName"));
         user.setPassword(request.getParameter("password"));
-        user.setNickname(request.getParameter("nickname"));
+        user.setNickname(request.getParameter("nickName"));
         request.setAttribute("message",userService.addUser(user));
         request.getSession().removeAttribute("list");
         request.getSession().removeAttribute("action");
