@@ -16,7 +16,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<body style="background-color: F4606C">
+<body style="background-color: #6699CC">
 <div id = "header"></div>
 <div style="width: 100%;text-align: center;color: white">
   <h2>欢迎访问用户权限管理系统</h2>

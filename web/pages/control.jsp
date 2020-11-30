@@ -22,7 +22,7 @@
         User user = (User) request.getSession().getAttribute("user");
     %>
 </head>
-<body style="background-color: F4606C">
+<body style="background-color: #6699CC">
 <div id = "header"></div>
     <hr/>
     <div style="width: 100%;display: flex;">
@@ -39,7 +39,7 @@
                         menuResource.getId());
                 for (Resource btnResource : btnResourceList) {
             %>
-            <button style="color: white;font-size: 20px;" onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
+            <button style="color: white;font-size: 20px;" onclick=document.getElementById("selectUserPage").innerHTML='';document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
                 <%=btnResource.getResourceName()%>
             </button>
             <br/>
@@ -53,6 +53,26 @@
         <div style="width: 80%;display: block;margin-left: 2%">
             <h1><span id="messageSpan" class="label label-danger">${requestScope.message}</span></h1>
             <div id="page" style="width: 100%;">
+            </div>
+            <div id="selectUserPage" style="width: 100%;">
+                <div style="padding: 100px 100px 10px;width: 50%;">
+                <%
+                    User selectUser = (User) request.getAttribute("selectUser");
+                    if(selectUser!=null) {
+                %>
+                    <div class="input-group">
+                        <span class="input-group-addon">用户名</span>
+                        <input name="userName" type="text" class="form-control" value="<%=selectUser.getUserName()%>" disabled>
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <span class="input-group-addon">昵称</span>
+                        <input name="userName" type="text" class="form-control" value="<%=selectUser.getNickname()%>" disabled>
+                    </div>
+                    <br/>
+                <%
+                    };
+                %>
             </div>
         </div>
     </div>

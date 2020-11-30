@@ -12,17 +12,17 @@
     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddUserServlet">
         <div class="input-group">
             <span class="input-group-addon">用户名</span>
-            <input type="text" class="form-control" required>
+            <input name="userName" type="text" class="form-control" required>
         </div>
         <br/>
         <div class="input-group">
             <span class="input-group-addon">昵称</span>
-            <input type="text" class="form-control" required>
+            <input name="nickname" type="text" class="form-control" required>
         </div>
         <br/>
         <div class="input-group">
             <span class="input-group-addon">密码</span>
-            <input type="password" class="form-control" required>
+            <input name="password" type="password" class="form-control" required>
         </div>
         <br/>
         <div class="input-group">

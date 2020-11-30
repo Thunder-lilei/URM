@@ -3,7 +3,6 @@
 <%@ page import="serviceImpl.role.RoleServiceImpl" %>
 <%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
 <%@ page import="po.Resource" %>
-<%@ page import="service.role.resource.RoleResourceService" %>
 <%@ page import="serviceImpl.role.resource.RoleResourceServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: lilei
@@ -23,8 +22,7 @@
     <h1><span class="label label-info">添加用户信息</span></h1>
     <br/>
     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddRoleResourceServlet">
-        <select id="roleId" onchange="changeCheckBox()" name="roleId" class="form-control">
-            <option value=0 selected>请选择</option>
+        <select id="roleId" name="roleId" class="form-control">
             <%
                 for (Role role : roleList){
                     %>
