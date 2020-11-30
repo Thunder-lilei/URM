@@ -40,11 +40,35 @@ public class ResourceDao {
         return resource;
     }
 
-    public List<Resource> getAllMenuResource() {
+    public List<Resource> getAllResource(String type) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id = 0");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id "+type+" 0");
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Resource resource = new Resource();
+                resource.setId(rs.getInt("id"));
+                resource.setResourceName(rs.getString("resource_name"));
+                resource.setResourceType(rs.getString("resource_type"));
+                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
+                resource.setCreateTime(rs.getTimestamp("create_time"));
+                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                list.add(resource);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Resource> getResourceByMenuResourceId(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Resource> list = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id = ?");
+            pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 Resource resource = new Resource();

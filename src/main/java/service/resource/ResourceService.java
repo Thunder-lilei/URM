@@ -12,13 +12,17 @@ import java.util.List;
  * @date : 2020-11-29 15:35
  **/
 public interface ResourceService {
-    public Integer selectBtnReourceIdByName(String name);
+    Integer selectBtnReourceIdByName(String name);
 
-    public List<Resource> getAllMenuResource();
+    List<Resource> getAllMenuResource();
 
-    public List<Resource> getMenuResourceByUserId(Integer id);
+    List<Resource> getAllBtnResource();
 
-    public Integer selectMenuResourceIdByName(String resource_name);
+    List<Resource> getBtnResourceByMenuResourceId(Integer id);
 
-    public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId);
+    List<Resource> getMenuResourceByUserId(Integer id);
+
+    Integer selectMenuResourceIdByName(String resource_name);
+
+    List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId);
 }

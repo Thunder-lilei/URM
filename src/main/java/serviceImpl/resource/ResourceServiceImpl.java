@@ -21,7 +21,14 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
         return 0;
     }
     @Override
-    public List<Resource> getAllMenuResource() {return resourceDao.getAllMenuResource();}
+    public List<Resource> getAllMenuResource() {return resourceDao.getAllResource("=");}
+
+    @Override
+    public List<Resource> getAllBtnResource() {return resourceDao.getAllResource("!=");}
+
+    @Override
+    public List<Resource> getBtnResourceByMenuResourceId(Integer id) {return resourceDao.getResourceByMenuResourceId(id);}
+
     @Override
     public List<Resource> getMenuResourceByUserId(Integer id) {return resourceDao.getMenuResourceByUserId(id);}
     @Override

@@ -10,8 +10,8 @@ import po.User;
  * @date : 2020-11-29 15:40
  **/
 public interface UserService {
-    public User selectByUsername(String username);
-    public Integer selectIdByUsername(String username);
+    User selectByUsername(String username);
+    Integer selectIdByUsername(String username);
 
-    public Integer addUser(User user);
+    Integer addUser(User user);
 }

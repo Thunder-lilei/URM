@@ -8,5 +8,5 @@ package service.role.user;
  * @date : 2020-11-29 15:39
  **/
 public interface RoleUserService {
-    public Integer insertRoleUser(Integer roleId,Integer userId);
+    Integer insertRoleUser(Integer roleId,Integer userId);
 }

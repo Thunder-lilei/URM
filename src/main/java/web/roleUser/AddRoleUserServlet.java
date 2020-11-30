@@ -16,7 +16,6 @@ import java.io.IOException;
  * <p>为用户赋予角色</p>
  * 获取用户名和角色id
  * 记录本次赋予的角色数量传递给前段
- * 移除本次的页面标签session
  * @author : 李雷
  * @date : 2020-11-26 09:17
  **/
