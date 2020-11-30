@@ -34,11 +34,11 @@ public class LoginServlet extends HttpServlet{
                 response.sendRedirect("pages/control.jsp");
             }else {
                 request.setAttribute("message","密码错误");
-                request.getRequestDispatcher("user/login.jsp").forward(request,response);
+                request.getRequestDispatcher("pages/login.jsp").forward(request,response);
             }
         }else {
             request.setAttribute("message","用户名错误");
-            request.getRequestDispatcher("user/login.jsp").forward(request,response);
+            request.getRequestDispatcher("pages/login.jsp").forward(request,response);
         }
     }
 

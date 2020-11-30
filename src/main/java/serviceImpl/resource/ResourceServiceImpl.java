@@ -14,18 +14,23 @@ import java.util.List;
  **/
 public class ResourceServiceImpl implements service.resource.ResourceService {
     ResourceDao resourceDao = new ResourceDao();
+    @Override
     public Integer selectBtnReourceIdByName(String name) {
         Resource resource = resourceDao.selectBtnReourceByName(name);
         if (resource!=null) {return resource.getId();};
         return 0;
     }
+    @Override
     public List<Resource> getAllMenuResource() {return resourceDao.getAllMenuResource();}
+    @Override
     public List<Resource> getMenuResourceByUserId(Integer id) {return resourceDao.getMenuResourceByUserId(id);}
+    @Override
     public Integer selectMenuResourceIdByName(String resource_name) {
         Resource resource = resourceDao.selectMenuResourceByName(resource_name);
         if (resource!=null) {return resource.getId();};
         return 0;
     };
+    @Override
     public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
         return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId);
     }

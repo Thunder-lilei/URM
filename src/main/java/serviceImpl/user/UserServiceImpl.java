@@ -13,17 +13,18 @@ import service.user.UserService;
  **/
 public class UserServiceImpl implements UserService {
     UserDao userDao = new UserDao();
-
+    @Override
     public User selectByUsername(String username) {
         return userDao.selectByUsername(username);
     }
+    @Override
     public Integer selectIdByUsername(String username) {
         int result = 0;
         User user = userDao.selectByUsername(username);
         if(user!=null) {result = user.getId();}
         return result;
     }
-
+    @Override
     public Integer addUser(User user) {
         if(userDao.selectByUsername(user.getUserName()) != null) {
             return 0;

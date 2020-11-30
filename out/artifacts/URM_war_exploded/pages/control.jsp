@@ -11,47 +11,56 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<header>
+<head>
     <title>管理页面</title>
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/control.css">
     <%
         User user = (User) request.getSession().getAttribute("user");
     %>
-</header>
+</head>
 <body style="background-color: F4606C">
 <div id = "header"></div>
     <hr/>
     <div style="width: 100%;display: flex;">
-        <div style="width: 15%;border: 3px solid white;">
+        <div style="width: 15%;border: 3px solid white;margin-left: 1%;text-align: center;">
+            <br/>
             <%
                 ResourceServiceImpl resourceService = new ResourceServiceImpl();
                 List<Resource> menuResourcelist = resourceService.getMenuResourceByUserId(user.getId());
                 for (Resource menuResource : menuResourcelist) {
             %>
-            <p style="font-size: 25px;color: white;text-align: center;"><%=menuResource.getResourceName()%></p>
+            <p style="font-size: 30px;color: white;text-align: center;"><%=menuResource.getResourceName()%></p>
             <%
                 List<Resource> btnResourceList = resourceService.selectBtnResourcesByUserIdAndMenuResourceId(user.getId(),
                         menuResource.getId());
                 for (Resource btnResource : btnResourceList) {
             %>
-            <a href="${pageContext.request.contextPath}/<%=btnResource.getResourceType()%>PageServlet?id=<%=btnResource.getId()%>"> <p style="color: white ;text-align: center"><%=btnResource.getResourceName()%></p> </a>
+            <button style="color: white;font-size: 20px;" onclick=$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
+                <%=btnResource.getResourceName()%>
+            </button>
+            <br/>
             <%
                 }
             %>
-            <br/>
             <%
                 };
             %>
         </div>
-        <div style="width: 85%;display: block;">
-            <div style="width: 100%;">
-                <p style="color: red;text-align: center">${requestScope.message}</p>
+        <div style="width: 80%;display: block;margin-left: 2%">
+            <h1><span class="label label-danger">${requestScope.message}</span></h1>
+            <div id="page" style="width: 100%;">
             </div>
         </div>
     </div>
 </body>
 <script>
     $("#header").load("../pages/header.jsp");
+    function onPage(pageName) {
+        $("#page").load("../pages/"+pageName+".jsp");
+    }
 </script>
 </html>

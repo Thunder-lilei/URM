@@ -6,6 +6,7 @@ import service.role.RoleService;
 import util.JdbcUtil;
 
 import java.sql.Connection;
+import java.util.List;
 
 /**
  * <h3>URM</h3>
@@ -17,14 +18,19 @@ import java.sql.Connection;
 public class RoleServiceImpl implements RoleService {
     RoleDao roleDao = new RoleDao();
 
+    @Override
     public Role selectByName(String name) {
         return roleDao.selectByName(name);
     }
+    @Override
     public Integer selectIdByName(String name) {
-        Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         Role role = roleDao.selectByName(name);
         if (role!=null) {result = role.getId();};
         return result;
+    }
+    @Override
+    public List<Role> selectAll() {
+        return roleDao.selectAll();
     }
 }

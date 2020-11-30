@@ -25,13 +25,16 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        String message = "添加成功！";
         User user = new User();
         user.setUserName(request.getParameter("userName"));
         user.setPassword(request.getParameter("password"));
         user.setNickname(request.getParameter("nickName"));
-        request.setAttribute("message",userService.addUser(user));
-        request.getSession().removeAttribute("list");
-        request.getSession().removeAttribute("action");
+        if(userService.addUser(user).equals(0)) {
+            message = "添加失败！";
+        }
+        request.setAttribute("message",message);
+        request.getSession().setAttribute("message",message);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

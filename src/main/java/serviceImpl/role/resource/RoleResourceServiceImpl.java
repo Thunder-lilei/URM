@@ -12,11 +12,11 @@ import service.role.resource.RoleResourceService;
  **/
 public class RoleResourceServiceImpl implements RoleResourceService {
     RoleResourceDao roleResourceDao = new RoleResourceDao();
-
+    @Override
     public Integer insertRoleResource(Integer resourceId,Integer roleId) {
         return roleResourceDao.addRoleResource(resourceId,roleId);
     }
-
+    @Override
     public Boolean ifSaveByRoleIdAndMenuResourceId(Integer roleId,Integer resourceId) {
         return roleResourceDao.ifSaveRoleResource(roleId,resourceId);
     }

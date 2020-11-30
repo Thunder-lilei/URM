@@ -12,7 +12,7 @@ import service.role.user.RoleUserService;
  **/
 public class RoleUserServiceImpl implements RoleUserService {
     RoleUserDao roleUserDao = new RoleUserDao();
-
+    @Override
     public Integer insertRoleUser(Integer roleId,Integer userId) {
         return roleUserDao.insertRoleUser(roleId,userId);
     }

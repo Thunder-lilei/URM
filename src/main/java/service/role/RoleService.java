@@ -2,6 +2,8 @@ package service.role;
 
 import po.Role;
 
+import java.util.List;
+
 /**
  * <h3>URM</h3>
  * <p>角色类service接口</p>
@@ -10,6 +12,7 @@ import po.Role;
  * @date : 2020-11-29 15:41
  **/
 public interface RoleService {
-    public Role selectByName(String name);
-    public Integer selectIdByName(String name);
+    Role selectByName(String name);
+    Integer selectIdByName(String name);
+    List<Role> selectAll();
 }

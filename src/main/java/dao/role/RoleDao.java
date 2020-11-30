@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h3>URM</h3>
@@ -33,5 +35,24 @@ public class RoleDao {
             throwables.printStackTrace();
         }
         return role;
+    }
+    public List<Role> selectAll() {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Role role = null;
+        List<Role> roleList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role");
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                role = new Role();
+                role.setId(rs.getInt("id"));
+                role.setRoleName(rs.getString("role_name"));
+                role.setType(rs.getString("type"));
+                roleList.add(role);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return roleList;
     }
 }

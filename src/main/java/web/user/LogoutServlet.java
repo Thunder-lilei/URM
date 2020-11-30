@@ -29,7 +29,7 @@ public class LogoutServlet extends HttpServlet {
             response.sendRedirect("index.jsp");
         }else {
             request.setAttribute("message","请登录");
-            request.getRequestDispatcher("user/login.jsp").forward(request,response);
+            request.getRequestDispatcher("pages/login.jsp").forward(request,response);
         }
     }
 }
