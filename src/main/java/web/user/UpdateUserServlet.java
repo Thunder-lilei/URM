@@ -36,6 +36,7 @@ public class UpdateUserServlet extends HttpServlet {
         }else {
             request.setAttribute("message","未能找到需要更新信息的用户！");
         }
+        request.getSession().setAttribute("updateUser",null);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

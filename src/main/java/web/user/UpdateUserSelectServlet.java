@@ -25,7 +25,7 @@ public class UpdateUserSelectServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         User user = userService.selectByUsername(request.getParameter("userName"));
         if (user!=null) {
-            request.setAttribute("updateUser",user);
+            request.getSession().setAttribute("updateUser",user);
             request.getSession().setAttribute("updateUser",user);
         }else {
             request.setAttribute("message","请检查用户名!");

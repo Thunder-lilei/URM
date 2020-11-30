@@ -158,6 +158,25 @@ public class ResourceDao {
         }
         return list;
     }
+
+    public List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Integer> list = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select id from sys_resource where id = ANY(select " +
+                    "resource_id from role_resource where role_id = ?) and menu_resource_id = ?");
+            pstat.setInt(1,userId);
+            pstat.setInt(2,menuResourceId);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return list;
+    }
+
     public Resource selectResourceById(Integer id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Resource resource = null;

@@ -41,4 +41,9 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
         return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId);
     }
+
+    @Override
+    public List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId) {
+        return resourceDao.selectBtnResourcesIdByRoleIdAndMenuResourceId(roleId,menuResourceId);
+    }
 }

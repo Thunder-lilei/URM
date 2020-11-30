@@ -27,7 +27,7 @@ public class SelectUserServlet extends HttpServlet {
         User user = userService.selectByUsername(request.getParameter("userName"));
         if (user!=null) {
             user.setPassword(null);
-            request.setAttribute("selectUser",user);
+            request.getSession().setAttribute("selectUser",user);
         }else {
             request.setAttribute("message","请检查用户名!");
         }

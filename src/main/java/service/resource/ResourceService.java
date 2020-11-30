@@ -25,4 +25,6 @@ public interface ResourceService {
     Integer selectMenuResourceIdByName(String resource_name);
 
     List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId);
+
+    List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId);
 }
