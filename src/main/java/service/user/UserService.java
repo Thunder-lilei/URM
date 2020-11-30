@@ -2,6 +2,8 @@ package service.user;
 
 import po.User;
 
+import java.util.List;
+
 /**
  * <h3>URM</h3>
  * <p>用户类service接口</p>
@@ -17,4 +19,8 @@ public interface UserService {
     Integer addUser(User user);
 
     Integer updateUser(User user);
+
+    List<User> selectAllUser();
+
+    Integer deleteUser(Integer id);
 }

@@ -57,8 +57,3 @@
         </div>
     </form>
 </div>
-<script>
-    function changeCheckBox() {
-        alert($('#roleId option:selected').val())
-    }
-</script>

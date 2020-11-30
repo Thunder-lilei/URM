@@ -1,8 +1,11 @@
 package serviceImpl.user;
 
+import dao.role.user.RoleUserDao;
 import dao.user.UserDao;
 import po.User;
 import service.user.UserService;
+
+import java.util.List;
 
 /**
  * <h3>URM</h3>
@@ -13,6 +16,7 @@ import service.user.UserService;
  **/
 public class UserServiceImpl implements UserService {
     UserDao userDao = new UserDao();
+    RoleUserDao roleUserDao = new RoleUserDao();
     @Override
     public User selectByUsername(String username) {
         return userDao.selectByUsername(username);
@@ -33,8 +37,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updateUser(User user) {
-        return userDao.updateUserById(user);
+    public Integer updateUser(User user) {return userDao.updateUserById(user);}
+
+    @Override
+    public List<User> selectAllUser() {return userDao.selectAllUser();}
+    /*
+     * @Author 李雷
+     * @Description //TODO lilei
+     * 删除与用户相关连的权限 保留用户信息
+     * @Date 17:52 2020/11/30
+     * @Param [id]
+     * @return java.lang.Integer
+     **/
+    @Override
+    public Integer deleteUser(Integer id) {
+        roleUserDao.deleteRoleUserByUserId(id);
+        return userDao.deleteUserById(id);
     }
 
 }

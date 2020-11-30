@@ -49,4 +49,17 @@ public class RoleUserDao {
         }
         return false;
     }
+
+    public Integer deleteRoleUserByUserId(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        int result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("delete from role_user where user_id = ?");
+            pstat.setInt(1,id);
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 }

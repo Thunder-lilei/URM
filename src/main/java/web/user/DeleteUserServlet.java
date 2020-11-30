@@ -1,6 +1,5 @@
 package web.user;
 
-import po.User;
 import serviceImpl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -12,31 +11,27 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>新增用户</p>
- * 获取填写的用户信息
+ * <p>${description}</p>
+ *
  * @author : 李雷
- * @date : 2020-11-24 17:13
+ * @date : 2020-11-30 17:38
  **/
-@WebServlet("/AddUserServlet")
-public class AddUserServlet extends HttpServlet {
+@WebServlet("/DeleteUserServlet")
+public class DeleteUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        String message = "添加成功！";
-        User user = new User();
-        user.setUserName(request.getParameter("userName"));
-        user.setPassword(request.getParameter("password"));
-        user.setNickname(request.getParameter("nickName"));
-        if(userService.addUser(user).equals(0)) {
-            message = "添加失败！";
+        String[] userId = request.getParameterValues("userId");
+        Integer deleteSize = 0;
+        for (String s : userId) {
+            if (!userService.deleteUser(Integer.parseInt(s)).equals(0)) {
+                ++deleteSize;
+            }
         }
-        request.setAttribute("message",message);
+        request.setAttribute("message","成功移除"+deleteSize+"个用户！");
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
