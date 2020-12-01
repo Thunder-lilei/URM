@@ -2,11 +2,13 @@ package serviceImpl.role;
 
 import dao.role.RoleDao;
 import dao.role.resource.RoleResourceDao;
+import dao.role.user.RoleUserDao;
 import po.Role;
 import service.role.RoleService;
 import util.JdbcUtil;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ import java.util.List;
  **/
 public class RoleServiceImpl implements RoleService {
     RoleDao roleDao = new RoleDao();
+    RoleUserDao roleUserDao = new RoleUserDao();
     RoleResourceDao roleResourceDao = new RoleResourceDao();
 
     @Override
@@ -40,6 +43,25 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String selectNameById(Integer id) {return roleDao.selectById(id).getRoleName();}
+
+    /*
+     * @Author 李雷
+     * @Description //TODO lilei
+     * @Date 10:11 2020/12/1
+     * @Param [userId]
+     * @return java.util.List<po.Role>
+     * 通过用户id查询所有角色
+     * 通过角色id查询所有角色信息
+     **/
+    @Override
+    public List<Role> selectByUserId(Integer userId) {
+        List<Integer> roleIds = roleUserDao.selectRoleIdByUserId(userId);
+        List<Role> roleList = new ArrayList<>();
+        for (Integer integer : roleIds) {
+            roleList.add(roleDao.selectById(integer));
+        }
+        return roleList;
+    }
 
     @Override
     public Integer addRole(Role role) {return roleDao.addRole(role);}

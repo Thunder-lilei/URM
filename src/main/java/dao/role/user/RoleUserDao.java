@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h3>URM</h3>
@@ -48,6 +50,22 @@ public class RoleUserDao {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    public List<Integer> selectRoleIdByUserId(Integer userId) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Integer> roleIds = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT role_id FROM role_user where user_id = ?");
+            pstat.setInt(1,userId);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                roleIds.add(rs.getInt("role_id"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return roleIds;
     }
 
     public Integer deleteRoleUserByUserId(Integer id) {
