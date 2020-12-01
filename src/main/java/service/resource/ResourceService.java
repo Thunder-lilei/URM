@@ -16,6 +16,8 @@ public interface ResourceService {
 
     List<Resource> getAllMenuResource();
 
+    Resource getResourceById(Integer id);
+
     List<Resource> getAllBtnResource();
 
     List<Resource> getBtnResourceByMenuResourceId(Integer id);
@@ -27,4 +29,6 @@ public interface ResourceService {
     List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId);
 
     List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId);
+
+    List<Resource> selectBtnResourcesByRoleId(Integer roleId);
 }

@@ -1,6 +1,5 @@
 package web.role.resource;
 
-import serviceImpl.resource.ResourceServiceImpl;
 import serviceImpl.role.RoleServiceImpl;
 import serviceImpl.role.resource.RoleResourceServiceImpl;
 
@@ -16,22 +15,20 @@ import java.io.IOException;
  * <p>赋予角色权限角色查询</p>
  * 获取角色id
  * @author : 李雷
- * @date : 2020-11-26 11:10
+ * @date : 2020-12-01 10:49
  **/
-@WebServlet("/AddRoleResourceServlet")
-public class AddRoleResourceServlet extends HttpServlet {
+@WebServlet("/DeleteRoleResourceSelectServlet")
+public class DeleteRoleResourceSelectServlet extends HttpServlet {
     RoleServiceImpl roleService = new RoleServiceImpl();
     RoleResourceServiceImpl roleResourceService = new RoleResourceServiceImpl();
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        request.getSession().setAttribute("roleId",request.getParameter("roleId"));
+        request.getSession().setAttribute("deleteRoleResourceId",request.getParameter("roleId"));
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+
     }
 }

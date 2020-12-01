@@ -36,6 +36,8 @@ public class UserDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return user;
     }
@@ -52,6 +54,8 @@ public class UserDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }
@@ -67,6 +71,8 @@ public class UserDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }
@@ -88,6 +94,8 @@ public class UserDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return userList;
     }
@@ -100,6 +108,8 @@ public class UserDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }

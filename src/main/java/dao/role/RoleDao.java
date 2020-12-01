@@ -33,6 +33,8 @@ public class RoleDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return role;
     }
@@ -52,6 +54,8 @@ public class RoleDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return roleList;
     }
@@ -70,6 +74,8 @@ public class RoleDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return role;
     }
@@ -84,6 +90,8 @@ public class RoleDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }
@@ -97,6 +105,8 @@ public class RoleDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }

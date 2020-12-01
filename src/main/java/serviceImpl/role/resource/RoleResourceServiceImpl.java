@@ -5,6 +5,8 @@ import dao.role.resource.RoleResourceDao;
 import po.Resource;
 import service.role.resource.RoleResourceService;
 
+import java.sql.SQLException;
+
 /**
  * <h3>URM</h3>
  * <p>角色资源服务方法</p>
@@ -32,5 +34,10 @@ public class RoleResourceServiceImpl implements RoleResourceService {
     @Override
     public Boolean ifSaveByRoleIdAndResourceId(Integer roleId,Integer resourceId) {
         return roleResourceDao.ifSaveRoleResource(roleId,resourceId);
+    }
+
+    @Override
+    public Integer deleteRoleResource(Integer resourceId, Integer roleId) {
+        return roleResourceDao.deleteRoleResource(resourceId,roleId);
     }
 }

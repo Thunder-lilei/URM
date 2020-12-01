@@ -24,6 +24,11 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> getAllMenuResource() {return resourceDao.getAllResource("=");}
 
     @Override
+    public Resource getResourceById(Integer id) {
+        return resourceDao.selectResourceById(id);
+    }
+
+    @Override
     public List<Resource> getAllBtnResource() {return resourceDao.getAllResource("!=");}
 
     @Override
@@ -45,5 +50,10 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     @Override
     public List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId) {
         return resourceDao.selectBtnResourcesIdByRoleIdAndMenuResourceId(roleId,menuResourceId);
+    }
+
+    @Override
+    public List<Resource> selectBtnResourcesByRoleId(Integer roleId) {
+        return resourceDao.selectBtnResourceByRoleId(roleId);
     }
 }

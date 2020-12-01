@@ -76,7 +76,7 @@ public class RoleServiceImpl implements RoleService {
      **/
     @Override
     public Integer deleteRole(Integer id) {
-        roleResourceDao.deleteRoleResource(id);
+        roleResourceDao.deleteRoleResourceByRoleId(id);
         return roleDao.deleteRole(id);
     }
 }

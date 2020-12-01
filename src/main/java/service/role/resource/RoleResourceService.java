@@ -11,4 +11,6 @@ public interface RoleResourceService {
     Integer insertRoleResource(Integer resourceId,Integer roleId);
 
     Boolean ifSaveByRoleIdAndResourceId(Integer roleId,Integer resourceId);
+
+    Integer deleteRoleResource(Integer resourceId,Integer roleId);
 }

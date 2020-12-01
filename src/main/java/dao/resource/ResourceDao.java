@@ -36,6 +36,8 @@ public class ResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return resource;
     }
@@ -59,6 +61,8 @@ public class ResourceDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return list;
     }
@@ -83,6 +87,8 @@ public class ResourceDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return list;
     }
@@ -108,6 +114,8 @@ public class ResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return list;
     }
@@ -130,6 +138,8 @@ public class ResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return resource;
     }
@@ -155,6 +165,8 @@ public class ResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return list;
     }
@@ -173,6 +185,8 @@ public class ResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return list;
     }
@@ -195,7 +209,35 @@ public class ResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return resource;
+    }
+
+    public List<Resource> selectBtnResourceByRoleId(Integer roleId) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Resource> resourceList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ANY(select " +
+                    "resource_id from role_resource where role_id = ?) and menu_resource_id != 0");
+            pstat.setInt(1,roleId);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Resource resource = new Resource();
+                resource.setId(rs.getInt("id"));
+                resource.setResourceName(rs.getString("resource_name"));
+                resource.setResourceType(rs.getString("resource_type"));
+                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
+                resource.setCreateTime(rs.getTimestamp("create_time"));
+                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                resourceList.add(resource);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return resourceList;
     }
 }

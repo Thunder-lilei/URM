@@ -2,7 +2,9 @@
 <%@ page import="serviceImpl.role.RoleServiceImpl" %>
 <%@ page import="java.util.List" %>
 <%@ page import="po.User" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
+<%@ page import="po.Resource" %><%--
   Created by IntelliJ IDEA.
   User: lilei
   Date: 2020/12/1
@@ -29,6 +31,19 @@
         <span class="input-group-addon">角色名称</span>
         <input type="text" class="form-control" value="<%=role.getRoleName()%>" disabled>
     </div>
+    <br/>
+        <%
+            ResourceServiceImpl resourceService = new ResourceServiceImpl();
+            List<Resource> resourceList = resourceService.selectBtnResourcesByRoleId(role.getId());
+            for (Resource resource : resourceList) {
+            %>
+    <div class="input-group">
+        <span class="input-group-addon">权限名称</span>
+        <input type="text" class="form-control" value="<%=resource.getResourceName()%>" disabled>
+    </div>
+            <%
+            };
+        %>
     <br/>
             <%
             };

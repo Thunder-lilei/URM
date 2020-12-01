@@ -65,6 +65,16 @@
                     };
                 %>
                 <%
+                    String deleteRoleResourceId = (String) request.getSession().getAttribute("deleteRoleResourceId");
+                    if(deleteRoleResourceId!=null) {
+                %>
+                <script>
+                    $("#page").load("<%="../pages/AddRoleResourcePage.jsp"%>")
+                </script>
+                <%
+                    };
+                %>
+                <%
                     User deleteRoleUser = (User) request.getSession().getAttribute("deleteRoleUser");
                     if(deleteRoleUser!=null) {
                 %>

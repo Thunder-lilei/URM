@@ -29,6 +29,8 @@ public class RoleResourceDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }
@@ -46,10 +48,12 @@ public class RoleResourceDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return false;
     }
-    public Integer deleteRoleResource(Integer roleId) {
+    public Integer deleteRoleResourceByRoleId(Integer roleId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
@@ -58,6 +62,25 @@ public class RoleResourceDao {
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
+    }
+
+    public Integer deleteRoleResource(Integer resourceId,Integer roleId) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("delete from role_resource where role_id = ? " +
+                    "and resource_id = ?");
+            pstat.setInt(1,roleId);
+            pstat.setInt(2,resourceId);
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
         }
         return result;
     }
