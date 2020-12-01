@@ -9,4 +9,6 @@ package service.role.user;
  **/
 public interface RoleUserService {
     Integer insertRoleUser(Integer roleId,Integer userId);
+
+    Integer deleteRoleUser(Integer roleId,Integer userId);
 }

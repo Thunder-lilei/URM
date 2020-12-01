@@ -17,4 +17,7 @@ public class RoleUserServiceImpl implements RoleUserService {
         return roleUserDao.insertRoleUser(roleId,userId);
     }
 
+    @Override
+    public Integer deleteRoleUser(Integer roleId, Integer userId) {return roleUserDao.deleteRoleUser(roleId,userId);}
+
 }

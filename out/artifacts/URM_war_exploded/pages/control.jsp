@@ -65,6 +65,26 @@
                     };
                 %>
                 <%
+                    User deleteRoleUser = (User) request.getSession().getAttribute("deleteRoleUser");
+                    if(deleteRoleUser!=null) {
+                %>
+                <script>
+                    $("#page").load("<%="../pages/DeleteRoleUserPage.jsp"%>")
+                </script>
+                <%
+                    };
+                %>
+                <%
+                    User selectRoleUser = (User) request.getSession().getAttribute("selectRoleUser");
+                    if(selectRoleUser!=null) {
+                %>
+                <script>
+                    $("#page").load("<%="../pages/SelectRole.jsp"%>")
+                </script>
+                <%
+                    };
+                %>
+                <%
                     User updateUser = (User) request.getSession().getAttribute("updateUser");
                     if(updateUser!=null) {
                 %>
