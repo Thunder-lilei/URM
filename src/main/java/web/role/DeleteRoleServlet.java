@@ -1,6 +1,5 @@
 package web.role;
 
-import po.Role;
 import serviceImpl.role.RoleServiceImpl;
 
 import javax.servlet.ServletException;
@@ -12,30 +11,29 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>新增角色</p>
- * 获取角色信息
+ * <p>${description}</p>
+ *
  * @author : 李雷
- * @date : 2020-11-25 11:49
+ * @date : 2020-12-01 09:41
  **/
-@WebServlet("/AddRoleServlet")
-public class AddRoleServlet extends HttpServlet {
+@WebServlet("/DeleteRoleServlet")
+public class DeleteRoleServlet extends HttpServlet {
     RoleServiceImpl roleService = new RoleServiceImpl();
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        Role role = new Role();
-        role.setType(request.getParameter("type"));
-        role.setRoleName(request.getParameter("role_name"));
-        if (roleService.addRole(role).equals(0)) {
-            request.setAttribute("message","添加失败！");
+        String[] roleId = request.getParameterValues("roleId");
+        Integer deleteSize = 0;
+        for (String s : roleId) {
+            if (!roleService.deleteRole(Integer.parseInt(s)).equals(0)) {
+                ++deleteSize;
+            }
         }
-        request.setAttribute("message","成功添加"+role.getRoleName()+"!");
+        request.setAttribute("message","成功移除"+deleteSize+"个角色！");
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+
     }
 }

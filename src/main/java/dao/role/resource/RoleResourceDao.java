@@ -49,5 +49,17 @@ public class RoleResourceDao {
         }
         return false;
     }
+    public Integer deleteRoleResource(Integer roleId) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("delete from role_resource where role_id = ?");
+            pstat.setInt(1,roleId);
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 
 }

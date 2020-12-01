@@ -19,4 +19,8 @@ public interface RoleService {
     List<Role> selectAll();
 
     String selectNameById(Integer id);
+
+    Integer addRole(Role role);
+
+    Integer deleteRole(Integer id);
 }

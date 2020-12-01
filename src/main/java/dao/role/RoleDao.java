@@ -73,4 +73,31 @@ public class RoleDao {
         }
         return role;
     }
+
+    public Integer addRole(Role role) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("insert into sys_role (type,role_name) values(?,?)");
+            pstat.setString(1,role.getType());
+            pstat.setString(2,role.getRoleName());
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
+
+    public Integer deleteRole(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("delete from sys_role where id = ?");
+            pstat.setInt(1,id);
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 }
