@@ -1,9 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="po.Role" %>
 <%@ page import="serviceImpl.role.RoleServiceImpl" %>
-<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
-<%@ page import="po.Resource" %>
-<%@ page import="serviceImpl.role.resource.RoleResourceServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: lilei
   Date: 2020/11/30

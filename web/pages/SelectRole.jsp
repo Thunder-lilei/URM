@@ -17,7 +17,7 @@
     <%
         RoleServiceImpl roleService = new RoleServiceImpl();
         User selectRoleUser = (User) request.getSession().getAttribute("selectRoleUser");
-        List<Role> roleList = new ArrayList<>();
+        List<Role> roleList;
         if(selectRoleUser!=null) {
             roleList = roleService.selectByUserId(selectRoleUser.getId());
         }else {
@@ -27,7 +27,7 @@
             %>
     <div class="input-group">
         <span class="input-group-addon">角色类型</span>
-        <input type="text" class="form-control" value="<%=role.getType()%>" disabled>
+        <input type="text" class="form-control" value="<%=role.getRole_type()%>" disabled>
         <span class="input-group-addon">角色名称</span>
         <input type="text" class="form-control" value="<%=role.getRoleName()%>" disabled>
     </div>

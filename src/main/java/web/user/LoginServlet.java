@@ -2,6 +2,7 @@ package web.user;
 
 import po.User;
 import serviceImpl.user.UserServiceImpl;
+import util.MD5Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import java.io.IOException;
  * <h3>URM</h3>
  * <p>${登录}</p>
  * 根据用户名搜索用户
+ * 将登陆填写的密码MD5加密
  * 对比密码正确后，扣除密码存储session
  * 登陆失败携带错误信息返回登录页面
  * @author : 李雷
@@ -22,19 +24,22 @@ import java.io.IOException;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
     UserServiceImpl userService = new UserServiceImpl();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setCharacterEncoding("utf-8");
         User user = userService.selectByUsername(request.getParameter("username"));
         if(user !=null) {
-            if(user.getPassword().equals(request.getParameter("password"))) {
-                user.setPassword(null);
-                request.getSession().setAttribute("user",user);
-                response.sendRedirect("pages/control.jsp");
-            }else {
-                request.setAttribute("message","密码错误");
-                request.getRequestDispatcher("pages/login.jsp").forward(request,response);
+            try {
+                if(user.getPassword().equals(request.getParameter("password"))) {
+                    user.setPassword(null);
+                    request.getSession().setAttribute("user",user);
+                    response.sendRedirect("pages/control.jsp");
+                }else {
+                    request.setAttribute("message","密码错误");
+                    request.getRequestDispatcher("pages/login.jsp").forward(request,response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }else {
             request.setAttribute("message","用户名错误");

@@ -29,7 +29,7 @@ public class RoleDao {
                 role = new Role();
                 role.setId(rs.getInt("id"));
                 role.setRoleName(rs.getString("role_name"));
-                role.setType(rs.getString("type"));
+                role.setRole_type(rs.getString("role_type"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -49,7 +49,7 @@ public class RoleDao {
                 role = new Role();
                 role.setId(rs.getInt("id"));
                 role.setRoleName(rs.getString("role_name"));
-                role.setType(rs.getString("type"));
+                role.setRole_type(rs.getString("role_type"));
                 roleList.add(role);
             }
         } catch (SQLException throwables) {
@@ -70,7 +70,7 @@ public class RoleDao {
                 role = new Role();
                 role.setId(rs.getInt("id"));
                 role.setRoleName(rs.getString("role_name"));
-                role.setType(rs.getString("type"));
+                role.setRole_type(rs.getString("role_type"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -84,8 +84,8 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("insert into sys_role (type,role_name) values(?,?)");
-            pstat.setString(1,role.getType());
+            PreparedStatement pstat = connection.prepareStatement("insert into sys_role (role_type,role_name) values(?,?)");
+            pstat.setString(1,role.getRole_type());
             pstat.setString(2,role.getRoleName());
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
