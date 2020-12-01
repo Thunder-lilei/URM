@@ -51,11 +51,7 @@
                                         %>
                        checked="checked"
                                         <%
-                                    }else {
-                                        %>
-                       checked="checked"
-                                        <%
-                                    };
+                                    }
                                     %>
                 >
                 <span style="margin: 0 0 0 5% ;font-size: 20px;" class="label label-info"><%=btnResource.getResourceName()%></span>

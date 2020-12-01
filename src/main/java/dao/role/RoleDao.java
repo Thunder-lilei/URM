@@ -38,6 +38,26 @@ public class RoleDao {
         }
         return role;
     }
+    public Role selectByType(String type) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Role role = null;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where role_type = ?");
+            pstat.setString(1,type);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                role = new Role();
+                role.setId(rs.getInt("id"));
+                role.setRoleName(rs.getString("role_name"));
+                role.setRole_type(rs.getString("role_type"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return role;
+    }
     public List<Role> selectAll() {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;
@@ -81,6 +101,9 @@ public class RoleDao {
     }
 
     public Integer addRole(Role role) {
+        if (selectByName(role.getRoleName()) != null || selectByType(role.getRole_type()) != null) {
+            return 0;
+        }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {

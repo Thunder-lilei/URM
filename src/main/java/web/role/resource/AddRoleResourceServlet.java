@@ -26,6 +26,7 @@ public class AddRoleResourceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        request.getSession().setAttribute("deleteRoleResourceId",null);
         request.getSession().setAttribute("roleId",request.getParameter("roleId"));
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }

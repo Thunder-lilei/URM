@@ -27,8 +27,9 @@ public class AddRoleServlet extends HttpServlet {
         Role role = new Role();
         role.setRole_type(request.getParameter("type"));
         role.setRoleName(request.getParameter("role_name"));
-        if (!roleService.addRole(role).equals(0)) {
-            request.setAttribute("message","添加失败！");
+        if (roleService.addRole(role).equals(0)) {
+            request.setAttribute("message","添加失败，请尝试更换信息！");
+            request.getRequestDispatcher("pages/control.jsp").forward(request,response);
         }
         request.setAttribute("message","成功添加"+role.getRoleName()+"!");
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);

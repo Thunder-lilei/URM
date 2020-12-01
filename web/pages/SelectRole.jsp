@@ -2,7 +2,6 @@
 <%@ page import="serviceImpl.role.RoleServiceImpl" %>
 <%@ page import="java.util.List" %>
 <%@ page import="po.User" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
 <%@ page import="po.Resource" %><%--
   Created by IntelliJ IDEA.
@@ -20,6 +19,7 @@
         List<Role> roleList;
         if(selectRoleUser!=null) {
             roleList = roleService.selectByUserId(selectRoleUser.getId());
+            request.getSession().setAttribute("selectRoleUser",null);
         }else {
             roleList = roleService.selectAll();
         }
