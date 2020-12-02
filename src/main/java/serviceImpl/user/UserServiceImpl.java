@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+
     public Integer updateUser(User user) {return userDao.updateUserById(user);}
 
     @Override
@@ -57,6 +58,14 @@ public class UserServiceImpl implements UserService {
     public Integer deleteUser(Integer id) {
         roleUserDao.deleteRoleUserByUserId(id);
         return userDao.deleteUserById(id);
+    }
+
+    @Override
+    public Integer countUser() {return userDao.countUser();}
+
+    @Override
+    public List<User> selectUserByPage(Integer page,Integer pageSize) {
+        return userDao.selectUserByPage(page*pageSize-pageSize,page*pageSize);
     }
 
 }

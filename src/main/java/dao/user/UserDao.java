@@ -125,6 +125,32 @@ public class UserDao {
         }
         return userList;
     }
+    public List<User> selectUserByPage(Integer pre,Integer end) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<User> userList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_user limit ?, ?");
+            pstat.setInt(1,pre);
+            pstat.setInt(2,end);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setPassword(rs.getString("password"));
+                user.setNickname(rs.getString("nickname"));
+                user.setCreateTime(rs.getTimestamp("create_time"));
+                user.setUpdateTime(rs.getTimestamp("update_time"));
+                userList.add(user);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return userList;
+    }
+
     public Integer deleteUserById(Integer id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
@@ -132,6 +158,23 @@ public class UserDao {
             PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET status = 0 WHERE id = ?");
             pstat.setInt(1,id);
             result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
+    }
+
+    public Integer countUser() {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM sys_user");
+            ResultSet rs = pstat.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally {

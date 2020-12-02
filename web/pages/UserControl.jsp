@@ -84,10 +84,14 @@
         UserServiceImpl userService = new UserServiceImpl();
         List<User> userList = new ArrayList<>();
         User selectUser = (User) request.getSession().getAttribute("selectUser");
+        List<User> userPage = (List<User>) request.getSession().getAttribute("userPage");
+        Integer pageSize = 10;
         if (selectUser != null) {
             userList.add(selectUser);
+        }else if (userPage != null){
+            userList = userPage;
         }else {
-            userList = userService.selectAllUser();
+            userList = userService.selectUserByPage(1,pageSize);
         }
         for (User user : userList) {
             %>
@@ -191,9 +195,24 @@
                     <span class="sr-only">Previous</span>
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <%
+                /*
+                 * @Author 李雷
+                 * @Description //TODO lilei
+                 * @Date 11:38 2020/12/2
+                 * @Param [request, response]
+                 * @return void
+                 * 分页查询
+                 **/
+                Integer pages = ((userService.countUser()+pageSize-1)/pageSize);
+                for (int i=1;i<=pages;i++) {
+                   %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectUserPageServlet?page=<%=i%>"><%=i%></a>
+            </li>
+                   <%
+                };
+            %>
             <li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>

@@ -25,4 +25,8 @@ public interface UserService {
     List<User> selectAllUser();
 
     Integer deleteUser(Integer id);
+
+    Integer countUser();
+
+    List<User> selectUserByPage(Integer page,Integer pageSize);
 }
