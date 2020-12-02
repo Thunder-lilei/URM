@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/control.css">
     <%
         User user = (User) request.getSession().getAttribute("user");
@@ -33,13 +34,20 @@
                 List<Resource> menuResourcelist = resourceService.getMenuResourceByUserId(user.getId());
                 for (Resource menuResource : menuResourcelist) {
             %>
-            <p style="font-size: 30px;color: white;text-align: center;"><%=menuResource.getResourceName()%></p>
+            <button style="font-size: 30px;color: white;text-align: center;"
+                    onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=menuResource.getResourceType()%><%=".jsp"%>")
+                    type="button" class="btn btn-outline-primary">
+                <%=menuResource.getResourceName()%>
+            </button>
+            <br/>
             <%
                 List<Resource> btnResourceList = resourceService.selectBtnResourcesByUserIdAndMenuResourceId(user.getId(),
                         menuResource.getId());
                 for (Resource btnResource : btnResourceList) {
             %>
-            <button style="color: white;font-size: 20px;" onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>") type="button" class="btn btn-outline-primary">
+            <button style="color: white;font-size: 20px;"
+                    onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>")
+                    type="button" class="btn btn-outline-primary">
                 <%=btnResource.getResourceName()%>
             </button>
             <br/>
@@ -55,11 +63,10 @@
             <div id="page" style="width: 100%;">
             </div>
                 <%
-                    User selectUser = (User) request.getSession().getAttribute("selectUser");
-                    if(selectUser!=null) {
+                    if(request.getAttribute("UserControlPage")!=null) {
                 %>
                 <script>
-                    $("#page").load("<%="../pages/SelectUserPage.jsp"%>")
+                    $("#page").load("<%="../pages/UserControl.jsp"%>")
                 </script>
                 <%
                     };

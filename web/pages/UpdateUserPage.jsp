@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div style="padding: 100px 100px 10px;width: 50%;">
+<div style="padding: 0px 100px 10px;width: 50%;">
     <%
         User updateUser = (User) request.getSession().getAttribute("updateUser");
     %>

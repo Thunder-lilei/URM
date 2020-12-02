@@ -42,6 +42,30 @@ public class UserDao {
         return user;
     }
 
+    public User selectById(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        User user = null;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user where id = ? and status != 0");
+            pstat.setInt(1,id);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setPassword(rs.getString("password"));
+                user.setNickname(rs.getString("nickname"));
+                user.setCreateTime(rs.getTimestamp("create_time"));
+                user.setUpdateTime(rs.getTimestamp("update_time"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return user;
+    }
+
     public Integer insertUser(User user) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
@@ -60,10 +84,12 @@ public class UserDao {
         return result;
     }
     public Integer updateUserById(User user) {
+        if (selectByUsername(user.getUserName()) != null) {return 0;}
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET user_name = ?,nickname = ?,password = ? WHERE id = ? and status != 0");
+            PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET user_name = ?,nickname = ?," +
+                    "password = ? WHERE id = ? and status != 0");
             pstat.setString(1,user.getUserName());
             pstat.setString(2,user.getNickname());
             pstat.setString(3,user.getPassword());

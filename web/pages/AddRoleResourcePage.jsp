@@ -12,7 +12,7 @@
     String roleId = null;
     String deleteRoleResourceId = (String) request.getSession().getAttribute("deleteRoleResourceId");
 %>
-<div style="padding: 100px 100px 10px;width: 50%;">
+<div style="padding: 0px 100px 10px;width: 50%;">
     <%
         if(deleteRoleResourceId!=null) {
             %>

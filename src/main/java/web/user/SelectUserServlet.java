@@ -31,6 +31,7 @@ public class SelectUserServlet extends HttpServlet {
         }else {
             request.setAttribute("message","请检查用户名!");
         }
+        request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

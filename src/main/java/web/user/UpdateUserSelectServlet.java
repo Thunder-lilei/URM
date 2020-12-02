@@ -26,7 +26,6 @@ public class UpdateUserSelectServlet extends HttpServlet {
         User user = userService.selectByUsername(request.getParameter("userName"));
         if (user!=null) {
             request.getSession().setAttribute("updateUser",user);
-            request.getSession().setAttribute("updateUser",user);
         }else {
             request.setAttribute("message","请检查用户名!");
         }

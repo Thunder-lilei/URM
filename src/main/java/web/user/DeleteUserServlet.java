@@ -29,6 +29,7 @@ public class DeleteUserServlet extends HttpServlet {
             }
         }
         request.setAttribute("message","成功移除"+deleteSize+"个用户！");
+        request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

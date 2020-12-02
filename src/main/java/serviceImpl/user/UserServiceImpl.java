@@ -21,6 +21,10 @@ public class UserServiceImpl implements UserService {
     public User selectByUsername(String username) {
         return userDao.selectByUsername(username);
     }
+
+    @Override
+    public User selectById(Integer id) {return userDao.selectById(id);}
+
     @Override
     public Integer selectIdByUsername(String username) {
         int result = 0;

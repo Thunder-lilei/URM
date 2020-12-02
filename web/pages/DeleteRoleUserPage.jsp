@@ -9,7 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div style="padding: 100px 100px 10px;width: 50%;">
+<div style="padding: 0px 100px 10px;width: 50%;">
     <h1><span class="label label-info">移除用户角色</span></h1>
     <h1><span class="label label-warning">请选择需要移除的角色</span></h1>
     <br/>

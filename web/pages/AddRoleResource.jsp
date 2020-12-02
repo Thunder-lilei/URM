@@ -13,7 +13,7 @@
     RoleServiceImpl roleService = new RoleServiceImpl();
     List<Role> roleList = roleService.selectAll();
 %>
-<div style="padding: 100px 100px 10px;width: 50%;">
+<div style="padding: 0px 100px 10px;width: 50%;">
     <h1><span class="label label-info">角色授权</span></h1>
     <br/>
     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddRoleResourceServlet">

@@ -31,9 +31,10 @@ public class AddUserServlet extends HttpServlet {
         user.setPassword(request.getParameter("password"));
         user.setNickname(request.getParameter("nickName"));
         if(userService.addUser(user).equals(0)) {
-            message = "添加失败！";
+            message = "添加失败！尝试更换用户名";
         }
         request.setAttribute("message",message);
+        request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

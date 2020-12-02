@@ -14,6 +14,8 @@ import java.util.List;
 public interface UserService {
     User selectByUsername(String username);
 
+    User selectById(Integer id);
+
     Integer selectIdByUsername(String username);
 
     Integer addUser(User user);

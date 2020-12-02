@@ -23,7 +23,7 @@ public class UpdateUserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        User updateUser = (User) request.getSession().getAttribute("updateUser");
+        User updateUser = userService.selectById(Integer.parseInt(request.getParameter("userId")));
         if(updateUser!=null) {
             updateUser.setUserName(request.getParameter("userName"));
             updateUser.setNickname(request.getParameter("nickname"));
@@ -31,12 +31,13 @@ public class UpdateUserServlet extends HttpServlet {
             if (!userService.updateUser(updateUser).equals(0)) {
                 request.setAttribute("message","更新完成！");
             }else {
-                request.setAttribute("message","更新失败!");
+                request.setAttribute("message","更新失败!尝试更换用户名");
             }
         }else {
             request.setAttribute("message","未能找到需要更新信息的用户！");
         }
         request.getSession().setAttribute("updateUser",null);
+        request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 
