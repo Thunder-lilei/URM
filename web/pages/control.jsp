@@ -41,20 +41,6 @@
             </button>
             <br/>
             <%
-                List<Resource> btnResourceList = resourceService.selectBtnResourcesByUserIdAndMenuResourceId(user.getId(),
-                        menuResource.getId());
-                for (Resource btnResource : btnResourceList) {
-            %>
-            <button style="color: white;font-size: 20px;"
-                    onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getResourceType()%><%=".jsp"%>")
-                    type="button" class="btn btn-outline-primary">
-                <%=btnResource.getResourceName()%>
-            </button>
-            <br/>
-            <%
-                }
-            %>
-            <%
                 };
             %>
         </div>
@@ -78,46 +64,6 @@
                     $("#page").load("<%="../pages/RoleControl.jsp"%>")
                 </script>
                 <%
-                    };
-                %>
-                <%
-                    String deleteRoleResourceId = (String) request.getSession().getAttribute("deleteRoleResourceId");
-                    if(deleteRoleResourceId!=null) {
-                %>
-                <script>
-                    $("#page").load("<%="../pages/AddRoleResourcePage.jsp"%>")
-                </script>
-                <%
-                    };
-                %>
-                <%
-                    User deleteRoleUser = (User) request.getSession().getAttribute("deleteRoleUser");
-                    if(deleteRoleUser!=null) {
-                %>
-                <script>
-                    $("#page").load("<%="../pages/DeleteRoleUserPage.jsp"%>")
-                </script>
-                <%
-                    };
-                %>
-                <%
-                    User selectRoleUser = (User) request.getSession().getAttribute("selectRoleUser");
-                    if(selectRoleUser!=null) {
-                %>
-                <script>
-                    $("#page").load("<%="../pages/SelectRole.jsp"%>")
-                </script>
-                <%
-                    };
-                %>
-                <%
-                    String roleId = (String) request.getSession().getAttribute("roleId");
-                    if (roleId!=null) {
-                        %>
-                <script>
-                    $("#page").load("<%="../pages/AddRoleResourcePage.jsp"%>")
-                </script>
-                        <%
                     };
                 %>
         </div>

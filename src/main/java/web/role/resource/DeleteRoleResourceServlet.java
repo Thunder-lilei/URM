@@ -29,7 +29,7 @@ public class DeleteRoleResourceServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] btnResourceId = request.getParameterValues("btnResourceId");
-        String roleId = (String) request.getSession().getAttribute("deleteRoleResourceId");
+        String roleId = request.getParameter("id");
         Integer deleteRoleResourceSize = 0;
 
         for (String s : btnResourceId) {
@@ -45,6 +45,7 @@ public class DeleteRoleResourceServlet extends HttpServlet {
         request.setAttribute("message",
                 "成功移除"+roleService.selectNameById(Integer.parseInt(roleId))+deleteRoleResourceSize+"个权限！");
         request.getSession().setAttribute("deleteRoleResourceId",null);
+        request.setAttribute("RoleControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

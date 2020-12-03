@@ -19,6 +19,8 @@
             String btnResourceAddRole = "AddRole";
             String btnResourceDeleteRole = "DeleteRole";
             String btnResourceSelectRole = "SelectRole";
+            String btnResourceAddRoleResource = "AddRoleResource";
+            String btnResourceDeleteRoleResource = "DeleteRoleResource";
             String menuResourceRoleControl = "RoleControl";
             User userLogin = (User) request.getSession().getAttribute("user");
             if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRole) != 0) {
@@ -127,7 +129,137 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div>
+
+        <!-- 按钮触发模态框 -->
+        <%
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRoleResource) != 0) {
+        %>
+        <button type="button" data-toggle="modal" data-target="#addRoleResource<%=role.getId()%>" class="btn btn-primary">授权</button>
+        <%
+            };
+        %>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="addRoleResource<%=role.getId()%>" tabindex="-1" role="dialog" aria-labelledby="addRoleResource<%=role.getId()%>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><span class="label label-info">角色授权</span></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddRoleResourceServlet">
+                        <input type="text" name="id" value="<%=role.getId()%>" hidden>
+                        <%
+                            List<Resource> menuResourceList = resourceService.getAllMenuResource();
+                        %>
+                        <%
+                            for (Resource menuResource : menuResourceList) {
+                        %>
+                        <h2><span class="label label-info"><%=menuResource.getResourceName()%></span></h2>
+                        <%
+                            List<Resource> btnResourceList = resourceService.getBtnResourceByMenuResourceId(menuResource.getId());
+                            List<Integer> btnResourceId = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId
+                                    (role.getId(),menuResource.getId());
+                            for (Resource btnResource : btnResourceList) {
+                        %>
+                        <div style="height: 5%;margin: 15px;" class="form-check">
+                            <label style="width: 100%;height: 100%;" class="form-check-label">
+                                <input name="btnResourceId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=btnResource.getId()%>"
+                                    <%
+                                    if (btnResourceId.contains(btnResource.getId())) {
+                                        %>
+                                       checked="checked"
+                                    <%
+                                    }
+                                    %>
+                                >
+                                <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=btnResource.getResourceName()%></span>
+                            </label>
+                        </div>
+                        <%
+                                };
+                            };
+                        %>
+                        <br/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                提交更改
+                            </button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+
+        <!-- 按钮触发模态框 -->
+        <%
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceDeleteRoleResource) != 0) {
+        %>
+        <button type="button" data-toggle="modal" data-target="#deleteRoleResource<%=role.getId()%>" class="btn btn-danger">撤权</button>
+        <%
+            };
+        %>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="deleteRoleResource<%=role.getId()%>" tabindex="-1" role="dialog" aria-labelledby="deleteRoleResource<%=role.getId()%>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><span class="label label-danger">角色撤权</span></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <br/>
+                    <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/DeleteRoleResourceServlet">
+                        <input type="text" name="id" value="<%=role.getId()%>" hidden>
+                        <%
+                            List<Resource> menuResourceDeleteList = resourceService.getAllMenuResource();
+                        %>
+                        <%
+                            for (Resource menuResource : menuResourceDeleteList) {
+                        %>
+                        <h2><span class="label label-info"><%=menuResource.getResourceName()%></span></h2>
+                        <%
+                            List<Resource> btnResourceList = resourceService.getBtnResourceByMenuResourceId(menuResource.getId());
+                            List<Integer> btnResourceId = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId
+                                    (role.getId(),menuResource.getId());
+                            for (Resource btnResource : btnResourceList) {
+                        %>
+                        <div style="height: 5%;margin: 15px;" class="form-check">
+                            <label style="width: 100%;height: 100%;" class="form-check-label">
+                                <input name="btnResourceId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=btnResource.getId()%>"
+                                    <%
+                                    if (btnResourceId.contains(btnResource.getId())) {
+                                        %>
+                                       checked="checked"
+                                    <%
+                                    }
+                                    %>
+                                >
+                                <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=btnResource.getResourceName()%></span>
+                            </label>
+                        </div>
+                        <%
+                                };
+                            };
+                        %>
+                        <br/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                提交更改
+                            </button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+
     </div>
+
+
 
     <br/>
     <p>

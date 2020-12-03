@@ -12,7 +12,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div style="padding: 0px 100px 10px;width: 50%;">
+<div style="padding: 0px 100px 10px;width: 70%;">
     <!-- 按钮触发模态框 -->
     <div style="display: flex;">
         <%
@@ -21,6 +21,7 @@
             String btnResourceDeleteUser = "DeleteUser";
             String btnResourceSelectUser = "SelectUser";
             String btnResourceUpdateUser = "UpdateUser";
+            String btnResourceShowUser = "ShowUser";
             String btnResourceAddRoleUser = "AddRoleUser";
             String menuResourceUserControl = "UserControl";
             User userLogin = (User) request.getSession().getAttribute("user");
@@ -117,6 +118,53 @@
         for (User user : userList) {
             %>
     <div style="display: flex;">
+
+        <%
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceShowUser) != 0) {
+        %>
+        <button type="button" data-toggle="modal" data-target="#showUser<%=user.getId()%>" class="btn btn-primary">查看</button>
+        <%
+            }
+        %>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="showUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="showUser<%=user.getId()%>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><span class="label label-info">个人信息</span></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="input-group">
+                        <span style="background-color: #00B271;color: white" class="input-group-addon">用户名</span>
+                        <input style="background-color: #D7FFF0" name="username" type="text" class="form-control" value="<%=user.getUsername()%>" disabled>
+                        <span style="background-color: #00B271;color: white" class="input-group-addon">昵称</span>
+                        <input style="background-color: #D7FFF0" name="userName" type="text" class="form-control" value="<%=user.getNickname()%>" disabled>
+                    </div>
+                    <h3><span class="label label-info">所属角色</span></h3>
+                    <%
+                        RoleServiceImpl roleService = new RoleServiceImpl();
+                        List<Role> roleList = roleService.selectByUserId(user.getId());
+                        for (Role role : roleList) {
+                            %>
+                    <div class="input-group">
+                        <span style="background-color: #00B271;color: white" class="input-group-addon">角色名称</span>
+                        <input style="background-color: #D7FFF0" name="userName" type="text" class="form-control" value="<%=role.getRoleName()%>" disabled>
+                    </div>
+                            <%
+                        };
+                    %>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                提交更改
+                            </button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+
         <div class="input-group">
             <span style="background-color: #00B271;color: white" class="input-group-addon">用户名</span>
             <input style="background-color: #D7FFF0" name="username" type="text" class="form-control" value="<%=user.getUsername()%>" disabled>
@@ -230,9 +278,8 @@
                     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddRoleUserServlet">
                         <input name="id" type="text" value="<%=user.getId()%>" class="form-control" hidden>
                         <%
-                            RoleServiceImpl roleService = new RoleServiceImpl();
-                            List<Role> roleList = roleService.selectAll();
-                            for (Role role : roleList) {
+                            List<Role> roleUserList = roleService.selectAll();
+                            for (Role role : roleUserList) {
                         %>
                         <div style="height: 5%;margin: 15px;" class="form-check">
                             <label style="width: 100%;height: 100%;" class="form-check-label">
