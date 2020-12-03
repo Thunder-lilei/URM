@@ -18,7 +18,7 @@ import java.util.List;
  * @date : 2020-11-29 14:48
  **/
 public class ResourceDao {
-    public Resource selectBtnReourceByName(String name) {
+    public Resource selectResourceByName(String name) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Resource resource = null;
         try {
@@ -218,7 +218,7 @@ public class ResourceDao {
         List<Resource> resourceList = new ArrayList<>();
         try {
             PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ANY(select " +
-                    "resource_id from role_resource where role_id = ?) and menu_resource_id != 0");
+                    "resource_id from role_resource where rle_id = ?) and menu_resource_id != 0");
             pstat.setInt(1,roleId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -234,5 +234,23 @@ public class ResourceDao {
             JdbcUtil.INSTANCE.closeConn(connection);
         }
         return resourceList;
+    }
+
+    public Integer addResource(Resource resource) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("insert into sys_resource (menu_resource_id," +
+                    "resource_type,resource_name) values(?,?,?)");
+            pstat.setInt(1,resource.getMenuResourceId());
+            pstat.setString(2,resource.getResourceType());
+            pstat.setString(3,resource.getResourceName());
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
     }
 }

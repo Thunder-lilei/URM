@@ -66,6 +66,15 @@
                 <%
                     };
                 %>
+                <%
+                    if(request.getAttribute("ResourceControlPage")!=null) {
+                %>
+                <script>
+                    $("#page").load("<%="../pages/ResourceControl.jsp"%>")
+                </script>
+                <%
+                    };
+                %>
         </div>
     </div>
 </body>

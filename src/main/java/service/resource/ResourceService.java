@@ -12,7 +12,7 @@ import java.util.List;
  * @date : 2020-11-29 15:35
  **/
 public interface ResourceService {
-    Integer selectBtnReourceIdByName(String name);
+    Integer selectResourceIdByName(String name);
 
     String getResourceTypeByName(String name);
 
@@ -35,4 +35,6 @@ public interface ResourceService {
     Integer selectBtnResourceIdByUserIdAndBtnResourceType(Integer userId,String resourceType);
 
     List<Resource> selectBtnResourcesByRoleId(Integer roleId);
+
+    Integer addResource(Resource resource);
 }

@@ -15,15 +15,15 @@ import java.util.List;
 public class ResourceServiceImpl implements service.resource.ResourceService {
     ResourceDao resourceDao = new ResourceDao();
     @Override
-    public Integer selectBtnReourceIdByName(String name) {
-        Resource resource = resourceDao.selectBtnReourceByName(name);
+    public Integer selectResourceIdByName(String name) {
+        Resource resource = resourceDao.selectResourceByName(name);
         if (resource!=null) {return resource.getId();};
         return 0;
     }
 
     @Override
     public String getResourceTypeByName(String name) {
-        Resource resource = resourceDao.selectBtnReourceByName(name);
+        Resource resource = resourceDao.selectResourceByName(name);
         if (resource != null) {return resource.getResourceType();}
         return null;
     }
@@ -69,4 +69,7 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> selectBtnResourcesByRoleId(Integer roleId) {
         return resourceDao.selectBtnResourceByRoleId(roleId);
     }
+
+    @Override
+    public Integer addResource(Resource resource) {return resourceDao.addResource(resource);}
 }
