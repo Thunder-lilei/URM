@@ -29,4 +29,6 @@ public interface UserService {
     Integer countUser();
 
     List<User> selectUserByPage(Integer page,Integer pageSize);
+
+    List<User> selectUserByKeyWord(String keyWord);
 }

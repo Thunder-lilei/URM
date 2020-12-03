@@ -65,7 +65,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> selectUserByPage(Integer page,Integer pageSize) {
-        return userDao.selectUserByPage(page*pageSize-pageSize,page*pageSize);
+        return userDao.selectUserByPage((page-1)*pageSize,pageSize);
     }
+
+    @Override
+    public List<User> selectUserByKeyWord(String keyWord) {return userDao.selectUserByKeyWord(keyWord);}
 
 }

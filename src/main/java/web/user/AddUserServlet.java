@@ -34,6 +34,7 @@ public class AddUserServlet extends HttpServlet {
             message = "添加失败！尝试更换用户名";
         }
         request.setAttribute("message",message);
+        request.getSession().setAttribute("pageNow",1);
         request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }

@@ -129,9 +129,34 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<User> userList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_user limit ?, ?");
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_user where status != 0 limit ?, ?");
             pstat.setInt(1,pre);
             pstat.setInt(2,end);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setPassword(rs.getString("password"));
+                user.setNickname(rs.getString("nickname"));
+                user.setCreateTime(rs.getTimestamp("create_time"));
+                user.setUpdateTime(rs.getTimestamp("update_time"));
+                userList.add(user);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return userList;
+    }
+
+    public List<User> selectUserByKeyWord(String keyWord) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<User> userList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user WHERE user_name LIKE \"%\"?\"%\"");
+            pstat.setString(1,keyWord);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 User user = new User();

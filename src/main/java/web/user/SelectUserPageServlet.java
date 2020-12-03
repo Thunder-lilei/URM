@@ -13,8 +13,10 @@ import java.util.List;
 
 /**
  * <h3>URM</h3>
- * <p>${description}</p>
- *
+ * <p>用户信息分页查询</p>
+ * 获取当前页码及每页最大数
+ * 保存当前页码 返回用户列表
+ * 设置最小最大页码
  * @author : 李雷
  * @date : 2020-12-02 11:52
  **/
@@ -28,9 +30,19 @@ public class SelectUserPageServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String page = request.getParameter("page");
-        List<User> userList = userService.selectUserByPage(Integer.parseInt(page),10);
+        String pageNow = request.getParameter("pageNow");
+        int pageNowInteger = Integer.parseInt(pageNow);
+        String pageSize = request.getParameter("pageSize");
+        Integer pageSizeInteger = Integer.parseInt(pageSize);
+        //最小最大页码
+        int minPageSize = 1;
+        int maxPageSize = (userService.countUser()+pageSizeInteger-1)/pageSizeInteger;
+
+        if (pageNowInteger < minPageSize) {pageNowInteger = minPageSize;}
+        if (pageNowInteger > maxPageSize) {pageNowInteger = maxPageSize;}
+        List<User> userList = userService.selectUserByPage(pageNowInteger,pageSizeInteger);
         request.getSession().setAttribute("userPage",userList);
+        request.getSession().setAttribute("pageNow",pageNowInteger);
         request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }

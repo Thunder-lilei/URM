@@ -20,6 +20,14 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
         if (resource!=null) {return resource.getId();};
         return 0;
     }
+
+    @Override
+    public String getResourceTypeByName(String name) {
+        Resource resource = resourceDao.selectBtnReourceByName(name);
+        if (resource != null) {return resource.getResourceType();}
+        return null;
+    }
+
     @Override
     public List<Resource> getAllMenuResource() {return resourceDao.getAllResource("=");}
 
@@ -50,6 +58,11 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     @Override
     public List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId) {
         return resourceDao.selectBtnResourcesIdByRoleIdAndMenuResourceId(roleId,menuResourceId);
+    }
+
+    @Override
+    public Integer selectBtnResourceIdByUserIdAndBtnResourceType(Integer userId, String resourceType) {
+        return resourceDao.selectBtnResourceIdByUserIdAndBtnResourceType(userId,resourceType);
     }
 
     @Override

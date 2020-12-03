@@ -23,10 +23,11 @@ public class ResourceDao {
         Resource resource = null;
         try {
             PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where " +
-                    "btn_resource_name = ?");
+                    "resource_name = ?");
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
+                resource = new Resource();
                 resource.setId(rs.getInt("id"));
                 resource.setMenuResourceId(rs.getInt("menu_resource_id"));
                 resource.setResourceName(rs.getString("resource_name"));
@@ -40,6 +41,27 @@ public class ResourceDao {
             JdbcUtil.INSTANCE.closeConn(connection);
         }
         return resource;
+    }
+
+    public Integer selectBtnResourceIdByUserIdAndBtnResourceType(Integer userId, String resourceType) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select id from sys_resource where id = " +
+                    "ANY(select resource_id from role_resource where role_id = ANY(select role_id from role_user " +
+                    "where user_id = ?)) and resource_type = ?");
+            pstat.setInt(1,userId);
+            pstat.setString(2,resourceType);
+            ResultSet rs = pstat.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt("id");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
     }
 
     public List<Resource> getAllResource(String type) {

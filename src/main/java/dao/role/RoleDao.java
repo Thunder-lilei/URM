@@ -18,6 +18,7 @@ import java.util.List;
  * @date : 2020-11-29 01:01
  **/
 public class RoleDao {
+
     public Role selectByName(String name) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;

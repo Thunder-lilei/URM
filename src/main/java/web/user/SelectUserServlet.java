@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * <h3>URM</h3>
  * <p>查询用户</p>
  * 按照用户名进行查询
- * 查询出结果后清空密码返回给前端
  * @author : 李雷
  * @date : 2020-11-30 16:40
  **/
@@ -24,12 +24,11 @@ public class SelectUserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        User user = userService.selectByUsername(request.getParameter("userName"));
-        if (user!=null) {
-            user.setPassword(null);
-            request.getSession().setAttribute("selectUser",user);
+        List<User> userList = userService.selectUserByKeyWord(request.getParameter("keyWord"));
+        if (userList!=null) {
+            request.getSession().setAttribute("selectUserList",userList);
         }else {
-            request.setAttribute("message","请检查用户名!");
+            request.setAttribute("message","请检查关键字!");
         }
         request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
