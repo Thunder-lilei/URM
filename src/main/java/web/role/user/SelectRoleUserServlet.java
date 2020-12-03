@@ -1,4 +1,4 @@
-package web.user;
+package web.role.user;
 
 import po.User;
 import serviceImpl.user.UserServiceImpl;
@@ -12,20 +12,22 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>更新用户信息</p>
- *
+ * <p>查询用户</p>
+ * 按照用户名进行查询
+ * 查询出结果后清空密码返回给前端
  * @author : 李雷
- * @date : 2020-11-30 16:58
+ * @date : 2020-12-01 09:56
  **/
-@WebServlet("/UpdateUserSelectServlet")
-public class UpdateUserSelectServlet extends HttpServlet {
+@WebServlet("/SelectRoleUserServlet")
+public class SelectRoleUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         User user = userService.selectByUsername(request.getParameter("userName"));
         if (user!=null) {
-            request.getSession().setAttribute("updateUser",user);
+            user.setPassword(null);
+            request.getSession().setAttribute("selectRoleUser",user);
         }else {
             request.setAttribute("message","请检查用户名!");
         }

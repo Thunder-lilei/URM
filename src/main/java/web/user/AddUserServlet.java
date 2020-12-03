@@ -27,7 +27,7 @@ public class AddUserServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String message = "添加成功！";
         User user = new User();
-        user.setUserName(request.getParameter("userName"));
+        user.setUsername(request.getParameter("username"));
         user.setPassword(request.getParameter("password"));
         user.setNickname(request.getParameter("nickName"));
         if(userService.addUser(user).equals(0)) {

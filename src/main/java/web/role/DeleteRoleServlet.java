@@ -30,6 +30,7 @@ public class DeleteRoleServlet extends HttpServlet {
             }
         }
         request.setAttribute("message","成功移除"+deleteSize+"个角色！");
+        request.setAttribute("RoleControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

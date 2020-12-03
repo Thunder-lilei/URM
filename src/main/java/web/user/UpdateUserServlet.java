@@ -25,7 +25,7 @@ public class UpdateUserServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         User updateUser = userService.selectById(Integer.parseInt(request.getParameter("userId")));
         if(updateUser!=null) {
-            updateUser.setUserName(request.getParameter("userName"));
+            updateUser.setUsername(request.getParameter("username"));
             updateUser.setNickname(request.getParameter("nickname"));
             updateUser.setPassword(request.getParameter("password"));
             if (!userService.updateUser(updateUser).equals(0)) {
@@ -37,6 +37,7 @@ public class UpdateUserServlet extends HttpServlet {
             request.setAttribute("message","未能找到需要更新信息的用户！");
         }
         request.getSession().setAttribute("updateUser",null);
+        request.getSession().setAttribute("pageNow",1);
         request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }

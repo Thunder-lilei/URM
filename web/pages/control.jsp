@@ -72,6 +72,15 @@
                     };
                 %>
                 <%
+                    if(request.getAttribute("RoleControlPage")!=null) {
+                %>
+                <script>
+                    $("#page").load("<%="../pages/RoleControl.jsp"%>")
+                </script>
+                <%
+                    };
+                %>
+                <%
                     String deleteRoleResourceId = (String) request.getSession().getAttribute("deleteRoleResourceId");
                     if(deleteRoleResourceId!=null) {
                 %>
@@ -100,16 +109,6 @@
                 </script>
                 <%
                     };
-                %>
-                <%
-                    User updateUser = (User) request.getSession().getAttribute("updateUser");
-                    if(updateUser!=null) {
-                %>
-                <script>
-                    $("#page").load("<%="../pages/UpdateUserPage.jsp"%>")
-                </script>
-                <%
-                    } ;
                 %>
                 <%
                     String roleId = (String) request.getSession().getAttribute("roleId");

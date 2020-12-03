@@ -2,7 +2,9 @@
 <%@ page import="po.User" %>
 <%@ page import="serviceImpl.user.UserServiceImpl" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="serviceImpl.resource.ResourceServiceImpl" %><%--
+<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
+<%@ page import="serviceImpl.role.RoleServiceImpl" %>
+<%@ page import="po.Role" %><%--
   Created by IntelliJ IDEA.
   User: lilei
   Date: 2020/12/2
@@ -19,11 +21,12 @@
             String btnResourceDeleteUser = "DeleteUser";
             String btnResourceSelectUser = "SelectUser";
             String btnResourceUpdateUser = "UpdateUser";
+            String btnResourceAddRoleUser = "AddRoleUser";
             String menuResourceUserControl = "UserControl";
             User userLogin = (User) request.getSession().getAttribute("user");
             if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddUser) != 0) {
                 %>
-        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUserModal">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUser">
             +新增
         </button>
                 <%
@@ -43,23 +46,19 @@
     </div>
     <br/>
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
+    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUser" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="addUserModalLabel">
-                        新增用户
-                    </h4>
+                    <h2><span class="label label-info">注册用户</span></h2>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
                 </div>
-                <h1><span class="label label-info">添加用户信息</span></h1>
-                <br/>
                 <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddUserServlet">
                     <div class="input-group">
                         <span class="input-group-addon">用户名</span>
-                        <input name="userName" type="text" class="form-control" required>
+                        <input name="username" type="text" class="form-control" required>
                     </div>
                     <br/>
                     <div class="input-group">
@@ -115,13 +114,12 @@
         }else {
             userList = userService.selectUserByPage(1,pageSize);
         }
-        if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),menuResourceUserControl) != 0) {
         for (User user : userList) {
             %>
     <div style="display: flex;">
         <div class="input-group">
             <span style="background-color: #00B271;color: white" class="input-group-addon">用户名</span>
-            <input style="background-color: #D7FFF0" name="userName" type="text" class="form-control" value="<%=user.getUserName()%>" disabled>
+            <input style="background-color: #D7FFF0" name="username" type="text" class="form-control" value="<%=user.getUsername()%>" disabled>
             <span style="background-color: #00B271;color: white" class="input-group-addon">昵称</span>
             <input style="background-color: #D7FFF0" name="userName" type="text" class="form-control" value="<%=user.getNickname()%>" disabled>
         </div>
@@ -130,12 +128,12 @@
         <%
             if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceDeleteUser) != 0) {
         %>
-        <button type="button" data-toggle="modal" data-target="#deleteUser<%=user.getId()%>" class="btn btn-danger">删除</button>
+        <button type="button" data-toggle="modal" data-target="#deleteUser" class="btn btn-danger">删除</button>
         <%
             };
         %>
         <!-- 模态框（Modal） -->
-        <div class="modal fade" id="deleteUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel<%=user.getId()%>" aria-hidden="true">
+        <div class="modal fade" id="deleteUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="deleteUser<%=user.getId()%>" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -169,16 +167,17 @@
             };
         %>
         <!-- 模态框（Modal） -->
-        <div class="modal fade" id="updateUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel<%=user.getId()%>" aria-hidden="true">
+        <div class="modal fade" id="updateUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="updateUser<%=user.getId()%>" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h2><span class="label label-info">修改信息</span></h2>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/UpdateUserServlet">
                         <div class="input-group">
                             <span class="input-group-addon">用户名</span>
-                            <input name="userName" type="text" class="form-control" value="<%=user.getUserName()%>">
+                            <input name="username" type="text" class="form-control" value="<%=user.getUsername()%>">
                         </div>
                         <br/>
                         <div class="input-group">
@@ -212,11 +211,94 @@
             </div><!-- /.modal -->
         </div>
 
+        <!-- 按钮触发模态框 -->
+        <%
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
+        %>
+        <button type="button" data-toggle="modal" data-target="#addRoleUser<%=user.getId()%>" class="btn btn-primary">授职</button>
+        <%
+            }
+        %>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="addRoleUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="addRoleUser<%=user.getId()%>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><span class="label label-info">授予用户角色</span></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/AddRoleUserServlet">
+                        <input name="id" type="text" value="<%=user.getId()%>" class="form-control" hidden>
+                        <%
+                            RoleServiceImpl roleService = new RoleServiceImpl();
+                            List<Role> roleList = roleService.selectAll();
+                            for (Role role : roleList) {
+                        %>
+                        <div style="height: 5%;margin: 15px;" class="form-check">
+                            <label style="width: 100%;height: 100%;" class="form-check-label">
+                                <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role.getId()%>">
+                                <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=role.getRoleName()%></span>
+                            </label>
+                        </div>
+                        <%
+                            };
+                        %>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">提交更改</button>
+                    </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+
+        <!-- 按钮触发模态框 -->
+        <%
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
+        %>
+        <button type="button" data-toggle="modal" data-target="#deleteRoleUser<%=user.getId()%>" class="btn btn-danger">撤职</button>
+        <%
+            }
+        %>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="deleteRoleUser<%=user.getId()%>" tabindex="-1" role="dialog" aria-labelledby="deleteRoleUser<%=user.getId()%>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><span class="label label-warning">请选择需要移除的角色</span></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <br/>
+                    <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/DeleteRoleUserServlet">
+                        <input name="id" type="text" value="<%=user.getId()%>" class="form-control" hidden>
+                        <%
+                            List<Role> roleDeleteList = roleService.selectByUserId(user.getId());
+                            for (Role role : roleDeleteList) {
+                        %>
+                        <div style="height: 5%;margin: 15px;" class="form-check">
+                            <label style="width: 100%;height: 100%;" class="form-check-label">
+                                <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role.getId()%>">
+                                <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=role.getRoleName()%></span>
+                            </label>
+                        </div>
+                        <%
+                            };
+                        %>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-primary">提交更改</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+
     </div>
     <br/>
             <%
         };
-                };
                 if (selectUserList == null) {
     %>
     <nav style="margin: 0 0 0 30% ;" aria-label="Page navigation example">

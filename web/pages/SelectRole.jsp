@@ -27,7 +27,7 @@
             %>
     <div class="input-group">
         <span class="input-group-addon">角色类型</span>
-        <input type="text" class="form-control" value="<%=role.getRole_type()%>" disabled>
+        <input type="text" class="form-control" value="<%=role.getRoleType()%>" disabled>
         <span class="input-group-addon">角色名称</span>
         <input type="text" class="form-control" value="<%=role.getRoleName()%>" disabled>
     </div>

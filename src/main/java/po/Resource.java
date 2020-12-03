@@ -17,6 +17,18 @@ public class Resource {
     Timestamp createTime;
     Timestamp updateTime;
 
+    public Resource() {}
+
+    public Resource(Integer id, Integer menuResourceId, String resourceType, String resourceName,
+                    Timestamp createTime, Timestamp updateTime) {
+        this.id = id;
+        this.menuResourceId = menuResourceId;
+        this.resourceType = resourceType;
+        this.resourceName = resourceName;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
+
     public Integer getId() {
         return id;
     }

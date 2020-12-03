@@ -1,7 +1,8 @@
-package web.roleUser;
+package web.role.user;
 
 import po.User;
 import serviceImpl.role.user.RoleUserServiceImpl;
+import serviceImpl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +21,12 @@ import java.io.IOException;
 @WebServlet("/DeleteRoleUserServlet")
 public class DeleteRoleUserServlet extends HttpServlet {
     RoleUserServiceImpl roleUserService = new RoleUserServiceImpl();
+    UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        User user = (User) request.getSession().getAttribute("deleteRoleUser");
+        String idString = request.getParameter("id");
+        User user = userService.selectById(Integer.parseInt(idString));
         String[] roleId = request.getParameterValues("roleId");
         Integer deleteRoleUserSize = 0;
         for (String s : roleId) {
@@ -32,6 +35,7 @@ public class DeleteRoleUserServlet extends HttpServlet {
             }
         }
         request.setAttribute("message","成功移除"+user.getNickname()+deleteRoleUserSize+"个角色!");
+        request.setAttribute("UserControlPage",true);
         request.getSession().setAttribute("deleteRoleUser",null);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
 

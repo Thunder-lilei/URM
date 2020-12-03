@@ -11,10 +11,20 @@ import java.sql.Timestamp;
  **/
 public class Role {
     Integer id;
-    String role_type;
+    String roleType;
     String roleName;
     Timestamp createTime;
     Timestamp updateTime;
+
+    public Role() {}
+
+    public Role(Integer id, String roleName, String roleType, Timestamp createTime, Timestamp updateTime) {
+        this.id = id;
+        this.roleType = roleType;
+        this.roleName = roleName;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 
     public Integer getId() {
         return id;
@@ -24,12 +34,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole_type() {
-        return role_type;
+    public String getRoleType() {
+        return roleType;
     }
 
-    public void setRole_type(String role_type) {
-        this.role_type = role_type;
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
     }
 
     public String getRoleName() {

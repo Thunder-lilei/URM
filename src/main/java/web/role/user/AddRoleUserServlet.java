@@ -1,4 +1,4 @@
-package web.roleUser;
+package web.role.user;
 
 import po.User;
 import serviceImpl.role.RoleServiceImpl;
@@ -15,8 +15,7 @@ import java.io.IOException;
 /**
  * <h3>URM</h3>
  * <p>为用户赋予角色</p>
- * 获取用户名和角色id
- * 判断用户名是否正确
+ * 获取用户id和角色id
  * 记录本次赋予的角色数量传递给前段
  * @author : 李雷
  * @date : 2020-11-26 09:17
@@ -29,9 +28,10 @@ public class AddRoleUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        User user = userService.selectByUsername(request.getParameter("userName"));
+        String idString = request.getParameter("id");
+        User user = userService.selectById(Integer.parseInt(idString));
         if (user == null) {
-            request.setAttribute("message","请填写正确的用户名!");
+            request.setAttribute("message","用户异常!");
             request.getRequestDispatcher("pages/control.jsp").forward(request,response);
         }
         String[] roleIds = request.getParameterValues("roleId");
@@ -42,6 +42,7 @@ public class AddRoleUserServlet extends HttpServlet {
             }
         }
         request.setAttribute("message","成功赋予"+user.getNickname()+addRoleSize+"个角色");
+        request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

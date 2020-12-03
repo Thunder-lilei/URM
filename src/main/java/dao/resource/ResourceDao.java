@@ -27,13 +27,9 @@ public class ResourceDao {
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
-                resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -71,13 +67,10 @@ public class ResourceDao {
             PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id "+type+" 0");
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Resource resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                Resource resource = null;
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 list.add(resource);
             }
 
@@ -97,13 +90,10 @@ public class ResourceDao {
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Resource resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                Resource resource = null;
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 list.add(resource);
             }
 
@@ -125,13 +115,10 @@ public class ResourceDao {
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Resource resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                Resource resource = null;
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 list.add(resource);
             }
         } catch (SQLException throwables) {
@@ -150,13 +137,9 @@ public class ResourceDao {
             pstat.setString(1,resource_name);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -176,13 +159,10 @@ public class ResourceDao {
             pstat.setInt(2,menuResourceId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Resource resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                Resource resource = null;
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 list.add(resource);
             }
         } catch (SQLException throwables) {
@@ -221,13 +201,9 @@ public class ResourceDao {
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -246,13 +222,10 @@ public class ResourceDao {
             pstat.setInt(1,roleId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Resource resource = new Resource();
-                resource.setId(rs.getInt("id"));
-                resource.setResourceName(rs.getString("resource_name"));
-                resource.setResourceType(rs.getString("resource_type"));
-                resource.setMenuResourceId(rs.getInt("menu_resource_id"));
-                resource.setCreateTime(rs.getTimestamp("create_time"));
-                resource.setUpdateTime(rs.getTimestamp("update_time"));
+                Resource resource = null;
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("resource_type"),rs.getString("resource_name"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 resourceList.add(resource);
             }
         } catch (SQLException throwables) {

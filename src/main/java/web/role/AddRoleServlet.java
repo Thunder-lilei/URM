@@ -25,13 +25,14 @@ public class AddRoleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         Role role = new Role();
-        role.setRole_type(request.getParameter("type"));
+        role.setRoleType(request.getParameter("type"));
         role.setRoleName(request.getParameter("role_name"));
         if (roleService.addRole(role).equals(0)) {
             request.setAttribute("message","添加失败，请尝试更换信息！");
             request.getRequestDispatcher("pages/control.jsp").forward(request,response);
         }
         request.setAttribute("message","成功添加"+role.getRoleName()+"!");
+        request.setAttribute("RoleControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }
 

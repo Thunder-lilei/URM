@@ -19,7 +19,7 @@ public class UserDaoTest {
     public void selectUserByKeyWordTest(){
         List<User> userList = userDao.selectUserByKeyWord("老");
         for (User user : userList) {
-            System.out.println(user.getUserName());
+            System.out.println(user.getUsername());
         }
     };
 }

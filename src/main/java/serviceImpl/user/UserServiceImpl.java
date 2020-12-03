@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public Integer addUser(User user) {
-        if(userDao.selectByUsername(user.getUserName()) != null) {
+        if(userDao.selectByUsername(user.getUsername()) != null) {
             return 0;
         }
         return userDao.insertUser(user);
