@@ -1,5 +1,7 @@
 <%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
-<%@ page import="po.User" %><%--
+<%@ page import="po.User" %>
+<%@ page import="po.Resource" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: lilei
   Date: 2020/12/3
@@ -17,14 +19,14 @@
             String btnResourceUpdateResource = "UpdateResource";
             String menuResourceRoleControl = "RoleControl";
             User userLogin = (User) request.getSession().getAttribute("user");
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddResource) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddResource) != 0) {
         %>
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addResource">
             +新增
         </button>
         <%
             };
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceSelectResource) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceSelectResource) != 0) {
         %>
         <form style="margin-left: 10%;" class="form-inline  mb-2" method="post" action="${pageContext.request.contextPath}/SelectResourceServlet">
             <div class="form-group mx-sm-3 mb-2">
@@ -56,14 +58,22 @@
                     </div>
                     <br/>
                     <div class="input-group">
-                        <span class="input-group-addon">访问名</span>
-                        <input name="resourceType" type="text" class="form-control" required>
+                        <span class="input-group-addon">访问路径</span>
+                        <input name="controlType" type="text" class="form-control" required>
                     </div>
                     <br/>
-                    <div class="input-group">
-                        <span class="input-group-addon">父级菜单名称</span>
-                        <input name="menuResourceName" type="text" placeholder="空填视为父级菜单" class="form-control">
-                    </div>
+                    <span class="input-group-addon">选择父级菜单</span>
+                        <select name="menuResourceId" class="custom-select custom-select-lg mb-3">
+                            <option value="0" selected>无</option>
+                            <%
+                                List<Resource> menuResourceList = resourceService.getAllMenuResource();
+                                for (Resource resource : menuResourceList) {
+                                    %>
+                            <option value="<%=resource.getId()%>"><%=resource.getResourceName()%></option>
+                                    <%
+                                };
+                            %>
+                        </select>
                     <br/>
                     <div class="btn-group">
                         <button type="submit" class="btn btn-default">提交</button>

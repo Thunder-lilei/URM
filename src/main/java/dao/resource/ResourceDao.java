@@ -28,8 +28,9 @@ public class ResourceDao {
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -39,15 +40,15 @@ public class ResourceDao {
         return resource;
     }
 
-    public Integer selectBtnResourceIdByUserIdAndBtnResourceType(Integer userId, String resourceType) {
+    public Integer selectBtnResourceIdByUserIdAndBtnControlType(Integer userId, String controlType) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("select id from sys_resource where id = " +
                     "ANY(select resource_id from role_resource where role_id = ANY(select role_id from role_user " +
-                    "where user_id = ?)) and resource_type = ?");
+                    "where user_id = ?)) and control_type = ?");
             pstat.setInt(1,userId);
-            pstat.setString(2,resourceType);
+            pstat.setString(2,controlType);
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 result = rs.getInt("id");
@@ -69,8 +70,9 @@ public class ResourceDao {
             while (rs.next()) {
                 Resource resource = null;
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
                 list.add(resource);
             }
 
@@ -92,8 +94,9 @@ public class ResourceDao {
             while (rs.next()) {
                 Resource resource = null;
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
                 list.add(resource);
             }
 
@@ -111,14 +114,15 @@ public class ResourceDao {
         try {
             PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where menu_resource_id = 0 " +
                     "and id = ANY(select resource_id from role_resource where role_id = ANY(select role_id from role_user " +
-                    "where user_id = ?))");
+                    "where user_id = ?)) order by id");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 Resource resource = null;
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
                 list.add(resource);
             }
         } catch (SQLException throwables) {
@@ -138,8 +142,9 @@ public class ResourceDao {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -148,21 +153,23 @@ public class ResourceDao {
         }
         return resource;
     }
-    public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
+    public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId, String resource_type) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
             PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ANY(select " +
                     "resource_id from role_resource where role_id = ANY(select role_id from role_user where user_id = ?)) " +
-                    "and menu_resource_id = ?");
+                    "and menu_resource_id = ? and resource_type = ?");
             pstat.setInt(1,userId);
             pstat.setInt(2,menuResourceId);
+            pstat.setString(3,resource_type);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 Resource resource = null;
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
                 list.add(resource);
             }
         } catch (SQLException throwables) {
@@ -202,8 +209,9 @@ public class ResourceDao {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -218,14 +226,15 @@ public class ResourceDao {
         List<Resource> resourceList = new ArrayList<>();
         try {
             PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ANY(select " +
-                    "resource_id from role_resource where rle_id = ?) and menu_resource_id != 0");
+                    "resource_id from role_resource where role_id = ?) and menu_resource_id != 0");
             pstat.setInt(1,roleId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 Resource resource = null;
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
-                        rs.getString("resource_type"),rs.getString("resource_name"),
-                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
                 resourceList.add(resource);
             }
         } catch (SQLException throwables) {
@@ -241,10 +250,11 @@ public class ResourceDao {
         Integer result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("insert into sys_resource (menu_resource_id," +
-                    "resource_type,resource_name) values(?,?,?)");
+                    "control_type,resource_type,resource_name) values(?,?,?,?)");
             pstat.setInt(1,resource.getMenuResourceId());
-            pstat.setString(2,resource.getResourceType());
-            pstat.setString(3,resource.getResourceName());
+            pstat.setString(2,resource.getControlType());
+            pstat.setString(3,resource.getResourceType());
+            pstat.setString(4,resource.getResourceName());
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

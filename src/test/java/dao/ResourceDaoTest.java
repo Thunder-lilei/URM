@@ -17,11 +17,11 @@ public class ResourceDaoTest {
 
     @Test
     public void selectBtnResourceIdByUserIdAndBtnResourceType() {
-        String btnResourceAddUser = resourceService.getResourceTypeByName("注册用户");
-        String btnResourceDeleteUser = resourceService.getResourceTypeByName("移除用户");
-        String btnResourceSelectUser = resourceService.getResourceTypeByName("查询用户");
-        String btnResourceUpdateUser = resourceService.getResourceTypeByName("更新用户信息");
+        String btnResourceAddUser = resourceService.getControlTypeByName("注册用户");
+        String btnResourceDeleteUser = resourceService.getControlTypeByName("移除用户");
+        String btnResourceSelectUser = resourceService.getControlTypeByName("查询用户");
+        String btnResourceUpdateUser = resourceService.getControlTypeByName("更新用户信息");
         System.out.println(btnResourceAddUser+btnResourceDeleteUser+btnResourceSelectUser+btnResourceUpdateUser);
-        System.out.println(resourceDao.selectBtnResourceIdByUserIdAndBtnResourceType(2,"DeleteUser"));
+        System.out.println(resourceDao.selectBtnResourceIdByUserIdAndBtnControlType(2,"DeleteUser"));
     }
 }

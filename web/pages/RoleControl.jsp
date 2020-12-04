@@ -23,14 +23,14 @@
             String btnResourceDeleteRoleResource = "DeleteRoleResource";
             String menuResourceRoleControl = "RoleControl";
             User userLogin = (User) request.getSession().getAttribute("user");
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRole) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddRole) != 0) {
         %>
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRole">
             +新增
         </button>
         <%
             };
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceSelectRole) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceSelectRole) != 0) {
         %>
         <form style="margin-left: 10%;" class="form-inline  mb-2" method="post" action="${pageContext.request.contextPath}/SelectRoleServlet">
             <div class="form-group mx-sm-3 mb-2">
@@ -98,7 +98,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceDeleteRole) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceDeleteRole) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#deleteRole<%=role.getId()%>" class="btn btn-danger">删除</button>
         <%
@@ -132,7 +132,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRoleResource) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddRoleResource) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#addRoleResource<%=role.getId()%>" class="btn btn-primary">授权</button>
         <%
@@ -195,7 +195,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceDeleteRoleResource) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceDeleteRoleResource) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#deleteRoleResource<%=role.getId()%>" class="btn btn-danger">撤权</button>
         <%

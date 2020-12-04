@@ -25,14 +25,14 @@
             String btnResourceAddRoleUser = "AddRoleUser";
             String menuResourceUserControl = "UserControl";
             User userLogin = (User) request.getSession().getAttribute("user");
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddUser) != 0) {
                 %>
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUser">
             +新增
         </button>
                 <%
             };
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceSelectUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceSelectUser) != 0) {
         %>
         <form style="margin-left: 10%;" class="form-inline  mb-2" method="post" action="${pageContext.request.contextPath}/SelectUserServlet">
             <div class="form-group mx-sm-3 mb-2">
@@ -120,7 +120,7 @@
     <div style="display: flex;">
 
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceShowUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceShowUser) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#showUser<%=user.getId()%>" class="btn btn-primary">查看</button>
         <%
@@ -174,7 +174,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceDeleteUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceDeleteUser) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#deleteUser" class="btn btn-danger">删除</button>
         <%
@@ -208,7 +208,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceUpdateUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceUpdateUser) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#updateUser<%=user.getId()%>" class="btn btn-primary">修改</button>
         <%
@@ -261,7 +261,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#addRoleUser<%=user.getId()%>" class="btn btn-primary">授职</button>
         <%
@@ -302,7 +302,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnResourceType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#deleteRoleUser<%=user.getId()%>" class="btn btn-danger">撤职</button>
         <%

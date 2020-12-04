@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class Resource {
     Integer id;
     Integer menuResourceId;
+    String controlType;
     String resourceType;
     String resourceName;
     Timestamp createTime;
@@ -19,10 +20,11 @@ public class Resource {
 
     public Resource() {}
 
-    public Resource(Integer id, Integer menuResourceId, String resourceType, String resourceName,
-                    Timestamp createTime, Timestamp updateTime) {
+    public Resource(Integer id, Integer menuResourceId, String controlType, String resourceType,
+                    String resourceName, Timestamp createTime, Timestamp updateTime) {
         this.id = id;
         this.menuResourceId = menuResourceId;
+        this.controlType = controlType;
         this.resourceType = resourceType;
         this.resourceName = resourceName;
         this.createTime = createTime;
@@ -43,6 +45,14 @@ public class Resource {
 
     public void setMenuResourceId(Integer menuResourceId) {
         this.menuResourceId = menuResourceId;
+    }
+
+    public String getControlType() {
+        return controlType;
+    }
+
+    public void setControlType(String controlType) {
+        this.controlType = controlType;
     }
 
     public String getResourceType() {

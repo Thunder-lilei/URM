@@ -24,23 +24,15 @@ public class AddResourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         Resource resource = new Resource();
-        String menuResourceName = request.getParameter("menuResourceName");
-        Integer menuResourceId = 0,resourceId = null;
-        if (!menuResourceName.equals("")) {
-            resourceId = resourceService.selectResourceIdByName(menuResourceName);
-            if (resourceId.equals(0)) {
-                request.setAttribute("message","请检查父级菜单名称！");
-                request.setAttribute("ResourceControlPage",true);
-                request.getRequestDispatcher("pages/control.jsp").forward(request,response);
-            }
-                menuResourceId = resourceId;
-        }
-        resource.setResourceName(request.getParameter("resourceName"));
-        resource.setResourceType(request.getParameter("resourceType"));
+        String menuResourceIdString = request.getParameter("menuResourceId");
+        Integer menuResourceId = Integer.parseInt(menuResourceIdString);
+        //接收resource参数
         resource.setMenuResourceId(menuResourceId);
+        resource.setResourceName(request.getParameter("resourceName"));
+        resource.setResourceType(request.getParameter("controlType"));
+
         request.setAttribute("message","添加失败！");
-        assert resourceId != null;
-        if (!resourceId.equals(0) && !resourceService.addResource(resource).equals(0)) {
+        if (!resourceService.addResource(resource).equals(0)) {
             request.setAttribute("message","成功添加菜单:"+resource.getResourceName());
         }
         request.setAttribute("ResourceControlPage",true);

@@ -22,7 +22,7 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     }
 
     @Override
-    public String getResourceTypeByName(String name) {
+    public String getControlTypeByName(String name) {
         Resource resource = resourceDao.selectResourceByName(name);
         if (resource != null) {return resource.getResourceType();}
         return null;
@@ -52,7 +52,8 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     };
     @Override
     public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
-        return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId);
+        String resource_type_menu_btn = "menu_btn";
+        return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId,resource_type_menu_btn);
     }
 
     @Override
@@ -61,8 +62,8 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     }
 
     @Override
-    public Integer selectBtnResourceIdByUserIdAndBtnResourceType(Integer userId, String resourceType) {
-        return resourceDao.selectBtnResourceIdByUserIdAndBtnResourceType(userId,resourceType);
+    public Integer selectBtnResourceIdByUserIdAndBtnControlType(Integer userId, String resourceType) {
+        return resourceDao.selectBtnResourceIdByUserIdAndBtnControlType(userId,resourceType);
     }
 
     @Override

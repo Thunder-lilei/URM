@@ -14,7 +14,7 @@ import java.util.List;
 public interface ResourceService {
     Integer selectResourceIdByName(String name);
 
-    String getResourceTypeByName(String name);
+    String getControlTypeByName(String name);
 
     List<Resource> getAllMenuResource();
 
@@ -32,7 +32,7 @@ public interface ResourceService {
 
     List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId);
 
-    Integer selectBtnResourceIdByUserIdAndBtnResourceType(Integer userId,String resourceType);
+    Integer selectBtnResourceIdByUserIdAndBtnControlType(Integer userId,String controlType);
 
     List<Resource> selectBtnResourcesByRoleId(Integer roleId);
 

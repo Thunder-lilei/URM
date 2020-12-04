@@ -31,15 +31,34 @@
             <br/>
             <%
                 ResourceServiceImpl resourceService = new ResourceServiceImpl();
-                List<Resource> menuResourcelist = resourceService.getMenuResourceByUserId(user.getId());
-                for (Resource menuResource : menuResourcelist) {
+                List<Resource> menuResourceList = resourceService.getMenuResourceByUserId(user.getId());
+                for (Resource menuResource : menuResourceList) {
             %>
-            <button style="font-size: 30px;color: white;text-align: center;"
-                    onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=menuResource.getResourceType()%><%=".jsp"%>")
-                    type="button" class="btn btn-outline-primary">
-                <%=menuResource.getResourceName()%>
-            </button>
+            <p>
+                <button class="btn btn-primary" style="width: 80%;height: 60px;font-size: 20px;"
+                        onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=menuResource.getControlType()%><%=".jsp"%>")
+                        type="button" data-toggle="collapse" data-target="#collapseExample<%=menuResource.getId()%>" aria-expanded="false" aria-controls="collapseExample">
+                    <%=menuResource.getResourceName()%>
+                </button>
+            </p>
             <br/>
+            <div class="collapse" id="collapseExample<%=menuResource.getId()%>">
+            <%
+                List<Resource> btnResourceList = resourceService.selectBtnResourcesByUserIdAndMenuResourceId(user.getId(),menuResource.getId());
+                for (Resource btnResource : btnResourceList) {
+                    %>
+                <div class="input-group">
+                    <button style="font-size: 20px;color: white;text-align: center;"
+                            onclick=document.getElementById("messageSpan").innerHTML='';$("#page").load("<%="../pages/"%><%=btnResource.getControlType()%><%=".jsp"%>")
+                            type="button" class="btn btn-outline-primary">
+                        <%=btnResource.getResourceName()%>
+                    </button>
+                </div>
+            <br/>
+                    <%
+                };
+            %>
+            </div>
             <%
                 };
             %>
