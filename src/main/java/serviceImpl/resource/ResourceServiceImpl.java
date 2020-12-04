@@ -1,7 +1,9 @@
 package serviceImpl.resource;
 
 import dao.resource.ResourceDao;
+import dao.role.resource.RoleResourceDao;
 import po.Resource;
+import serviceImpl.role.resource.RoleResourceServiceImpl;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ import java.util.List;
  **/
 public class ResourceServiceImpl implements service.resource.ResourceService {
     ResourceDao resourceDao = new ResourceDao();
+    RoleResourceDao roleResourceDao = new RoleResourceDao();
+
     @Override
     public Integer selectResourceIdByName(String name) {
         Resource resource = resourceDao.selectResourceByName(name);
@@ -40,7 +44,13 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> getAllBtnResource() {return resourceDao.getAllResource("!=");}
 
     @Override
-    public List<Resource> getBtnResourceByMenuResourceId(Integer id) {return resourceDao.getResourceByMenuResourceId(id);}
+    public List<Resource> getResourceByMenuResourceId(Integer id) {return resourceDao.getResourceByMenuResourceId(id);}
+
+    @Override
+    public List<Resource> getBtnResourceByMenuResourceId(Integer id) {
+        String resourceType = "menu_btn";
+        return resourceDao.getBtnResourceByMenuResourceId(id,resourceType);
+    }
 
     @Override
     public List<Resource> getMenuResourceByUserId(Integer id) {return resourceDao.getMenuResourceByUserId(id);}
@@ -52,8 +62,8 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     };
     @Override
     public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
-        String resource_type_menu_btn = "menu_btn";
-        return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId,resource_type_menu_btn);
+        String resourceTypeMenuBtn = "menu_btn";
+        return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId,resourceTypeMenuBtn);
     }
 
     @Override
@@ -72,5 +82,30 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     }
 
     @Override
-    public Integer addResource(Resource resource) {return resourceDao.addResource(resource);}
+    public Integer addResource(Resource resource) {
+        return resourceDao.addResource(resource);
+    }
+
+    /*
+     * @Author 李雷
+     * @Description //TODO lilei
+     * @Date 11:24 2020/12/4
+     * @Param [id]
+     * @return java.lang.Integer
+     * 删除资源的同时删除资源与角色的对应关系
+     * 如果是父级资源还要删除对应的次级资源
+     **/
+    @Override
+    public Integer deleteResource(Integer id) {
+        roleResourceDao.deleteRoleResourceByResourceId(id);
+        Resource resource = resourceDao.selectResourceById(id);
+        if (resource.getMenuResourceId().equals(0)) {
+            List<Resource> btnResourceList = resourceDao.getResourceByMenuResourceId(resource.getId());
+            for (Resource btnResource : btnResourceList) {
+                deleteResource(btnResource.getId());
+            }
+        }
+        return resourceDao.deleteResource(id);
+    }
+
 }

@@ -13,7 +13,8 @@ import java.io.IOException;
 /**
  * <h3>URM</h3>
  * <p>增加菜单资源</p>
- *
+ * 获取菜单信息参数
+ * 返回添加提示信息message
  * @author : 李雷
  * @date : 2020-12-03 18:55
  **/
@@ -29,7 +30,8 @@ public class AddResourceServlet extends HttpServlet {
         //接收resource参数
         resource.setMenuResourceId(menuResourceId);
         resource.setResourceName(request.getParameter("resourceName"));
-        resource.setResourceType(request.getParameter("controlType"));
+        resource.setResourceType(request.getParameter("resourceType"));
+        resource.setControlType(request.getParameter("controlType"));
 
         request.setAttribute("message","添加失败！");
         if (!resourceService.addResource(resource).equals(0)) {

@@ -176,7 +176,7 @@
         <%
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceDeleteUser) != 0) {
         %>
-        <button type="button" data-toggle="modal" data-target="#deleteUser" class="btn btn-danger">删除</button>
+        <button type="button" data-toggle="modal" data-target="#deleteUser<%=user.getId()%>" class="btn btn-danger">删除</button>
         <%
             };
         %>

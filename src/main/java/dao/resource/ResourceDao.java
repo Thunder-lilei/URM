@@ -108,6 +108,33 @@ public class ResourceDao {
         return list;
     }
 
+    public List<Resource> getBtnResourceByMenuResourceId(Integer id,String resourceType) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Resource> list = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id = ? " +
+                    "and resource_type = ?");
+            pstat.setInt(1,id);
+            pstat.setString(2,resourceType);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Resource resource = null;
+                resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
+                list.add(resource);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return list;
+    }
+
+
     public List<Resource> getMenuResourceByUserId(Integer id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
@@ -255,6 +282,21 @@ public class ResourceDao {
             pstat.setString(2,resource.getControlType());
             pstat.setString(3,resource.getResourceType());
             pstat.setString(4,resource.getResourceName());
+            result = pstat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
+    }
+
+    public Integer deleteResource(Integer id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("delete from sys_resource where id = ?");
+            pstat.setInt(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
