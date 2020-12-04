@@ -141,7 +141,8 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<User> userList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user WHERE username LIKE \"%\"?\"%\"");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user WHERE CONCAT(username,nickname) " +
+                    "LIKE \"%\"?\"%\"");
             pstat.setString(1,keyWord);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
