@@ -1,9 +1,10 @@
-package web.user;
+package web.resource;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
-import po.User;
-import serviceImpl.user.UserServiceImpl;
+import po.Resource;
+import po.Role;
+import serviceImpl.resource.ResourceServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +16,16 @@ import java.util.List;
 
 /**
  * <h3>URM</h3>
- * <p>用户信息分页查询</p>
+ * <p>资源信息分页查询</p>
  * 获取当前页码及每页最大数
- * 保存当前页码 返回用户列表
+ * 保存当前页码 返回资源列表
  * 设置最小最大页码
  * @author : 李雷
- * @date : 2020-12-02 11:52
+ * @date : 2020-12-04 13:38
  **/
-@WebServlet("/SelectUserPageServlet")
-public class SelectUserPageServlet extends HttpServlet {
-    UserServiceImpl userService = new UserServiceImpl();
+@WebServlet("/SelectMenuResourcePageServlet")
+public class SelectMenuResourcePageServlet extends HttpServlet {
+    ResourceServiceImpl resourceService = new ResourceServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
@@ -38,14 +39,14 @@ public class SelectUserPageServlet extends HttpServlet {
         Integer pageSizeInteger = Integer.parseInt(pageSize);
         //最小最大页码
         int minPageSize = 1;
-        int maxPageSize = (userService.countUser()+pageSizeInteger-1)/pageSizeInteger;
+        int maxPageSize = (resourceService.countMenuResource()+pageSizeInteger-1)/pageSizeInteger;
 
         if (pageNowInteger < minPageSize) {pageNowInteger = minPageSize;}
         if (pageNowInteger > maxPageSize) {pageNowInteger = maxPageSize;}
-        List<User> userList = userService.selectUserByPage(pageNowInteger,pageSizeInteger);
-        request.getSession().setAttribute("userPage",userList);
+        List<Resource> resourceList = resourceService.selectMenuResourceByPage(pageNowInteger,pageSizeInteger);
+        request.getSession().setAttribute("resourcePage",resourceList);
         request.getSession().setAttribute(RequestConstant.PAGE_NOW,pageNowInteger);
-        request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
+        request.setAttribute(RequestConstant.RESOURCE_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 }

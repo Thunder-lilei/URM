@@ -1,5 +1,8 @@
 package web.user;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,10 +30,10 @@ public class LogoutServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         if(request.getSession().getAttribute("user") !=null) {
             request.getSession().invalidate();
-            response.sendRedirect("index.jsp");
+            response.sendRedirect(PageUrlConstant.INDEX_PAGE);
         }else {
-            request.setAttribute("message","请登录");
-            request.getRequestDispatcher("pages/login.jsp").forward(request,response);
+            request.setAttribute(RequestConstant.MESSAGE,"请登录");
+            request.getRequestDispatcher(PageUrlConstant.LOGIN_PAGE).forward(request,response);
         }
     }
 }

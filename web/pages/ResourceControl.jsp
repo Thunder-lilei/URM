@@ -28,7 +28,7 @@
             };
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceSelectResource) != 0) {
         %>
-        <form style="margin-left: 10%;" class="form-inline  mb-2" method="post" action="${pageContext.request.contextPath}/SelectResourceServlet">
+        <form style="margin-left: 10%;" class="form-inline  mb-2" method="post" action="${pageContext.request.contextPath}/SelectMenuResourceServlet">
             <div class="form-group mx-sm-3 mb-2">
                 <label for="keyWord" class="sr-only">关键字</label>
                 <input type="text" class="form-control" name="keyWord" id="keyWord" placeholder="关键字">
@@ -91,7 +91,20 @@
 
 
     <%
-        List<Resource> menuResourceList = resourceService.getAllMenuResource();
+        List<Resource> selectResourceList = (List<Resource>) request.getSession().getAttribute("selectResourceList");
+        List<Resource> menuResourcePage = (List<Resource>) request.getSession().getAttribute("resourcePage");
+        Integer pageNowSession = (Integer) request.getSession().getAttribute("pageNow");
+        Integer pageNow = 1;
+        if (pageNowSession != null) {pageNow = pageNowSession;}
+        Integer pageSize = 10;
+        List<Resource> menuResourceList;
+        if(selectResourceList!=null) {
+            menuResourceList = selectResourceList;
+        }else if (menuResourcePage != null){
+            menuResourceList = menuResourcePage;
+        }else {
+            menuResourceList = resourceService.getAllMenuResource();
+        }
         for (Resource menuResource : menuResourceList) {
             %>
     <div style="display: flex">
@@ -190,7 +203,64 @@
     </div>
             <%
         };
-
+//查询的时候不分页
+                if (selectResourceList == null) {
+            %>
+    <nav style="margin: 0 0 0 30% ;" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectMenuResourcePageServlet?pageNow=<%=pageNow-1%>&&pageSize=<%=pageSize%>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <%
+                /*
+                 * @Author 李雷
+                 * @Description //TODO lilei
+                 * @Date 11:38 2020/12/2
+                 * @Param [request, response]
+                 * @return void
+                 * 分页查询
+                 **/
+                int pages = ((resourceService.countMenuResource()+pageSize-1)/pageSize);
+                for (int i=1;i<=pages;i++) {
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectMenuResourcePageServlet?pageNow=<%=i%>&&pageSize=<%=pageSize%>"><%=i%></a>
+            </li>
+            <%
+                };
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectMenuResourcePageServlet?pageNow=<%=pageNow+1%>&&pageSize=<%=pageSize%>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <span aria-hidden="true">第<%=pageNow%>页</span>
+            </li>
+        </ul>
+    </nav>
+    <%
+    }else {
     %>
-
+    <button onclick="backResourceControl()" type="button" class="btn btn-primary">返回</button>
+    <script>
+        /*
+        清除查询的用户信息 避免再次加载
+        重新加载用户管理页面
+         */
+        function backResourceControl() {
+            <%
+            request.getSession().setAttribute("selectResourceList",null);
+            request.getSession().setAttribute("pageNow",1);
+            %>
+            $("#page").load("<%="../pages/ResourceControl.jsp"%>")
+        }
+    </script>
+    <%
+        };
+    %>
 </div>

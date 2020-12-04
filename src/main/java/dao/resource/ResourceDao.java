@@ -1,6 +1,7 @@
 package dao.resource;
 
 import po.Resource;
+import po.User;
 import util.JdbcUtil;
 
 import java.sql.Connection;
@@ -257,7 +258,70 @@ public class ResourceDao {
             pstat.setInt(1,roleId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Resource resource = null;
+                Resource resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
+                resourceList.add(resource);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return resourceList;
+    }
+
+    public List<Resource> selectMenuResourceByPage(Integer pre,Integer end) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Resource> resourceList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where menu_resource_id = 0 limit ?, ?");
+            pstat.setInt(1,pre);
+            pstat.setInt(2,end);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Resource resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
+                        rs.getString("control_type"),rs.getString("resource_type"),
+                        rs.getString("resource_name"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
+                resourceList.add(resource);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return resourceList;
+    }
+
+    public Integer countMenuResource() {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM sys_resource where menu_resource_id = 0");
+            ResultSet rs = pstat.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
+    }
+
+    public List<Resource> selectMenuResourceByKeyWord(String keyWord) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Resource> resourceList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource WHERE CONCAT(control_type,resource_name) " +
+                    "LIKE \"%\"?\"%\" and menu_resource_id = 0");
+            pstat.setString(1,keyWord);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Resource resource = new Resource();
                 resource = new Resource(rs.getInt("id"),rs.getInt("menu_resource_id"),
                         rs.getString("control_type"),rs.getString("resource_type"),
                         rs.getString("resource_name"),rs.getTimestamp("create_time"),

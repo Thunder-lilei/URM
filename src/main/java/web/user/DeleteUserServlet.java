@@ -1,5 +1,7 @@
 package web.user;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.User;
 import serviceImpl.user.UserServiceImpl;
 
@@ -32,10 +34,10 @@ public class DeleteUserServlet extends HttpServlet {
                 ++deleteSize;
             }
         }
-        request.setAttribute("message","成功移除"+deleteSize+"个用户！");
-        request.setAttribute("pageNow",1);
-        request.setAttribute("UserControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.setAttribute(RequestConstant.MESSAGE,"成功移除"+deleteSize+"个用户！");
+        request.setAttribute(RequestConstant.PAGE_NOW,1);
+        request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

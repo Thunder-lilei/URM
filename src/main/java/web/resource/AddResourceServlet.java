@@ -1,5 +1,7 @@
 package web.resource;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.Resource;
 import serviceImpl.resource.ResourceServiceImpl;
 
@@ -33,12 +35,12 @@ public class AddResourceServlet extends HttpServlet {
         resource.setResourceType(request.getParameter("resourceType"));
         resource.setControlType(request.getParameter("controlType"));
 
-        request.setAttribute("message","添加失败！");
+        request.setAttribute(RequestConstant.MESSAGE,"添加失败！");
         if (!resourceService.addResource(resource).equals(0)) {
-            request.setAttribute("message","成功添加菜单:"+resource.getResourceName());
+            request.setAttribute(RequestConstant.MESSAGE,"成功添加菜单:"+resource.getResourceName());
         }
-        request.setAttribute("ResourceControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.setAttribute(RequestConstant.RESOURCE_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
 
     }
 

@@ -1,6 +1,7 @@
 package dao.role;
 
 import po.Role;
+import po.User;
 import util.JdbcUtil;
 
 import java.sql.Connection;
@@ -95,6 +96,68 @@ public class RoleDao {
             JdbcUtil.INSTANCE.closeConn(connection);
         }
         return role;
+    }
+
+    public List<Role> selectRoleByPage(Integer pre,Integer end) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Role> roleList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("select * from sys_role limit ?, ?");
+            pstat.setInt(1,pre);
+            pstat.setInt(2,end);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Role role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                        rs.getString("role_type"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
+                roleList.add(role);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return roleList;
+    }
+
+    public List<Role> selectRoleByKeyWord(String keyWord) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        List<Role> roleList = new ArrayList<>();
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role WHERE CONCAT(role_type,role_name) " +
+                    "LIKE \"%\"?\"%\"");
+            pstat.setString(1,keyWord);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                Role role = new Role();
+                role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                        rs.getString("role_type"),rs.getTimestamp("create_time"),
+                        rs.getTimestamp("update_time"));
+                roleList.add(role);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return roleList;
+    }
+
+    public Integer countRole() {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        Integer result = 0;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM sys_role");
+            ResultSet rs = pstat.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return result;
     }
 
     public Integer addRole(Role role) {

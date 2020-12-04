@@ -1,9 +1,10 @@
-package web.user;
+package web.role;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
+import po.Role;
 import po.User;
-import serviceImpl.user.UserServiceImpl;
+import serviceImpl.role.RoleServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +16,16 @@ import java.util.List;
 
 /**
  * <h3>URM</h3>
- * <p>用户信息分页查询</p>
+ * <p>角色信息分页查询</p>
  * 获取当前页码及每页最大数
- * 保存当前页码 返回用户列表
+ * 保存当前页码 返回角色列表
  * 设置最小最大页码
  * @author : 李雷
- * @date : 2020-12-02 11:52
+ * @date : 2020-12-04 13:38
  **/
-@WebServlet("/SelectUserPageServlet")
-public class SelectUserPageServlet extends HttpServlet {
-    UserServiceImpl userService = new UserServiceImpl();
+@WebServlet("/SelectRolePageServlet")
+public class SelectRolePageServlet extends HttpServlet {
+    RoleServiceImpl roleService = new RoleServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
@@ -38,14 +39,14 @@ public class SelectUserPageServlet extends HttpServlet {
         Integer pageSizeInteger = Integer.parseInt(pageSize);
         //最小最大页码
         int minPageSize = 1;
-        int maxPageSize = (userService.countUser()+pageSizeInteger-1)/pageSizeInteger;
+        int maxPageSize = (roleService.countRole()+pageSizeInteger-1)/pageSizeInteger;
 
         if (pageNowInteger < minPageSize) {pageNowInteger = minPageSize;}
         if (pageNowInteger > maxPageSize) {pageNowInteger = maxPageSize;}
-        List<User> userList = userService.selectUserByPage(pageNowInteger,pageSizeInteger);
-        request.getSession().setAttribute("userPage",userList);
+        List<Role> roleList = roleService.selectRoleByPage(pageNowInteger,pageSizeInteger);
+        request.getSession().setAttribute("rolePage",roleList);
         request.getSession().setAttribute(RequestConstant.PAGE_NOW,pageNowInteger);
-        request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
+        request.setAttribute(RequestConstant.ROLE_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 }

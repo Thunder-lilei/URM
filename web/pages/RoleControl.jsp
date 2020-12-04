@@ -76,12 +76,25 @@
     </div>
     <br/>
     <%
+        /*
+         * @Author 李雷
+         * @Description //TODO lilei
+         * @Date 12:09 2020/12/4
+         * @Param [request, response]
+         * @return void
+         **/
         RoleServiceImpl roleService = new RoleServiceImpl();
-        User selectRoleUser = (User) request.getSession().getAttribute("selectRoleUser");
+        List<Role> selectRoleList = (List<Role>) request.getSession().getAttribute("selectRoleList");
+        List<Role> rolePage = (List<Role>) request.getSession().getAttribute("rolePage");
+        Integer pageNowSession = (Integer) request.getSession().getAttribute("pageNow");
+        Integer pageNow = 1;
+        if (pageNowSession != null) {pageNow = pageNowSession;}
+        Integer pageSize = 10;
         List<Role> roleList;
-        if(selectRoleUser!=null) {
-            roleList = roleService.selectByUserId(selectRoleUser.getId());
-            request.getSession().setAttribute("selectRoleUser",null);
+        if(selectRoleList!=null) {
+            roleList = selectRoleList;
+        }else if (rolePage != null){
+            roleList = rolePage;
         }else {
             roleList = roleService.selectAll();
         }
@@ -283,6 +296,64 @@
     <br/>
     <%
         };
+        //查询的时候不分页
+        if (selectRoleList == null) {
     %>
-
+    <nav style="margin: 0 0 0 30% ;" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectRolePageServlet?pageNow=<%=pageNow-1%>&&pageSize=<%=pageSize%>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <%
+                /*
+                 * @Author 李雷
+                 * @Description //TODO lilei
+                 * @Date 11:38 2020/12/2
+                 * @Param [request, response]
+                 * @return void
+                 * 分页查询
+                 **/
+                int pages = ((roleService.countRole()+pageSize-1)/pageSize);
+                for (int i=1;i<=pages;i++) {
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectRolePageServlet?pageNow=<%=i%>&&pageSize=<%=pageSize%>"><%=i%></a>
+            </li>
+            <%
+                };
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/SelectRolePageServlet?pageNow=<%=pageNow+1%>&&pageSize=<%=pageSize%>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <span aria-hidden="true">第<%=pageNow%>页</span>
+            </li>
+        </ul>
+    </nav>
+    <%
+    }else {
+    %>
+    <button onclick="backRoleControl()" type="button" class="btn btn-primary">返回</button>
+    <script>
+        /*
+        清除查询的用户信息 避免再次加载
+        重新加载用户管理页面
+         */
+        function backRoleControl() {
+            <%
+            request.getSession().setAttribute("selectRoleList",null);
+            request.getSession().setAttribute("pageNow",1);
+            %>
+            $("#page").load("<%="../pages/RoleControl.jsp"%>")
+        }
+    </script>
+    <%
+        };
+    %>
 </div>

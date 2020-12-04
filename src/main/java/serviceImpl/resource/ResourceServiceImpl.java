@@ -3,6 +3,7 @@ package serviceImpl.resource;
 import dao.resource.ResourceDao;
 import dao.role.resource.RoleResourceDao;
 import po.Resource;
+import po.User;
 import serviceImpl.role.resource.RoleResourceServiceImpl;
 
 import java.util.List;
@@ -80,6 +81,15 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> selectBtnResourcesByRoleId(Integer roleId) {
         return resourceDao.selectBtnResourceByRoleId(roleId);
     }
+
+    @Override
+    public List<Resource> selectMenuResourceByKeyWord(String keyWord) {return resourceDao.selectMenuResourceByKeyWord(keyWord);}
+
+    @Override
+    public Integer countMenuResource() {return resourceDao.countMenuResource();}
+
+    @Override
+    public List<Resource> selectMenuResourceByPage(Integer page, Integer pageSize) {return resourceDao.selectMenuResourceByPage((page-1)*pageSize,pageSize);}
 
     @Override
     public Integer addResource(Resource resource) {

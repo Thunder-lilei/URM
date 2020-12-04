@@ -1,5 +1,7 @@
 package web.user;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.User;
 import serviceImpl.user.UserServiceImpl;
 
@@ -29,17 +31,17 @@ public class UpdateUserServlet extends HttpServlet {
             updateUser.setNickname(request.getParameter("nickname"));
             updateUser.setPassword(request.getParameter("password"));
             if (!userService.updateUser(updateUser).equals(0)) {
-                request.setAttribute("message","更新完成！");
+                request.setAttribute(RequestConstant.MESSAGE,"更新完成！");
             }else {
-                request.setAttribute("message","更新失败!尝试更换用户名");
+                request.setAttribute(RequestConstant.MESSAGE,"更新失败!尝试更换用户名");
             }
         }else {
-            request.setAttribute("message","未能找到需要更新信息的用户！");
+            request.setAttribute(RequestConstant.MESSAGE,"未能找到需要更新信息的用户！");
         }
         request.getSession().setAttribute("updateUser",null);
-        request.getSession().setAttribute("pageNow",1);
-        request.setAttribute("UserControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.getSession().setAttribute(RequestConstant.PAGE_NOW,1);
+        request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

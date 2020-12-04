@@ -1,5 +1,7 @@
 package web.user;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.User;
 import serviceImpl.user.UserServiceImpl;
 
@@ -33,10 +35,10 @@ public class AddUserServlet extends HttpServlet {
         if(userService.addUser(user).equals(0)) {
             message = "添加失败！尝试更换用户名";
         }
-        request.setAttribute("message",message);
-        request.getSession().setAttribute("pageNow",1);
-        request.setAttribute("UserControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.setAttribute(RequestConstant.MESSAGE,message);
+        request.getSession().setAttribute(RequestConstant.PAGE_NOW,1);
+        request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 
     @Override

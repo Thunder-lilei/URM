@@ -1,9 +1,10 @@
-package web.user;
+package web.resource;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
+import po.Resource;
 import po.User;
-import serviceImpl.user.UserServiceImpl;
+import serviceImpl.resource.ResourceServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,24 +16,24 @@ import java.util.List;
 
 /**
  * <h3>URM</h3>
- * <p>查询用户</p>
+ * <p>查询资源</p>
  * 按照关键字进行查询
  * @author : 李雷
- * @date : 2020-11-30 16:40
+ * @date : 2020-12-04 12:02
  **/
-@WebServlet("/SelectUserServlet")
-public class SelectUserServlet extends HttpServlet {
-    UserServiceImpl userService = new UserServiceImpl();
+@WebServlet("/SelectMenuResourceServlet")
+public class SelectMenuResourceServlet extends HttpServlet {
+    ResourceServiceImpl resourceService = new ResourceServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        List<User> userList = userService.selectUserByKeyWord(request.getParameter("keyWord"));
-        if (userList!=null) {
-            request.getSession().setAttribute("selectUserList",userList);
+        List<Resource> resourceList = resourceService.selectMenuResourceByKeyWord(request.getParameter("keyWord"));
+        if (resourceList!=null) {
+            request.getSession().setAttribute("selectResourceList",resourceList);
         }else {
             request.setAttribute(RequestConstant.MESSAGE,"请检查关键字!");
         }
-        request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
+        request.setAttribute(RequestConstant.RESOURCE_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 

@@ -1,5 +1,7 @@
 package web.role.resource;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.Resource;
 import serviceImpl.resource.ResourceServiceImpl;
 import serviceImpl.role.RoleServiceImpl;
@@ -42,11 +44,11 @@ public class DeleteRoleResourceServlet extends HttpServlet {
                 roleResourceService.deleteRoleResource(menuResource.getId(),Integer.parseInt(roleId));
             }
         }
-        request.setAttribute("message",
+        request.setAttribute(RequestConstant.MESSAGE,
                 "成功移除"+roleService.selectNameById(Integer.parseInt(roleId))+deleteRoleResourceSize+"个权限！");
         request.getSession().setAttribute("deleteRoleResourceId",null);
-        request.setAttribute("RoleControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.setAttribute(RequestConstant.ROLE_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

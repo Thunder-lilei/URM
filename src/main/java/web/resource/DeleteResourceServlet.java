@@ -1,5 +1,7 @@
 package web.resource;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import serviceImpl.resource.ResourceServiceImpl;
 
 import javax.servlet.ServletException;
@@ -24,11 +26,11 @@ public class DeleteResourceServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String id = request.getParameter("id");
         if (resourceService.deleteResource(Integer.parseInt(id)).equals(0)) {
-            request.setAttribute("message","删除失败！");
+            request.setAttribute(RequestConstant.MESSAGE,"删除失败！");
         }
-        request.setAttribute("message","删除成功！");
-        request.setAttribute("ResourceControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.setAttribute(RequestConstant.MESSAGE,"删除成功！");
+        request.setAttribute(RequestConstant.RESOURCE_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

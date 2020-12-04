@@ -1,5 +1,7 @@
 package web.role;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.Role;
 import serviceImpl.role.RoleServiceImpl;
 
@@ -28,12 +30,12 @@ public class AddRoleServlet extends HttpServlet {
         role.setRoleType(request.getParameter("type"));
         role.setRoleName(request.getParameter("role_name"));
         if (roleService.addRole(role).equals(0)) {
-            request.setAttribute("message","添加失败，请尝试更换信息！");
-            request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+            request.setAttribute(RequestConstant.MESSAGE,"添加失败，请尝试更换信息！");
+            request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
         }
-        request.setAttribute("message","成功添加"+role.getRoleName()+"!");
-        request.setAttribute("RoleControlPage",true);
-        request.getRequestDispatcher("pages/control.jsp").forward(request,response);
+        request.setAttribute(RequestConstant.MESSAGE,"成功添加"+role.getRoleName()+"!");
+        request.setAttribute(RequestConstant.ROLE_CONTROL_PAGE,true);
+        request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
 
     @Override

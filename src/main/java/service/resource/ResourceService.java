@@ -1,6 +1,7 @@
 package service.resource;
 
 import po.Resource;
+import po.User;
 
 import java.util.List;
 
@@ -37,6 +38,12 @@ public interface ResourceService {
     Integer selectBtnResourceIdByUserIdAndBtnControlType(Integer userId,String controlType);
 
     List<Resource> selectBtnResourcesByRoleId(Integer roleId);
+
+    List<Resource> selectMenuResourceByKeyWord(String keyWord);
+
+    Integer countMenuResource();
+
+    List<Resource> selectMenuResourceByPage(Integer page, Integer pageSize);
 
     Integer addResource(Resource resource);
 

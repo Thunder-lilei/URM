@@ -1,6 +1,7 @@
 package service.role;
 
 import po.Role;
+import po.User;
 
 import java.util.List;
 
@@ -21,6 +22,12 @@ public interface RoleService {
     String selectNameById(Integer id);
 
     List<Role> selectByUserId(Integer userId);
+
+    List<Role> selectRoleByKeyWord(String keyWord);
+
+    Integer countRole();
+
+    List<Role> selectRoleByPage(Integer page, Integer pageSize);
 
     Integer addRole(Role role);
 

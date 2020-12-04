@@ -346,8 +346,9 @@
     <br/>
             <%
         };
+                //查询的时候不分页
                 if (selectUserList == null) {
-    %>
+            %>
     <nav style="margin: 0 0 0 30% ;" aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">

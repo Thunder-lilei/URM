@@ -4,6 +4,7 @@ import dao.role.RoleDao;
 import dao.role.resource.RoleResourceDao;
 import dao.role.user.RoleUserDao;
 import po.Role;
+import po.User;
 import service.role.RoleService;
 import util.JdbcUtil;
 
@@ -61,6 +62,17 @@ public class RoleServiceImpl implements RoleService {
             roleList.add(roleDao.selectById(integer));
         }
         return roleList;
+    }
+
+    @Override
+    public List<Role> selectRoleByKeyWord(String keyWord) {return roleDao.selectRoleByKeyWord(keyWord);}
+
+    @Override
+    public Integer countRole() {return roleDao.countRole();}
+
+    @Override
+    public List<Role> selectRoleByPage(Integer page, Integer pageSize) {
+        return roleDao.selectRoleByPage((page-1)*pageSize,pageSize);
     }
 
     @Override

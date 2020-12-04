@@ -1,5 +1,7 @@
 package web.user;
 
+import constant.PageUrlConstant;
+import constant.RequestConstant;
 import po.User;
 import serviceImpl.user.UserServiceImpl;
 import util.MD5Util;
@@ -33,17 +35,17 @@ public class LoginServlet extends HttpServlet{
                 if(user.getPassword().equals(request.getParameter("password"))) {
                     user.setPassword(null);
                     request.getSession().setAttribute("user",user);
-                    response.sendRedirect("pages/control.jsp");
+                    response.sendRedirect(PageUrlConstant.CONTROL_PAGE);
                 }else {
-                    request.setAttribute("message","密码错误");
-                    request.getRequestDispatcher("pages/login.jsp").forward(request,response);
+                    request.setAttribute(RequestConstant.MESSAGE,"密码错误");
+                    request.getRequestDispatcher(PageUrlConstant.LOGIN_PAGE).forward(request,response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }else {
-            request.setAttribute("message","用户名错误");
-            request.getRequestDispatcher("pages/login.jsp").forward(request,response);
+            request.setAttribute(RequestConstant.MESSAGE,"用户名错误");
+            request.getRequestDispatcher(PageUrlConstant.LOGIN_PAGE).forward(request,response);
         }
     }
 
