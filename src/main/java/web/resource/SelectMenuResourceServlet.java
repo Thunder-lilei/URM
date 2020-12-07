@@ -26,7 +26,6 @@ public class SelectMenuResourceServlet extends HttpServlet {
     ResourceServiceImpl resourceService = new ResourceServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         List<Resource> resourceList = resourceService.selectMenuResourceByKeyWord(request.getParameter("keyWord"));
         if (resourceList!=null) {
             request.getSession().setAttribute("selectResourceList",resourceList);

@@ -27,7 +27,6 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("utf-8");
         if(request.getSession().getAttribute("user") !=null) {
             request.getSession().invalidate();
             response.sendRedirect(PageUrlConstant.INDEX_PAGE);

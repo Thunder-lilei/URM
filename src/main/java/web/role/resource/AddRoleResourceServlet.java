@@ -25,7 +25,6 @@ public class AddRoleResourceServlet extends HttpServlet {
     RoleResourceServiceImpl roleResourceService = new RoleResourceServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         String roleId = request.getParameter("id");
         String[] btnResourceId = request.getParameterValues("btnResourceId");
         Integer addRoleResourceSize = 0;

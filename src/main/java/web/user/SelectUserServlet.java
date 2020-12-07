@@ -25,7 +25,6 @@ public class SelectUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         List<User> userList = userService.selectUserByKeyWord(request.getParameter("keyWord"));
         if (userList!=null) {
             request.getSession().setAttribute("selectUserList",userList);

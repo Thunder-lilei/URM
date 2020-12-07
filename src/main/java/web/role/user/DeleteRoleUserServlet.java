@@ -24,7 +24,6 @@ public class DeleteRoleUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         String idString = request.getParameter("id");
         User user = userService.selectById(Integer.parseInt(idString));
         String[] roleId = request.getParameterValues("roleId");

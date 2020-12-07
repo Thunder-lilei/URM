@@ -23,7 +23,6 @@ public class DeleteResourceServlet extends HttpServlet {
     ResourceServiceImpl resourceService = new ResourceServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         String id = request.getParameter("id");
         if (resourceService.deleteResource(Integer.parseInt(id)).equals(0)) {
             request.setAttribute(RequestConstant.MESSAGE,"删除失败！");

@@ -23,7 +23,6 @@ public class DeleteRoleServlet extends HttpServlet {
     RoleServiceImpl roleService = new RoleServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         String[] roleId = request.getParameterValues("roleId");
         Integer deleteSize = 0;
         for (String s : roleId) {

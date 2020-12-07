@@ -25,7 +25,6 @@ public class AddResourceServlet extends HttpServlet {
     ResourceServiceImpl resourceService = new ResourceServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         Resource resource = new Resource();
         String menuResourceIdString = request.getParameter("menuResourceId");
         Integer menuResourceId = Integer.parseInt(menuResourceIdString);

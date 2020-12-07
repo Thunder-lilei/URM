@@ -26,7 +26,6 @@ public class SelectRoleServlet extends HttpServlet {
     RoleServiceImpl roleService = new RoleServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         List<Role> roleList = roleService.selectRoleByKeyWord(request.getParameter("keyWord"));
         if (roleList!=null) {
             request.getSession().setAttribute("selectRoleList",roleList);

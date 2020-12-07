@@ -24,7 +24,6 @@ public class UpdateUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         User updateUser = userService.selectById(Integer.parseInt(request.getParameter("userId")));
         if(updateUser!=null) {
             updateUser.setUsername(request.getParameter("username"));

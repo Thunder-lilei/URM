@@ -25,7 +25,6 @@ public class AddRoleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         Role role = new Role();
         role.setRoleType(request.getParameter("type"));
         role.setRoleName(request.getParameter("role_name"));

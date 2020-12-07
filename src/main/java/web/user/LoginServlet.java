@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet{
     UserServiceImpl userService = new UserServiceImpl();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("utf-8");
         User user = userService.selectByUsername(request.getParameter("username"));
         if(user !=null) {
             try {

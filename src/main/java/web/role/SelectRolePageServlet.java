@@ -32,7 +32,6 @@ public class SelectRolePageServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         String pageNow = request.getParameter("pageNow");
         int pageNowInteger = Integer.parseInt(pageNow);
         String pageSize = request.getParameter("pageSize");
