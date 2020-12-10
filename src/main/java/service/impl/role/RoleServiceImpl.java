@@ -1,14 +1,11 @@
-package serviceImpl.role;
+package service.impl.role;
 
 import dao.role.RoleDao;
 import dao.role.resource.RoleResourceDao;
 import dao.role.user.RoleUserDao;
 import po.Role;
-import po.User;
 import service.role.RoleService;
-import util.JdbcUtil;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 

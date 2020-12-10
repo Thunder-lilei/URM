@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="po.User" %>
 <%@ page import="po.Resource" %>
-<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
+<%@ page import="service.impl.resource.ResourceServiceImpl" %>
 <%--
   Created by IntelliJ IDEA.
   User: lilei

@@ -3,7 +3,7 @@ package web.role;
 import constant.PageUrlConstant;
 import constant.RequestConstant;
 import po.Role;
-import serviceImpl.role.RoleServiceImpl;
+import service.impl.role.RoleServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

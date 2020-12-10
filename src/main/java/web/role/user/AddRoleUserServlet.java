@@ -1,9 +1,8 @@
 package web.role.user;
 
 import po.User;
-import serviceImpl.role.RoleServiceImpl;
-import serviceImpl.role.user.RoleUserServiceImpl;
-import serviceImpl.user.UserServiceImpl;
+import service.impl.role.user.RoleUserServiceImpl;
+import service.impl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,18 +28,18 @@ public class AddRoleUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("id");
         User user = userService.selectById(Integer.parseInt(idString));
-        if (user == null) {
-            request.setAttribute("message","用户异常!");
-            request.getRequestDispatcher("pages/control.jsp").forward(request,response);
-        }
-        String[] roleIds = request.getParameterValues("roleId");
-        Integer addRoleSize = 0;
-        for(String s : roleIds) {
-            if (!roleUserService.insertRoleUser(Integer.parseInt(s),user.getId()).equals(0)) {
-                ++addRoleSize;
+        int addRoleSize = 0;
+        if (user != null) {
+            String[] roleIds = request.getParameterValues("roleId");
+            for(String s : roleIds) {
+                if (!roleUserService.insertRoleUser(Integer.parseInt(s),user.getId()).equals(0)) {
+                    ++addRoleSize;
+                }
             }
+            request.setAttribute("message","成功赋予"+user.getNickname()+addRoleSize+"个角色");
+        }else {
+            request.setAttribute("message","用户异常!");
         }
-        request.setAttribute("message","成功赋予"+user.getNickname()+addRoleSize+"个角色");
         request.setAttribute("UserControlPage",true);
         request.getRequestDispatcher("pages/control.jsp").forward(request,response);
     }

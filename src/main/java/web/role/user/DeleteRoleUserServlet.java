@@ -1,8 +1,8 @@
 package web.role.user;
 
 import po.User;
-import serviceImpl.role.user.RoleUserServiceImpl;
-import serviceImpl.user.UserServiceImpl;
+import service.impl.role.user.RoleUserServiceImpl;
+import service.impl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class DeleteRoleUserServlet extends HttpServlet {
         String idString = request.getParameter("id");
         User user = userService.selectById(Integer.parseInt(idString));
         String[] roleId = request.getParameterValues("roleId");
-        Integer deleteRoleUserSize = 0;
+        int deleteRoleUserSize = 0;
         for (String s : roleId) {
             if (!roleUserService.deleteRoleUser(Integer.parseInt(s),user.getId()).equals(0)) {
                 ++deleteRoleUserSize;

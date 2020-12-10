@@ -1,10 +1,8 @@
-package serviceImpl.resource;
+package service.impl.resource;
 
 import dao.resource.ResourceDao;
 import dao.role.resource.RoleResourceDao;
 import po.Resource;
-import po.User;
-import serviceImpl.role.resource.RoleResourceServiceImpl;
 
 import java.util.List;
 

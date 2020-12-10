@@ -2,8 +2,7 @@ package web.user;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
-import po.User;
-import serviceImpl.user.UserServiceImpl;
+import service.impl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <h3>URM</h3>
@@ -28,7 +25,7 @@ public class DeleteUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] userId = request.getParameterValues("userId");
 
-        Integer deleteSize = 0;
+        int deleteSize = 0;
         for (String s : userId) {
             if (!userService.deleteUser(Integer.parseInt(s)).equals(0)) {
                 ++deleteSize;

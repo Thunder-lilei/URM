@@ -2,7 +2,7 @@ package web.resource;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
-import serviceImpl.resource.ResourceServiceImpl;
+import service.impl.resource.ResourceServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

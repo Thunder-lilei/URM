@@ -2,8 +2,8 @@ package web.role.resource;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
-import serviceImpl.role.RoleServiceImpl;
-import serviceImpl.role.resource.RoleResourceServiceImpl;
+import service.impl.role.RoleServiceImpl;
+import service.impl.role.resource.RoleResourceServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class AddRoleResourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String roleId = request.getParameter("id");
         String[] btnResourceId = request.getParameterValues("btnResourceId");
-        Integer addRoleResourceSize = 0;
+        int addRoleResourceSize = 0;
         if (btnResourceId != null) {
             for (String s : btnResourceId) {
                 if (!roleResourceService.insertRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {

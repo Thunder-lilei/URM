@@ -3,8 +3,7 @@ package web.user;
 import constant.PageUrlConstant;
 import constant.RequestConstant;
 import po.User;
-import serviceImpl.user.UserServiceImpl;
-import util.MD5Util;
+import service.impl.user.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

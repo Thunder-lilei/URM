@@ -2,7 +2,7 @@ package web.role;
 
 import constant.PageUrlConstant;
 import constant.RequestConstant;
-import serviceImpl.role.RoleServiceImpl;
+import service.impl.role.RoleServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,7 @@ public class DeleteRoleServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] roleId = request.getParameterValues("roleId");
-        Integer deleteSize = 0;
+        int deleteSize = 0;
         for (String s : roleId) {
             if (!roleService.deleteRole(Integer.parseInt(s)).equals(0)) {
                 ++deleteSize;
@@ -36,6 +36,6 @@ public class DeleteRoleServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request,response);
     }
 }

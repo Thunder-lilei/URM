@@ -1,11 +1,9 @@
-package serviceImpl.role.resource;
+package service.impl.role.resource;
 
 import dao.resource.ResourceDao;
 import dao.role.resource.RoleResourceDao;
 import po.Resource;
 import service.role.resource.RoleResourceService;
-
-import java.sql.SQLException;
 
 /**
  * <h3>URM</h3>

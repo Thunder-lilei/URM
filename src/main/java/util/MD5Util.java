@@ -1,6 +1,5 @@
 package util;
 
-
 import org.apache.commons.codec.binary.Hex;
 
 import java.nio.charset.StandardCharsets;
@@ -26,7 +25,7 @@ public class MD5Util {
         return "";
     }
     public static void main(String[] args) {
-        String password = "password";
+        String password = "1";
         String md5HexStr = md5(password);
         System.out.println("==> MD5 加密前: " + password);
         System.out.println("==> MD5 加密后: " + md5HexStr);

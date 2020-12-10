@@ -1,4 +1,4 @@
-package serviceImpl.user;
+package service.impl.user;
 
 import dao.role.user.RoleUserDao;
 import dao.user.UserDao;

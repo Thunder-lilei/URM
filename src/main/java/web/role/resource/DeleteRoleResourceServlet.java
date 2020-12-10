@@ -3,9 +3,9 @@ package web.role.resource;
 import constant.PageUrlConstant;
 import constant.RequestConstant;
 import po.Resource;
-import serviceImpl.resource.ResourceServiceImpl;
-import serviceImpl.role.RoleServiceImpl;
-import serviceImpl.role.resource.RoleResourceServiceImpl;
+import service.impl.resource.ResourceServiceImpl;
+import service.impl.role.RoleServiceImpl;
+import service.impl.role.resource.RoleResourceServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +32,7 @@ public class DeleteRoleResourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] btnResourceId = request.getParameterValues("btnResourceId");
         String roleId = request.getParameter("id");
-        Integer deleteRoleResourceSize = 0;
+        int deleteRoleResourceSize = 0;
 
         for (String s : btnResourceId) {
             if(!roleResourceService.deleteRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {

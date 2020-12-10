@@ -1,4 +1,4 @@
-<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
+<%@ page import="service.impl.resource.ResourceServiceImpl" %>
 <%@ page import="po.User" %>
 <%@ page import="po.Resource" %>
 <%@ page import="java.util.List" %><%--

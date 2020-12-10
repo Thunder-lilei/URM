@@ -1,9 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="po.User" %>
-<%@ page import="serviceImpl.user.UserServiceImpl" %>
+<%@ page import="service.impl.user.UserServiceImpl" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="serviceImpl.resource.ResourceServiceImpl" %>
-<%@ page import="serviceImpl.role.RoleServiceImpl" %>
+<%@ page import="service.impl.resource.ResourceServiceImpl" %>
+<%@ page import="service.impl.role.RoleServiceImpl" %>
 <%@ page import="po.Role" %><%--
   Created by IntelliJ IDEA.
   User: lilei

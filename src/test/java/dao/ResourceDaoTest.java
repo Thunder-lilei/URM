@@ -2,7 +2,7 @@ package dao;
 
 import dao.resource.ResourceDao;
 import org.junit.Test;
-import serviceImpl.resource.ResourceServiceImpl;
+import service.impl.resource.ResourceServiceImpl;
 
 /**
  * <h3>URM</h3>
