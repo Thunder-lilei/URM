@@ -19,9 +19,6 @@ import java.util.List;
 public class RoleUserDao {
 
     public Integer insertRoleUser(Integer roleId,Integer userId) {
-        if (selectByRoleIdAndUserId(roleId,userId)) {
-            return 0;
-        }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {

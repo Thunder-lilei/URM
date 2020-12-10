@@ -19,6 +19,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
      * @Author 李雷
      * @Description //TODO lilei
      * 为角色赋权的同时查看该按钮权限的菜单权限是否也也该角色关联
+     * 查询是否添加了已有的权限
      * @Date 15:03 2020/11/30
      * @Param [resourceId, roleId]
      * @return java.lang.Integer
@@ -26,7 +27,9 @@ public class RoleResourceServiceImpl implements RoleResourceService {
     @Override
     public Integer insertRoleResource(Integer resourceId,Integer roleId) {
         Resource resource = resourceDao.selectResourceById(resourceId);
-        if (!ifSaveByRoleIdAndResourceId(roleId,resource.getMenuResourceId())) {roleResourceDao.addRoleResource(resource.getMenuResourceId(),roleId);}
+        if (!ifSaveByRoleIdAndResourceId(roleId,resource.getMenuResourceId()))
+        {roleResourceDao.addRoleResource(resource.getMenuResourceId(),roleId);}
+        if (ifSaveByRoleIdAndResourceId(roleId, resourceId)) {return 0;}
         return roleResourceDao.addRoleResource(resourceId,roleId);
     }
     @Override

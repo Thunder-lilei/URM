@@ -1,7 +1,6 @@
 package service.role;
 
 import po.Role;
-import po.User;
 
 import java.util.List;
 
@@ -14,6 +13,8 @@ import java.util.List;
  **/
 public interface RoleService {
     Role selectByName(String name);
+
+    Role selectByType(String type);
 
     Integer selectIdByName(String name);
 

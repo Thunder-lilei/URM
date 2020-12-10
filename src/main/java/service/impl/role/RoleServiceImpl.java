@@ -27,6 +27,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role selectByType(String type) {return roleDao.selectByType(type);}
+
+    @Override
     public Integer selectIdByName(String name) {
         int result = 0;
         Role role = roleDao.selectByName(name);
@@ -72,8 +75,19 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.selectRoleByPage((page-1)*pageSize,pageSize);
     }
 
+    /*
+     * @Author 李雷
+     * @Description //TODO lilei
+     * @Date 13:54 2020/12/10
+     * @Param [role]
+     * @return java.lang.Integer
+     * 添加前查询是否已存在
+     **/
     @Override
-    public Integer addRole(Role role) {return roleDao.addRole(role);}
+    public Integer addRole(Role role) {
+        if (selectByName(role.getRoleName()) != null || selectByType(role.getRoleType()) != null) {return 0;}
+        return roleDao.addRole(role);
+    }
 
     /*
      * @Author 李雷

@@ -1,7 +1,6 @@
 package dao.role;
 
 import po.Role;
-import po.User;
 import util.JdbcUtil;
 
 import java.sql.Connection;
@@ -161,9 +160,6 @@ public class RoleDao {
     }
 
     public Integer addRole(Role role) {
-        if (selectByName(role.getRoleName()) != null || selectByType(role.getRoleType()) != null) {
-            return 0;
-        }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {

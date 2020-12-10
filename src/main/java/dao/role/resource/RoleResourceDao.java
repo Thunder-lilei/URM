@@ -16,9 +16,6 @@ import java.sql.SQLException;
  **/
 public class RoleResourceDao {
     public Integer addRoleResource(Integer resourceId,Integer roleId) {
-        if (ifSaveRoleResource(roleId, resourceId)) {
-            return 0;
-        }
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {

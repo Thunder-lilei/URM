@@ -1,7 +1,6 @@
 package dao.resource;
 
 import po.Resource;
-import po.User;
 import util.JdbcUtil;
 
 import java.sql.Connection;

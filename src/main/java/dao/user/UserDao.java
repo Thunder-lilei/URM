@@ -76,7 +76,6 @@ public class UserDao {
         return result;
     }
     public Integer updateUserById(User user) {
-        if (selectByUsername(user.getUsername()) != null) {return 0;}
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {

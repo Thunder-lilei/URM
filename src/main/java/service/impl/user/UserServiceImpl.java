@@ -40,9 +40,19 @@ public class UserServiceImpl implements UserService {
         return userDao.insertUser(user);
     }
 
+    /*
+     * @Author 李雷
+     * @Description //TODO lilei
+     * @Date 13:43 2020/12/10
+     * @Param [user]
+     * @return java.lang.Integer
+     * 更新前查询用户是否存在
+     **/
     @Override
-
-    public Integer updateUser(User user) {return userDao.updateUserById(user);}
+    public Integer updateUser(User user) {
+        if (selectByUsername(user.getUsername()) != null) {return 0;}
+        return userDao.updateUserById(user);
+    }
 
     @Override
     public List<User> selectAllUser() {return userDao.selectAllUser();}
