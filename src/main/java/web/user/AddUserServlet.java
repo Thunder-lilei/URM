@@ -4,6 +4,7 @@ import constant.PageUrlConstant;
 import constant.RequestConstant;
 import po.User;
 import service.impl.user.UserServiceImpl;
+import util.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +30,7 @@ public class AddUserServlet extends HttpServlet {
         String message = "添加成功！";
         User user = new User();
         user.setUsername(request.getParameter("username"));
-        user.setPassword(request.getParameter("password"));
+        user.setPassword(BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt()));
         user.setNickname(request.getParameter("nickName"));
         if(userService.addUser(user).equals(0)) {
             message = "添加失败！尝试更换用户名";

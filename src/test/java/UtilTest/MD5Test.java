@@ -1,3 +1,5 @@
+package UtilTest;
+
 import org.junit.Test;
 import util.MD5Util;
 

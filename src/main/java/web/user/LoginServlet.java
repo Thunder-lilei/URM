@@ -4,6 +4,7 @@ import constant.PageUrlConstant;
 import constant.RequestConstant;
 import po.User;
 import service.impl.user.UserServiceImpl;
+import util.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,7 @@ public class LoginServlet extends HttpServlet{
         User user = userService.selectByUsername(request.getParameter("username"));
         if(user !=null) {
             try {
-                if(user.getPassword().equals(request.getParameter("password"))) {
+                if(BCrypt.checkpw(request.getParameter("password"),user.getPassword())) {
                     user.setPassword(null);
                     request.getSession().setAttribute("user",user);
                     response.sendRedirect(PageUrlConstant.CONTROL_PAGE);
