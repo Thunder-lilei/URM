@@ -37,7 +37,6 @@ public class UpdateUserServlet extends HttpServlet {
         }else {
             request.setAttribute(RequestConstant.MESSAGE,"未能找到需要更新信息的用户！");
         }
-        request.getSession().setAttribute("updateUser",null);
         request.getSession().setAttribute(RequestConstant.PAGE_NOW,1);
         request.setAttribute(RequestConstant.USER_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);

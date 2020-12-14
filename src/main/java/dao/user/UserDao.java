@@ -60,7 +60,7 @@ public class UserDao {
 
     public Integer insertUser(User user) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        Integer result = 0;
+        int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("insert into sys_user (username,password,nickname) " +
                     "values(?,?,?)");
@@ -77,7 +77,7 @@ public class UserDao {
     }
     public Integer updateUserById(User user) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        Integer result = 0;
+        int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET username = ?,nickname = ?," +
                     "password = ? WHERE id = ? and status != 0");
@@ -91,6 +91,7 @@ public class UserDao {
         }finally {
             JdbcUtil.INSTANCE.closeConn(connection);
         }
+        System.out.println(result);
         return result;
     }
     public List<User> selectAllUser() {

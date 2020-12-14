@@ -14,7 +14,7 @@ To change this template use File | Settings | File Templates.
     <link rel='stylesheet' href="../css/login.css">
 </head>
 <body style="background-color: #F4606C">
-    <div style="margin: 10% 0 0 0;width: 100%" class="container">
+    <div style="margin: 10% 0 0 0;width: 100%;" class="container">
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/LoginServlet">
