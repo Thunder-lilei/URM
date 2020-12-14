@@ -22,7 +22,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Resource resource = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where " +
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_resource where " +
                     "resource_name = ?");
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
@@ -44,8 +44,8 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("select id from sys_resource where id = " +
-                    "ANY(select resource_id from role_resource where role_id = ANY(select role_id from role_user " +
+            PreparedStatement pstat = connection.prepareStatement("select id from tbl_resource where id = " +
+                    "ANY(select resource_id from tbl_role_resource where role_id = ANY(select role_id from tbl_role_user " +
                     "where user_id = ?)) and control_type = ?");
             pstat.setInt(1,userId);
             pstat.setString(2,controlType);
@@ -65,7 +65,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id "+type+" 0");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_resource where menu_resource_id "+type+" 0");
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 Resource resource = null;
@@ -88,7 +88,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_resource where menu_resource_id = ?");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -112,7 +112,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource where menu_resource_id = ? " +
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_resource where menu_resource_id = ? " +
                     "and resource_type = ?");
             pstat.setInt(1,id);
             pstat.setString(2,resourceType);
@@ -139,8 +139,8 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where menu_resource_id = 0 " +
-                    "and id = ANY(select resource_id from role_resource where role_id = ANY(select role_id from role_user " +
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_resource where menu_resource_id = 0 " +
+                    "and id = ANY(select resource_id from tbl_role_resource where role_id = ANY(select role_id from tbl_role_user " +
                     "where user_id = ?)) order by id");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
@@ -163,7 +163,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Resource resource = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where resource_name = ? and " +
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_resource where resource_name = ? and " +
                     "menu_resource_id = 0");
             pstat.setString(1,resource_name);
             ResultSet rs = pstat.executeQuery();
@@ -184,8 +184,8 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ANY(select " +
-                    "resource_id from role_resource where role_id = ANY(select role_id from role_user where user_id = ?)) " +
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_resource where id = ANY(select " +
+                    "resource_id from tbl_role_resource where role_id = ANY(select role_id from tbl_role_user where user_id = ?)) " +
                     "and menu_resource_id = ? and resource_type = ?");
             pstat.setInt(1,userId);
             pstat.setInt(2,menuResourceId);
@@ -211,8 +211,8 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Integer> list = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select id from sys_resource where id = ANY(select " +
-                    "resource_id from role_resource where role_id = ?) and menu_resource_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("select id from tbl_resource where id = ANY(select " +
+                    "resource_id from tbl_role_resource where role_id = ?) and menu_resource_id = ?");
             pstat.setInt(1,userId);
             pstat.setInt(2,menuResourceId);
             ResultSet rs = pstat.executeQuery();
@@ -231,7 +231,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Resource resource = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ?");
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_resource where id = ?");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -252,8 +252,8 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> resourceList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where id = ANY(select " +
-                    "resource_id from role_resource where role_id = ?) and menu_resource_id != 0");
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_resource where id = ANY(select " +
+                    "resource_id from tbl_role_resource where role_id = ?) and menu_resource_id != 0");
             pstat.setInt(1,roleId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -275,7 +275,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> resourceList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_resource where menu_resource_id = 0 limit ?, ?");
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_resource where menu_resource_id = 0 limit ?, ?");
             pstat.setInt(1,pre);
             pstat.setInt(2,end);
             ResultSet rs = pstat.executeQuery();
@@ -298,7 +298,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM sys_resource where menu_resource_id = 0");
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM tbl_resource where menu_resource_id = 0");
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 result = rs.getInt(1);
@@ -315,7 +315,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Resource> resourceList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_resource WHERE CONCAT(control_type,resource_name) " +
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_resource WHERE CONCAT(control_type,resource_name) " +
                     "LIKE \"%\"?\"%\" and menu_resource_id = 0");
             pstat.setString(1,keyWord);
             ResultSet rs = pstat.executeQuery();
@@ -339,7 +339,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("insert into sys_resource (menu_resource_id," +
+            PreparedStatement pstat = connection.prepareStatement("insert into tbl_resource (menu_resource_id," +
                     "control_type,resource_type,resource_name) values(?,?,?,?)");
             pstat.setInt(1,resource.getMenuResourceId());
             pstat.setString(2,resource.getControlType());
@@ -358,7 +358,7 @@ public class ResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from sys_resource where id = ?");
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_resource where id = ?");
             pstat.setInt(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {

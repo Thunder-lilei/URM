@@ -225,7 +225,7 @@
                     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/UpdateUserServlet">
                         <div class="input-group">
                             <span class="input-group-addon">用户名</span>
-                            <input name="username" type="text" class="form-control" value="<%=user.getUsername()%>">
+                            <input name="username" type="text" class="form-control" value="<%=user.getUsername()%>" readonly>
                         </div>
                         <br/>
                         <div class="input-group">

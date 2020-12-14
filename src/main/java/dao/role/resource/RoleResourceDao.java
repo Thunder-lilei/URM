@@ -19,7 +19,7 @@ public class RoleResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("insert into role_resource(resource_id," +
+            PreparedStatement pstat = connection.prepareStatement("insert into tbl_role_resource(resource_id," +
                     "role_id) values(?,?)");
             pstat.setInt(1,resourceId);
             pstat.setInt(2,roleId);
@@ -35,7 +35,7 @@ public class RoleResourceDao {
     public Boolean ifSaveRoleResource(Integer roleId,Integer resourceId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from role_resource " +
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_role_resource " +
                     "where resource_id = ? and role_id = ?");
             pstat.setInt(1,resourceId);
             pstat.setInt(2,roleId);
@@ -56,7 +56,7 @@ public class RoleResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from role_resource where role_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_resource where role_id = ?");
             pstat.setInt(1,roleId);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
@@ -71,7 +71,7 @@ public class RoleResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from role_resource where resource_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_resource where resource_id = ?");
             pstat.setInt(1,resourceId);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
@@ -86,7 +86,7 @@ public class RoleResourceDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from role_resource where role_id = ? " +
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_resource where role_id = ? " +
                     "and resource_id = ?");
             pstat.setInt(1,roleId);
             pstat.setInt(2,resourceId);

@@ -22,7 +22,7 @@ public class RoleUserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("insert into role_user(role_id,user_id) values(?,?)");
+            PreparedStatement pstat = connection.prepareStatement("insert into tbl_role_user(role_id,user_id) values(?,?)");
             pstat.setInt(1,roleId);
             pstat.setInt(2,userId);
             result = pstat.executeUpdate();
@@ -37,7 +37,7 @@ public class RoleUserDao {
     public Boolean selectByRoleIdAndUserId(Integer roleId,Integer userId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT id FROM role_user where role_id = ? " +
+            PreparedStatement pstat = connection.prepareStatement("SELECT id FROM tbl_role_user where role_id = ? " +
                     "and user_id = ?");
             pstat.setInt(1,roleId);
             pstat.setInt(2,userId);
@@ -57,7 +57,7 @@ public class RoleUserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Integer> roleIds = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT role_id FROM role_user where user_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("SELECT role_id FROM tbl_role_user where user_id = ?");
             pstat.setInt(1,userId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -75,7 +75,7 @@ public class RoleUserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from role_user where user_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_user where user_id = ?");
             pstat.setInt(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
@@ -90,7 +90,7 @@ public class RoleUserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from role_user where user_id = ? and role_id = ?");
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_user where user_id = ? and role_id = ?");
             pstat.setInt(1,userId);
             pstat.setInt(2,roleId);
             result = pstat.executeUpdate();

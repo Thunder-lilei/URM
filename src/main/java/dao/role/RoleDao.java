@@ -23,7 +23,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where role_name = ?");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role where role_name = ?");
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -42,7 +42,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where role_type = ?");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role where role_type = ?");
             pstat.setString(1,type);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -62,7 +62,7 @@ public class RoleDao {
         Role role = null;
         List<Role> roleList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role");
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 role = new Role(rs.getInt("id"),rs.getString("role_name"),
@@ -81,7 +81,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role where id = ?");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role where id = ?");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -101,7 +101,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Role> roleList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_role limit ?, ?");
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_role limit ?, ?");
             pstat.setInt(1,pre);
             pstat.setInt(2,end);
             ResultSet rs = pstat.executeQuery();
@@ -123,7 +123,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<Role> roleList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_role WHERE CONCAT(role_type,role_name) " +
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role WHERE CONCAT(role_type,role_name) " +
                     "LIKE \"%\"?\"%\"");
             pstat.setString(1,keyWord);
             ResultSet rs = pstat.executeQuery();
@@ -146,7 +146,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM sys_role");
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM tbl_role");
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 result = rs.getInt(1);
@@ -163,7 +163,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("insert into sys_role (role_type,role_name) values(?,?)");
+            PreparedStatement pstat = connection.prepareStatement("insert into tbl_role (role_type,role_name) values(?,?)");
             pstat.setString(1,role.getRoleType());
             pstat.setString(2,role.getRoleName());
             result = pstat.executeUpdate();
@@ -179,7 +179,7 @@ public class RoleDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("delete from sys_role where id = ?");
+            PreparedStatement pstat = connection.prepareStatement("delete from tbl_role where id = ?");
             pstat.setInt(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {

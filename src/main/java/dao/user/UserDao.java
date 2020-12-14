@@ -22,7 +22,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         User user = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user where username = ? and status != 0");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_user where username = ? and status != 0");
             pstat.setString(1,username);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -42,7 +42,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         User user = null;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user where id = ? and status != 0");
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_user where id = ? and status != 0");
             pstat.setInt(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -62,7 +62,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("insert into sys_user (username,password,nickname) " +
+            PreparedStatement pstat = connection.prepareStatement("insert into tbl_user (username,password,nickname) " +
                     "values(?,?,?)");
             pstat.setString(1,user.getUsername());
             pstat.setString(2,user.getPassword());
@@ -79,7 +79,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET username = ?,nickname = ?," +
+            PreparedStatement pstat = connection.prepareStatement("UPDATE tbl_user SET username = ?,nickname = ?," +
                     "password = ? WHERE id = ? and status != 0");
             pstat.setString(1,user.getUsername());
             pstat.setString(2,user.getNickname());
@@ -98,7 +98,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<User> userList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_user where status != 0");
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_user where status != 0");
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 User user = null;
@@ -118,7 +118,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<User> userList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("select * from sys_user where status != 0 limit ?, ?");
+            PreparedStatement pstat = connection.prepareStatement("select * from tbl_user where status != 0 limit ?, ?");
             pstat.setInt(1,pre);
             pstat.setInt(2,end);
             ResultSet rs = pstat.executeQuery();
@@ -141,7 +141,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         List<User> userList = new ArrayList<>();
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM sys_user WHERE CONCAT(username,nickname) " +
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_user WHERE CONCAT(username,nickname) " +
                     "LIKE \"%\"?\"%\"");
             pstat.setString(1,keyWord);
             ResultSet rs = pstat.executeQuery();
@@ -164,7 +164,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("UPDATE sys_user SET status = 0 WHERE id = ?");
+            PreparedStatement pstat = connection.prepareStatement("UPDATE tbl_user SET status = 0 WHERE id = ?");
             pstat.setInt(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
@@ -179,7 +179,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM sys_user");
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM tbl_user");
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 result = rs.getInt(1);
