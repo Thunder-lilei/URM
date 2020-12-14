@@ -4,6 +4,7 @@ import constant.PageUrlConstant;
 import constant.RequestConstant;
 import po.User;
 import service.impl.user.UserServiceImpl;
+import util.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,7 @@ import java.io.IOException;
 /**
  * <h3>URM</h3>
  * <p>更新用户信息</p>
- *
+ * 表单中的密码如果与原密码不相同则重新加密
  * @author : 李雷
  * @date : 2020-11-30 16:58
  **/
@@ -28,7 +29,12 @@ public class UpdateUserServlet extends HttpServlet {
         if(updateUser!=null) {
             updateUser.setUsername(request.getParameter("username"));
             updateUser.setNickname(request.getParameter("nickname"));
-            updateUser.setPassword(request.getParameter("password"));
+            String password = request.getParameter("password");
+            if(!updateUser.getPassword().equals(password)) {
+                updateUser.setPassword(BCrypt.hashpw(password,BCrypt.gensalt()));
+            }else {
+                updateUser.setPassword(request.getParameter("password"));
+            }
             if (!userService.updateUser(updateUser).equals(0)) {
                 request.setAttribute(RequestConstant.MESSAGE,"更新完成！");
             }else {

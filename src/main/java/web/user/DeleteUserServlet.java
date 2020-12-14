@@ -13,8 +13,8 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>${description}</p>
- *
+ * <p>删除用户</p>
+ * 根据表单中选定的用户id列表删除所有选中的用户
  * @author : 李雷
  * @date : 2020-11-30 17:38
  **/

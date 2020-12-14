@@ -13,8 +13,8 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>${description}</p>
- *
+ * <p>删除角色</p>
+ * 根据表单中选定的角色id列表删除所有选中的角色
  * @author : 李雷
  * @date : 2020-12-01 09:41
  **/

@@ -16,6 +16,7 @@ import java.io.IOException;
  * <h3>URM</h3>
  * <p>新增角色</p>
  * 获取角色信息
+ * 不允许重名
  * @author : 李雷
  * @date : 2020-11-25 11:49
  **/

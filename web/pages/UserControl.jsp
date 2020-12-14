@@ -23,7 +23,6 @@
             String btnResourceUpdateUser = "UpdateUser";
             String btnResourceShowUser = "ShowUser";
             String btnResourceAddRoleUser = "AddRoleUser";
-            String menuResourceUserControl = "UserControl";
             User userLogin = (User) request.getSession().getAttribute("user");
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddUser) != 0) {
                 %>

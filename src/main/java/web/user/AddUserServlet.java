@@ -17,6 +17,7 @@ import java.io.IOException;
  * <h3>URM</h3>
  * <p>新增用户</p>
  * 获取填写的用户信息
+ * 不允许重名username
  * 密码使用md5加密
  * @author : 李雷
  * @date : 2020-11-24 17:13

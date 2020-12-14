@@ -13,8 +13,8 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>${description}</p>
- *
+ * <p>删除资源</p>
+ * 获取资源id
  * @author : 李雷
  * @date : 2020-12-04 11:19
  **/

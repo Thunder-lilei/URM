@@ -14,8 +14,8 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>${description}</p>
- *
+ * <p>角色授权</p>
+ * 根据选中的资源ID授予
  * @author : 李雷
  * @date : 2020-11-30 21:23
  **/

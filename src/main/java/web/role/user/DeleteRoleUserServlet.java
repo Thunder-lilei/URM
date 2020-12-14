@@ -13,8 +13,8 @@ import java.io.IOException;
 
 /**
  * <h3>URM</h3>
- * <p>移除用户角色</p>
- *
+ * <p>撤销用户角色</p>
+ * 根据选中的角色ID移除用户角色
  * @author : 李雷
  * @date : 2020-12-01 10:30
  **/
