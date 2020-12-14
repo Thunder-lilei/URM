@@ -179,7 +179,7 @@ public class UserDao {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
-            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM tbl_user");
+            PreparedStatement pstat = connection.prepareStatement("SELECT COUNT(*) FROM tbl_user where status != 0");
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 result = rs.getInt(1);
