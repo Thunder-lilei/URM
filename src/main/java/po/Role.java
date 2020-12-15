@@ -26,6 +26,17 @@ public class Role {
         this.updateTime = updateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleType='" + roleType + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

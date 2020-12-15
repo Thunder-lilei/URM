@@ -75,8 +75,6 @@
                 </script>
                 <%
                     };
-                %>
-                <%
                     if(request.getAttribute("RoleControlPage")!=null) {
                 %>
                 <script>
@@ -84,8 +82,6 @@
                 </script>
                 <%
                     };
-                %>
-                <%
                     if(request.getAttribute("ResourceControlPage")!=null) {
                 %>
                 <script>

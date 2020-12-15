@@ -4,8 +4,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="service.impl.resource.ResourceServiceImpl" %>
 <%@ page import="service.impl.role.RoleServiceImpl" %>
-<%@ page import="po.Role" %>
-<%@ page import="service.impl.role.user.RoleUserServiceImpl" %><%--
+<%@ page import="service.impl.role.user.RoleUserServiceImpl" %>
+<%@ page import="po.Role" %><%--
   Created by IntelliJ IDEA.
   User: lilei
   Date: 2020/12/2
@@ -18,19 +18,22 @@
     <div style="display: flex;">
         <%
             ResourceServiceImpl resourceService = new ResourceServiceImpl();
+            RoleServiceImpl roleService = new RoleServiceImpl();
+            RoleUserServiceImpl roleUserService = new RoleUserServiceImpl();
             String btnResourceAddUser = "AddUser";
             String btnResourceDeleteUser = "DeleteUser";
             String btnResourceSelectUser = "SelectUser";
             String btnResourceUpdateUser = "UpdateUser";
             String btnResourceShowUser = "ShowUser";
             String btnResourceAddRoleUser = "AddRoleUser";
+            String btnResourceDeleteRoleUser = "DeleteRoleUser";
             User userLogin = (User) request.getSession().getAttribute("user");
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddUser) != 0) {
-                %>
+        %>
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUser">
             +新增
         </button>
-                <%
+        <%
             };
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceSelectUser) != 0) {
         %>
@@ -77,13 +80,13 @@
                         <input type="password" class="form-control" required>
                     </div>
                     <br/>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        提交
-                    </button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -116,9 +119,8 @@
             userList = userService.selectUserByPage(1,pageSize);
         }
         for (User user : userList) {
-            %>
+    %>
     <div style="display: flex;">
-
         <%
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceShowUser) != 0) {
         %>
@@ -142,27 +144,24 @@
                     </div>
                     <h3><span class="label label-info">所属角色</span></h3>
                     <%
-                        RoleServiceImpl roleService = new RoleServiceImpl();
                         List<Role> roleList = roleService.selectByUserId(user.getId());
                         for (Role role : roleList) {
-                            %>
+                    %>
                     <div class="input-group">
                         <span style="background-color: #00B271;color: white" class="input-group-addon">角色名称</span>
-                        <input style="background-color: #D7FFF0" name="userName" type="text" class="form-control" value="<%=role.getRoleName()%>" disabled>
+                        <input style="background-color: #D7FFF0" type="text" class="form-control" value="<%=role%>" disabled>
                     </div>
-                            <%
+                    <%
                         };
                     %>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                            </button>
-                            <button type="submit" class="btn btn-primary">
-                                提交更改
-                            </button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                    </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div>
+
 
 
         <div class="input-group">
@@ -171,6 +170,7 @@
             <span style="background-color: #00B271;color: white" class="input-group-addon">昵称</span>
             <input style="background-color: #D7FFF0" name="userName" type="text" class="form-control" value="<%=user.getNickname()%>" disabled>
         </div>
+
 
         <!-- 按钮触发模态框 -->
         <%
@@ -284,12 +284,11 @@
                         <div style="height: 5%;margin: 15px;" class="form-check">
                             <label style="width: 100%;height: 100%;" class="form-check-label">
                                 <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role.getId()%>"
-                                <%
-                                RoleUserServiceImpl roleUserService = new RoleUserServiceImpl();
+                                    <%
                                    if (roleUserService.selectByRoleIdAndUserId(role.getId(),user.getId())) {
-                                       %>
-                                        checked
-                                       <%
+                                    %>
+                                       checked
+                                    <%
                                    };
                                 %>
                                 >
@@ -299,10 +298,10 @@
                         <%
                             };
                         %>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary">提交更改</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-primary">提交更改</button>
+                        </div>
                     </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
@@ -311,7 +310,7 @@
 
         <!-- 按钮触发模态框 -->
         <%
-            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddRoleUser) != 0) {
+            if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceDeleteRoleUser) != 0) {
         %>
         <button type="button" data-toggle="modal" data-target="#deleteRoleUser<%=user.getId()%>" class="btn btn-danger">撤职</button>
         <%
@@ -334,8 +333,8 @@
                         %>
                         <div style="height: 5%;margin: 15px;" class="form-check">
                             <label style="width: 100%;height: 100%;" class="form-check-label">
-                                <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role.getId()%>">
-                                <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=role.getRoleName()%></span>
+                                <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role%>">
+                                <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=role%></span>
                             </label>
                         </div>
                         <%
@@ -350,14 +349,13 @@
             </div><!-- /.modal -->
         </div>
 
-
     </div>
     <br/>
-            <%
+    <%
         };
-                //查询的时候不分页
-                if (selectUserList == null) {
-            %>
+        //查询的时候不分页
+        if (selectUserList == null) {
+    %>
     <nav style="margin: 0 0 0 30% ;" aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">
@@ -377,11 +375,11 @@
                  **/
                 int pages = ((userService.countUser()+pageSize-1)/pageSize);
                 for (int i=1;i<=pages;i++) {
-                   %>
+            %>
             <li class="page-item">
                 <a class="page-link" href="${pageContext.request.contextPath}/SelectUserPageServlet?pageNow=<%=i%>&&pageSize=<%=pageSize%>"><%=i%></a>
             </li>
-                   <%
+            <%
                 };
             %>
             <li class="page-item">
@@ -391,13 +389,13 @@
                 </a>
             </li>
             <li class="page-item">
-                    <span aria-hidden="true">第<%=pageNow%>页</span>
+                <span aria-hidden="true">第<%=pageNow%>页</span>
             </li>
         </ul>
     </nav>
     <%
-        }else {
-                    %>
+    }else {
+    %>
     <button onclick="backUserControl()" type="button" class="btn btn-primary">返回</button>
     <script>
         /*
@@ -412,7 +410,7 @@
             $("#page").load("<%="../pages/UserControl.jsp"%>")
         }
     </script>
-                    <%
+    <%
         };
     %>
 </div>
