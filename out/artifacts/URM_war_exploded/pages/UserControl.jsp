@@ -4,7 +4,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="service.impl.resource.ResourceServiceImpl" %>
 <%@ page import="service.impl.role.RoleServiceImpl" %>
-<%@ page import="po.Role" %><%--
+<%@ page import="po.Role" %>
+<%@ page import="service.impl.role.user.RoleUserServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: lilei
   Date: 2020/12/2
@@ -282,7 +283,16 @@
                         %>
                         <div style="height: 5%;margin: 15px;" class="form-check">
                             <label style="width: 100%;height: 100%;" class="form-check-label">
-                                <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role.getId()%>">
+                                <input name="roleId" style="height: 25px;width: 25px;" type="checkbox" class="form-check-input" value="<%=role.getId()%>"
+                                <%
+                                RoleUserServiceImpl roleUserService = new RoleUserServiceImpl();
+                                   if (roleUserService.selectByRoleIdAndUserId(role.getId(),user.getId())) {
+                                       %>
+                                        checked
+                                       <%
+                                   };
+                                %>
+                                >
                                 <span style="margin: 0 0 0 6% ;font-size: 20px;" class="label label-info"><%=role.getRoleName()%></span>
                             </label>
                         </div>

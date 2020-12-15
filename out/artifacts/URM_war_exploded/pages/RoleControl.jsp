@@ -19,9 +19,9 @@
             String btnResourceAddRole = "AddRole";
             String btnResourceDeleteRole = "DeleteRole";
             String btnResourceSelectRole = "SelectRole";
+            String btnResourceShowRole = "ShowRole";
             String btnResourceAddRoleResource = "AddRoleResource";
             String btnResourceDeleteRoleResource = "DeleteRoleResource";
-            String menuResourceRoleControl = "RoleControl";
             User userLogin = (User) request.getSession().getAttribute("user");
             if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceAddRole) != 0) {
         %>
@@ -275,11 +275,17 @@
 
 
     <br/>
+    <%
+        if (resourceService.selectBtnResourceIdByUserIdAndBtnControlType(userLogin.getId(),btnResourceShowRole) != 0) {
+    %>
     <p>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample<%=role.getId()%>" aria-expanded="false" aria-controls="collapseExample">
             查看所属权限
         </button>
     </p>
+    <%
+        }
+    %>
     <div class="collapse" id="collapseExample<%=role.getId()%>">
     <%
         List<Resource> resourceList = resourceService.selectBtnResourcesByRoleId(role.getId());
