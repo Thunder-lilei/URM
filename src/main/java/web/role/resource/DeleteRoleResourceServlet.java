@@ -33,20 +33,20 @@ public class DeleteRoleResourceServlet extends HttpServlet {
         String[] btnResourceId = request.getParameterValues("btnResourceId");
         String roleId = request.getParameter("id");
         int deleteRoleResourceSize = 0;
-
-        for (String s : btnResourceId) {
-            if(!roleResourceService.deleteRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {
-                ++deleteRoleResourceSize;
-            }
-            Resource menuResource = resourceService.getResourceById(resourceService.getResourceById(Integer.parseInt(s)).getMenuResourceId());
-            List<Integer> btnResourceIdList = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer.parseInt(roleId),menuResource.getId());
-            if (btnResourceIdList.isEmpty()) {
-                roleResourceService.deleteRoleResource(menuResource.getId(),Integer.parseInt(roleId));
+        if (btnResourceId != null){
+            for (String s : btnResourceId) {
+                if(!roleResourceService.deleteRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {
+                    ++deleteRoleResourceSize;
+                }
+                Resource menuResource = resourceService.getResourceById(resourceService.getResourceById(Integer.parseInt(s)).getMenuResourceId());
+                List<Integer> btnResourceIdList = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer.parseInt(roleId),menuResource.getId());
+                if (btnResourceIdList.isEmpty()) {
+                    roleResourceService.deleteRoleResource(menuResource.getId(),Integer.parseInt(roleId));
+                }
             }
         }
         request.setAttribute(RequestConstant.MESSAGE,
                 "成功移除"+roleService.selectNameById(Integer.parseInt(roleId))+deleteRoleResourceSize+"个权限！");
-        request.getSession().setAttribute("deleteRoleResourceId",null);
         request.setAttribute(RequestConstant.ROLE_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }
