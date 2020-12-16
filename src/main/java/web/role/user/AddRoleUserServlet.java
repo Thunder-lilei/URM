@@ -27,12 +27,12 @@ public class AddRoleUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("id");
-        User user = userService.selectById(Integer.parseInt(idString));
+        User user = userService.selectById(Long.parseLong(idString));
         int addRoleSize = 0;
         if (user != null) {
             String[] roleIds = request.getParameterValues("roleId");
             for(String s : roleIds) {
-                if (!roleUserService.insertRoleUser(Integer.parseInt(s),user.getId()).equals(0)) {
+                if (!roleUserService.insertRoleUser(Long.parseLong(s),user.getId()).equals(0)) {
                     ++addRoleSize;
                 }
             }

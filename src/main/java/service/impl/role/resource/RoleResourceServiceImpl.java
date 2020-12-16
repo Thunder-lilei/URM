@@ -25,7 +25,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
      * @return java.lang.Integer
      **/
     @Override
-    public Integer insertRoleResource(Integer resourceId,Integer roleId) {
+    public Integer insertRoleResource(Long resourceId,Long roleId) {
         Resource resource = resourceDao.selectResourceById(resourceId);
         if (!ifSaveByRoleIdAndResourceId(roleId,resource.getMenuResourceId()))
         {roleResourceDao.addRoleResource(resource.getMenuResourceId(),roleId);}
@@ -33,12 +33,12 @@ public class RoleResourceServiceImpl implements RoleResourceService {
         return roleResourceDao.addRoleResource(resourceId,roleId);
     }
     @Override
-    public Boolean ifSaveByRoleIdAndResourceId(Integer roleId,Integer resourceId) {
+    public Boolean ifSaveByRoleIdAndResourceId(Long roleId,Long resourceId) {
         return roleResourceDao.ifSaveRoleResource(roleId,resourceId);
     }
 
     @Override
-    public Integer deleteRoleResource(Integer resourceId, Integer roleId) {
+    public Integer deleteRoleResource(Long resourceId, Long roleId) {
         return roleResourceDao.deleteRoleResource(resourceId,roleId);
     }
 }

@@ -26,7 +26,7 @@ public class UserDao {
             pstat.setString(1,username);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("id"),rs.getString("username"),
+                user = new User(rs.getLong("id"),rs.getString("username"),
                         rs.getString("password"),rs.getString("nickname"),
                         rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
             }
@@ -38,15 +38,36 @@ public class UserDao {
         return user;
     }
 
-    public User selectById(Integer id) {
+    public User selectByUsernameWithoutId(String username, Long id) {
+        Connection connection = JdbcUtil.INSTANCE.getConnection();
+        User user = null;
+        try {
+            PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_user where username = ? and status != 0 and id != ?");
+            pstat.setString(1,username);
+            pstat.setLong(2,id);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                user = new User(rs.getLong("id"),rs.getString("username"),
+                        rs.getString("password"),rs.getString("nickname"),
+                        rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.INSTANCE.closeConn(connection);
+        }
+        return user;
+    }
+
+    public User selectById(Long id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         User user = null;
         try {
             PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_user where id = ? and status != 0");
-            pstat.setInt(1,id);
+            pstat.setLong(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("id"),rs.getString("username"),
+                user = new User(rs.getLong("id"),rs.getString("username"),
                         rs.getString("password"),rs.getString("nickname"),
                         rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
             }
@@ -84,7 +105,7 @@ public class UserDao {
             pstat.setString(1,user.getUsername());
             pstat.setString(2,user.getNickname());
             pstat.setString(3,user.getPassword());
-            pstat.setInt(4,user.getId());
+            pstat.setLong(4,user.getId());
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -102,7 +123,7 @@ public class UserDao {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 User user = null;
-                user = new User(rs.getInt("id"),rs.getString("username"),
+                user = new User(rs.getLong("id"),rs.getString("username"),
                         rs.getString("password"),rs.getString("nickname"),
                         rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 userList.add(user);
@@ -124,7 +145,7 @@ public class UserDao {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user = new User(rs.getInt("id"),rs.getString("username"),
+                user = new User(rs.getLong("id"),rs.getString("username"),
                         rs.getString("password"),rs.getString("nickname"),
                         rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 userList.add(user);
@@ -147,7 +168,7 @@ public class UserDao {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user = new User(rs.getInt("id"),rs.getString("username"),
+                user = new User(rs.getLong("id"),rs.getString("username"),
                         rs.getString("password"),rs.getString("nickname"),
                         rs.getTimestamp("create_time"),rs.getTimestamp("update_time"));
                 userList.add(user);
@@ -160,12 +181,12 @@ public class UserDao {
         return userList;
     }
 
-    public Integer deleteUserById(Integer id) {
+    public Integer deleteUserById(Long id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("UPDATE tbl_user SET status = 0 WHERE id = ?");
-            pstat.setInt(1,id);
+            pstat.setLong(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -18,13 +18,13 @@ import java.util.List;
  **/
 public class RoleUserDao {
 
-    public Integer insertRoleUser(Integer roleId,Integer userId) {
+    public Integer insertRoleUser(Long roleId,Long userId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("insert into tbl_role_user(role_id,user_id) values(?,?)");
-            pstat.setInt(1,roleId);
-            pstat.setInt(2,userId);
+            pstat.setLong(1,roleId);
+            pstat.setLong(2,userId);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -34,13 +34,13 @@ public class RoleUserDao {
         return result;
     }
 
-    public Boolean selectByRoleIdAndUserId(Integer roleId,Integer userId) {
+    public Boolean selectByRoleIdAndUserId(Long roleId,Long userId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         try {
             PreparedStatement pstat = connection.prepareStatement("SELECT id FROM tbl_role_user where role_id = ? " +
                     "and user_id = ?");
-            pstat.setInt(1,roleId);
-            pstat.setInt(2,userId);
+            pstat.setLong(1,roleId);
+            pstat.setLong(2,userId);
             ResultSet rs = pstat.executeQuery();
             if (rs.next()) {
                 return true;
@@ -53,15 +53,15 @@ public class RoleUserDao {
         return false;
     }
 
-    public List<Integer> selectRoleIdByUserId(Integer userId) {
+    public List<Long> selectRoleIdByUserId(Long userId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
-        List<Integer> roleIds = new ArrayList<>();
+        List<Long> roleIds = new ArrayList<>();
         try {
             PreparedStatement pstat = connection.prepareStatement("SELECT role_id FROM tbl_role_user where user_id = ?");
-            pstat.setInt(1,userId);
+            pstat.setLong(1,userId);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                roleIds.add(rs.getInt("role_id"));
+                roleIds.add(rs.getLong("role_id"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -71,12 +71,12 @@ public class RoleUserDao {
         return roleIds;
     }
 
-    public Integer deleteRoleUserByUserId(Integer id) {
+    public Integer deleteRoleUserByUserId(Long id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_user where user_id = ?");
-            pstat.setInt(1,id);
+            pstat.setLong(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -86,13 +86,13 @@ public class RoleUserDao {
         return result;
     }
 
-    public Integer deleteRoleUser(Integer roleId,Integer userId) {
+    public Integer deleteRoleUser(Long roleId,Long userId) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         int result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("delete from tbl_role_user where user_id = ? and role_id = ?");
-            pstat.setInt(1,userId);
-            pstat.setInt(2,roleId);
+            pstat.setLong(1,userId);
+            pstat.setLong(2,roleId);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

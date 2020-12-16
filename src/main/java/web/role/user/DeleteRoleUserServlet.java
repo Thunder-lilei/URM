@@ -25,12 +25,12 @@ public class DeleteRoleUserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("id");
-        User user = userService.selectById(Integer.parseInt(idString));
+        User user = userService.selectById(Long.parseLong(idString));
         String[] roleId = request.getParameterValues("roleId");
         if (roleId != null) {
             int deleteRoleUserSize = 0;
             for (String s : roleId) {
-                if (!roleUserService.deleteRoleUser(Integer.parseInt(s),user.getId()).equals(0)) {
+                if (!roleUserService.deleteRoleUser(Long.parseLong(s),user.getId()).equals(0)) {
                     ++deleteRoleUserSize;
                 }
             }

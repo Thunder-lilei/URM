@@ -145,11 +145,11 @@
                     <h3><span class="label label-info">所属角色</span></h3>
                     <%
                         List<Role> roleList = roleService.selectByUserId(user.getId());
-                        for (Role rrole : roleList) {
+                        for (Role role : roleList) {
                     %>
                     <div class="input-group">
                         <span style="background-color: #00B271;color: white" class="input-group-addon">角色名称</span>
-                        <input style="background-color: #D7FFF0" type="text" class="form-control" value="<%=rrole.getRoleName()%>" disabled>
+                        <input style="background-color: #D7FFF0" type="text" class="form-control" value="<%=role%>" disabled>
                     </div>
                     <%
                         };
@@ -225,7 +225,7 @@
                     <form class="bs-example bs-example-form" role="form" method="post" action="${pageContext.request.contextPath}/UpdateUserServlet">
                         <div class="input-group">
                             <span class="input-group-addon">用户名</span>
-                            <input name="username" type="text" class="form-control" value="<%=user.getUsername()%>" readonly>
+                            <input name="username" type="text" class="form-control" value="<%=user.getUsername()%>">
                         </div>
                         <br/>
                         <div class="input-group">

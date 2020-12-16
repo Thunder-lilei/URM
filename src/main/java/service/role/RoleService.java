@@ -16,13 +16,13 @@ public interface RoleService {
 
     Role selectByType(String type);
 
-    Integer selectIdByName(String name);
+    Long selectIdByName(String name);
 
     List<Role> selectAll();
 
-    String selectNameById(Integer id);
+    String selectNameById(Long id);
 
-    List<Role> selectByUserId(Integer userId);
+    List<Role> selectByUserId(Long userId);
 
     List<Role> selectRoleByKeyWord(String keyWord);
 
@@ -32,5 +32,5 @@ public interface RoleService {
 
     Integer addRole(Role role);
 
-    Integer deleteRole(Integer id);
+    Integer deleteRole(Long id);
 }

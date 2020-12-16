@@ -1,7 +1,6 @@
 package service.resource;
 
 import po.Resource;
-import po.User;
 
 import java.util.List;
 
@@ -13,31 +12,31 @@ import java.util.List;
  * @date : 2020-11-29 15:35
  **/
 public interface ResourceService {
-    Integer selectResourceIdByName(String name);
+    Long selectResourceIdByName(String name);
 
     String getControlTypeByName(String name);
 
     List<Resource> getAllMenuResource();
 
-    Resource getResourceById(Integer id);
+    Resource getResourceById(Long id);
 
     List<Resource> getAllBtnResource();
 
-    List<Resource> getResourceByMenuResourceId(Integer id);
+    List<Resource> getResourceByMenuResourceId(Long id);
 
-    List<Resource> getBtnResourceByMenuResourceId(Integer id);
+    List<Resource> getBtnResourceByMenuResourceId(Long id);
 
-    List<Resource> getMenuResourceByUserId(Integer id);
+    List<Resource> getMenuResourceByUserId(Long id);
 
-    Integer selectMenuResourceIdByName(String resource_name);
+    Long selectMenuResourceIdByName(String resource_name);
 
-    List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId);
+    List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Long userId, Long menuResourceId);
 
-    List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId);
+    List<Long> selectBtnResourcesIdByRoleIdAndMenuResourceId(Long roleId, Long menuResourceId);
 
-    Integer selectBtnResourceIdByUserIdAndBtnControlType(Integer userId,String controlType);
+    Long selectBtnResourceIdByUserIdAndBtnControlType(Long userId,String controlType);
 
-    List<Resource> selectBtnResourcesByRoleId(Integer roleId);
+    List<Resource> selectBtnResourcesByRoleId(Long roleId);
 
     List<Resource> selectMenuResourceByKeyWord(String keyWord);
 
@@ -47,6 +46,6 @@ public interface ResourceService {
 
     Integer addResource(Resource resource);
 
-    Integer deleteResource(Integer id);
+    Integer deleteResource(Long id);
 
 }

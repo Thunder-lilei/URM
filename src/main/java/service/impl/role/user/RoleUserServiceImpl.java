@@ -21,15 +21,15 @@ public class RoleUserServiceImpl implements RoleUserService {
      * @return java.lang.Integer
      **/
     @Override
-    public Integer insertRoleUser(Integer roleId,Integer userId) {
+    public Integer insertRoleUser(Long roleId,Long userId) {
         if (selectByRoleIdAndUserId(roleId,userId)) {return 0;}
         return roleUserDao.insertRoleUser(roleId,userId);
     }
 
     @Override
-    public Integer deleteRoleUser(Integer roleId, Integer userId) {return roleUserDao.deleteRoleUser(roleId,userId);}
+    public Integer deleteRoleUser(Long roleId, Long userId) {return roleUserDao.deleteRoleUser(roleId,userId);}
 
     @Override
-    public Boolean selectByRoleIdAndUserId(Integer roleId, Integer userId) {return roleUserDao.selectByRoleIdAndUserId(roleId,userId);}
+    public Boolean selectByRoleIdAndUserId(Long roleId, Long userId) {return roleUserDao.selectByRoleIdAndUserId(roleId,userId);}
 
 }

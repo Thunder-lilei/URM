@@ -8,9 +8,9 @@ package service.role.user;
  * @date : 2020-11-29 15:39
  **/
 public interface RoleUserService {
-    Integer insertRoleUser(Integer roleId,Integer userId);
+    Integer insertRoleUser(Long roleId,Long userId);
 
-    Integer deleteRoleUser(Integer roleId,Integer userId);
+    Integer deleteRoleUser(Long roleId,Long userId);
 
-    Boolean selectByRoleIdAndUserId(Integer roleId,Integer userId);
+    Boolean selectByRoleIdAndUserId(Long roleId,Long userId);
 }

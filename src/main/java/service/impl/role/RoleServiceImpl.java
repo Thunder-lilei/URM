@@ -30,8 +30,8 @@ public class RoleServiceImpl implements RoleService {
     public Role selectByType(String type) {return roleDao.selectByType(type);}
 
     @Override
-    public Integer selectIdByName(String name) {
-        int result = 0;
+    public Long selectIdByName(String name) {
+        Long result = 0L;
         Role role = roleDao.selectByName(name);
         if (role!=null) {result = role.getId();};
         return result;
@@ -43,7 +43,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public String selectNameById(Integer id) {return roleDao.selectById(id).getRoleName();}
+    public String selectNameById(Long id) {return roleDao.selectById(id).getRoleName();}
 
     /*
      * @Author 李雷
@@ -55,11 +55,11 @@ public class RoleServiceImpl implements RoleService {
      * 通过角色id查询所有角色信息
      **/
     @Override
-    public List<Role> selectByUserId(Integer userId) {
-        List<Integer> roleIds = roleUserDao.selectRoleIdByUserId(userId);
+    public List<Role> selectByUserId(Long userId) {
+        List<Long> roleIds = roleUserDao.selectRoleIdByUserId(userId);
         List<Role> roleList = new ArrayList<>();
-        for (Integer integer : roleIds) {
-            roleList.add(roleDao.selectById(integer));
+        for (Long l : roleIds) {
+            roleList.add(roleDao.selectById(l));
         }
         return roleList;
     }
@@ -98,7 +98,7 @@ public class RoleServiceImpl implements RoleService {
      * 移除角色的同时移除角色下的所有权限
      **/
     @Override
-    public Integer deleteRole(Integer id) {
+    public Integer deleteRole(Long id) {
         roleResourceDao.deleteRoleResourceByRoleId(id);
         return roleDao.deleteRole(id);
     }

@@ -170,7 +170,7 @@
                         <h2><span class="label label-info"><%=menuResource.getResourceName()%></span></h2>
                         <%
                             List<Resource> btnResourceList = resourceService.getResourceByMenuResourceId(menuResource.getId());
-                            List<Integer> btnResourceId = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId
+                            List<Long> btnResourceId = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId
                                     (role.getId(),menuResource.getId());
                             for (Resource btnResource : btnResourceList) {
                         %>
@@ -234,7 +234,7 @@
                         <h2><span class="label label-info"><%=menuResource.getResourceName()%></span></h2>
                         <%
                             List<Resource> btnResourceList = resourceService.getResourceByMenuResourceId(menuResource.getId());
-                            List<Integer> btnResourceId = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId
+                            List<Long> btnResourceId = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId
                                     (role.getId(),menuResource.getId());
                             for (Resource btnResource : btnResourceList) {
                         %>

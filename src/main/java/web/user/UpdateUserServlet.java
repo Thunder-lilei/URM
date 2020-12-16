@@ -25,7 +25,7 @@ public class UpdateUserServlet extends HttpServlet {
     UserServiceImpl userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User updateUser = userService.selectById(Integer.parseInt(request.getParameter("userId")));
+        User updateUser = userService.selectById(Long.parseLong(request.getParameter("userId")));
         if(updateUser!=null) {
             updateUser.setUsername(request.getParameter("username"));
             updateUser.setNickname(request.getParameter("nickname"));

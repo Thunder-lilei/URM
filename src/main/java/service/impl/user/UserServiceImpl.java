@@ -23,11 +23,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectById(Integer id) {return userDao.selectById(id);}
+    public User selectByUsernameWithoutId(String username, Long id) {
+        return userDao.selectByUsernameWithoutId(username,id);
+    }
 
     @Override
-    public Integer selectIdByUsername(String username) {
-        int result = 0;
+    public User selectById(Long id) {return userDao.selectById(id);}
+
+    @Override
+    public Long selectIdByUsername(String username) {
+        Long result = 0L;
         User user = userDao.selectByUsername(username);
         if(user!=null) {result = user.getId();}
         return result;
@@ -42,13 +47,15 @@ public class UserServiceImpl implements UserService {
 
     /*
      * @Author 李雷
-     * @Description //TODO lilei
+     * @Description
+     * 不能重名
      * @Date 13:43 2020/12/10
      * @Param [user]
      * @return java.lang.Integer
      **/
     @Override
     public Integer updateUser(User user) {
+        if (selectByUsernameWithoutId(user.getUsername(),user.getId()) != null) {return 0;}
         return userDao.updateUserById(user);
     }
 
@@ -63,7 +70,7 @@ public class UserServiceImpl implements UserService {
      * @return java.lang.Integer
      **/
     @Override
-    public Integer deleteUser(Integer id) {
+    public Integer deleteUser(Long id) {
         roleUserDao.deleteRoleUserByUserId(id);
         return userDao.deleteUserById(id);
     }

@@ -10,8 +10,8 @@ import java.sql.Timestamp;
  * @date : 2020-11-29 00:43
  **/
 public class Resource {
-    Integer id;
-    Integer menuResourceId;
+    Long id;
+    Long menuResourceId;
     String controlType;
     String resourceType;
     String resourceName;
@@ -20,7 +20,7 @@ public class Resource {
 
     public Resource() {}
 
-    public Resource(Integer id, Integer menuResourceId, String controlType, String resourceType,
+    public Resource(Long id, Long menuResourceId, String controlType, String resourceType,
                     String resourceName, Timestamp createTime, Timestamp updateTime) {
         this.id = id;
         this.menuResourceId = menuResourceId;
@@ -31,19 +31,19 @@ public class Resource {
         this.updateTime = updateTime;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getMenuResourceId() {
+    public Long getMenuResourceId() {
         return menuResourceId;
     }
 
-    public void setMenuResourceId(Integer menuResourceId) {
+    public void setMenuResourceId(Long menuResourceId) {
         this.menuResourceId = menuResourceId;
     }
 

@@ -22,6 +22,6 @@ public class ResourceDaoTest {
         String btnResourceSelectUser = resourceService.getControlTypeByName("查询用户");
         String btnResourceUpdateUser = resourceService.getControlTypeByName("更新用户信息");
         System.out.println(btnResourceAddUser+btnResourceDeleteUser+btnResourceSelectUser+btnResourceUpdateUser);
-        System.out.println(resourceDao.selectBtnResourceIdByUserIdAndBtnControlType(2,"DeleteUser"));
+        System.out.println(resourceDao.selectBtnResourceIdByUserIdAndBtnControlType(2L,"DeleteUser"));
     }
 }

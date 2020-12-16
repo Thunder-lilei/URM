@@ -24,7 +24,7 @@ public class DeleteResourceServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        if (resourceService.deleteResource(Integer.parseInt(id)).equals(0)) {
+        if (resourceService.deleteResource(Long.parseLong(id)).equals(0)) {
             request.setAttribute(RequestConstant.MESSAGE,"删除失败！");
         }
         request.setAttribute(RequestConstant.MESSAGE,"删除成功！");

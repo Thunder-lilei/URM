@@ -8,9 +8,9 @@ package service.role.resource;
  * @date : 2020-11-29 15:38
  **/
 public interface RoleResourceService {
-    Integer insertRoleResource(Integer resourceId,Integer roleId);
+    Integer insertRoleResource(Long resourceId,Long roleId);
 
-    Boolean ifSaveByRoleIdAndResourceId(Integer roleId,Integer resourceId);
+    Boolean ifSaveByRoleIdAndResourceId(Long roleId,Long resourceId);
 
-    Integer deleteRoleResource(Integer resourceId,Integer roleId);
+    Integer deleteRoleResource(Long resourceId,Long roleId);
 }

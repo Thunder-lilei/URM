@@ -17,7 +17,7 @@ public class RoleDaoTest {
     RoleServiceImpl roleService = new RoleServiceImpl();
     @Test
     public void selectAll() {
-        List<Role> roleList = roleService.selectByUserId(1);
+        List<Role> roleList = roleService.selectByUserId(1L);
         for (Role role : roleList) {
             System.out.println(role.getRoleName());
         }

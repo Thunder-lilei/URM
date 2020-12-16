@@ -26,7 +26,7 @@ public class DeleteRoleServlet extends HttpServlet {
         String[] roleId = request.getParameterValues("roleId");
         int deleteSize = 0;
         for (String s : roleId) {
-            if (!roleService.deleteRole(Integer.parseInt(s)).equals(0)) {
+            if (!roleService.deleteRole(Long.parseLong(s)).equals(0)) {
                 ++deleteSize;
             }
         }

@@ -18,10 +18,10 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     RoleResourceDao roleResourceDao = new RoleResourceDao();
 
     @Override
-    public Integer selectResourceIdByName(String name) {
+    public Long selectResourceIdByName(String name) {
         Resource resource = resourceDao.selectResourceByName(name);
         if (resource!=null) {return resource.getId();};
-        return 0;
+        return 0L;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> getAllMenuResource() {return resourceDao.getAllResource("=");}
 
     @Override
-    public Resource getResourceById(Integer id) {
+    public Resource getResourceById(Long id) {
         return resourceDao.selectResourceById(id);
     }
 
@@ -43,40 +43,40 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
     public List<Resource> getAllBtnResource() {return resourceDao.getAllResource("!=");}
 
     @Override
-    public List<Resource> getResourceByMenuResourceId(Integer id) {return resourceDao.getResourceByMenuResourceId(id);}
+    public List<Resource> getResourceByMenuResourceId(Long id) {return resourceDao.getResourceByMenuResourceId(id);}
 
     @Override
-    public List<Resource> getBtnResourceByMenuResourceId(Integer id) {
+    public List<Resource> getBtnResourceByMenuResourceId(Long id) {
         String resourceType = "menu_btn";
         return resourceDao.getBtnResourceByMenuResourceId(id,resourceType);
     }
 
     @Override
-    public List<Resource> getMenuResourceByUserId(Integer id) {return resourceDao.getMenuResourceByUserId(id);}
+    public List<Resource> getMenuResourceByUserId(Long id) {return resourceDao.getMenuResourceByUserId(id);}
     @Override
-    public Integer selectMenuResourceIdByName(String resource_name) {
+    public Long selectMenuResourceIdByName(String resource_name) {
         Resource resource = resourceDao.selectMenuResourceByName(resource_name);
         if (resource!=null) {return resource.getId();};
-        return 0;
+        return 0L;
     };
     @Override
-    public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Integer userId, Integer menuResourceId) {
+    public List<Resource> selectBtnResourcesByUserIdAndMenuResourceId(Long userId, Long menuResourceId) {
         String resourceTypeMenuBtn = "menu_btn";
         return resourceDao.selectBtnResourcesByUserIdAndMenuResourceId(userId,menuResourceId,resourceTypeMenuBtn);
     }
 
     @Override
-    public List<Integer> selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer roleId, Integer menuResourceId) {
+    public List<Long> selectBtnResourcesIdByRoleIdAndMenuResourceId(Long roleId, Long menuResourceId) {
         return resourceDao.selectBtnResourcesIdByRoleIdAndMenuResourceId(roleId,menuResourceId);
     }
 
     @Override
-    public Integer selectBtnResourceIdByUserIdAndBtnControlType(Integer userId, String resourceType) {
+    public Long selectBtnResourceIdByUserIdAndBtnControlType(Long userId, String resourceType) {
         return resourceDao.selectBtnResourceIdByUserIdAndBtnControlType(userId,resourceType);
     }
 
     @Override
-    public List<Resource> selectBtnResourcesByRoleId(Integer roleId) {
+    public List<Resource> selectBtnResourcesByRoleId(Long roleId) {
         return resourceDao.selectBtnResourceByRoleId(roleId);
     }
 
@@ -104,7 +104,7 @@ public class ResourceServiceImpl implements service.resource.ResourceService {
      * 如果是父级资源还要删除对应的次级资源
      **/
     @Override
-    public Integer deleteResource(Integer id) {
+    public Integer deleteResource(Long id) {
         roleResourceDao.deleteRoleResourceByResourceId(id);
         Resource resource = resourceDao.selectResourceById(id);
         if (resource.getMenuResourceId().equals(0)) {

@@ -27,7 +27,7 @@ public class RoleDao {
             pstat.setString(1,name);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                role = new Role(rs.getLong("id"),rs.getString("role_name"),
                         rs.getString("role_type"),rs.getTimestamp("create_time"),
                         rs.getTimestamp("update_time"));
             }
@@ -46,7 +46,7 @@ public class RoleDao {
             pstat.setString(1,type);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                role = new Role(rs.getLong("id"),rs.getString("role_name"),
                         rs.getString("role_type"),rs.getTimestamp("create_time"),
                         rs.getTimestamp("update_time"));
             }
@@ -65,7 +65,7 @@ public class RoleDao {
             PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role");
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                role = new Role(rs.getLong("id"),rs.getString("role_name"),
                         rs.getString("role_type"),rs.getTimestamp("create_time"),
                         rs.getTimestamp("update_time"));
                 roleList.add(role);
@@ -77,15 +77,15 @@ public class RoleDao {
         }
         return roleList;
     }
-    public Role selectById(Integer id) {
+    public Role selectById(Long id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Role role = null;
         try {
             PreparedStatement pstat = connection.prepareStatement("SELECT * FROM tbl_role where id = ?");
-            pstat.setInt(1,id);
+            pstat.setLong(1,id);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                role = new Role(rs.getLong("id"),rs.getString("role_name"),
                         rs.getString("role_type"),rs.getTimestamp("create_time"),
                         rs.getTimestamp("update_time"));
             }
@@ -106,7 +106,7 @@ public class RoleDao {
             pstat.setInt(2,end);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
-                Role role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                Role role = new Role(rs.getLong("id"),rs.getString("role_name"),
                         rs.getString("role_type"),rs.getTimestamp("create_time"),
                         rs.getTimestamp("update_time"));
                 roleList.add(role);
@@ -129,7 +129,7 @@ public class RoleDao {
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 Role role = new Role();
-                role = new Role(rs.getInt("id"),rs.getString("role_name"),
+                role = new Role(rs.getLong("id"),rs.getString("role_name"),
                         rs.getString("role_type"),rs.getTimestamp("create_time"),
                         rs.getTimestamp("update_time"));
                 roleList.add(role);
@@ -175,12 +175,12 @@ public class RoleDao {
         return result;
     }
 
-    public Integer deleteRole(Integer id) {
+    public Integer deleteRole(Long id) {
         Connection connection = JdbcUtil.INSTANCE.getConnection();
         Integer result = 0;
         try {
             PreparedStatement pstat = connection.prepareStatement("delete from tbl_role where id = ?");
-            pstat.setInt(1,id);
+            pstat.setLong(1,id);
             result = pstat.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

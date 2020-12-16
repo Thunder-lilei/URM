@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  * @date : 2020-11-23 09:31
  **/
 public class User {
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
     private String nickname;
@@ -21,7 +21,7 @@ public class User {
 
     public User() {}
 
-    public User(Integer id,String username,String password,String nickname,Timestamp createTime,Timestamp updateTime) {
+    public User(Long id,String username,String password,String nickname,Timestamp createTime,Timestamp updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -30,11 +30,11 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

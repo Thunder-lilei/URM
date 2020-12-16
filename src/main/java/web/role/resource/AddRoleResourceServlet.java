@@ -30,13 +30,13 @@ public class AddRoleResourceServlet extends HttpServlet {
         int addRoleResourceSize = 0;
         if (btnResourceId != null) {
             for (String s : btnResourceId) {
-                if (!roleResourceService.insertRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {
+                if (!roleResourceService.insertRoleResource(Long.parseLong(s),Long.parseLong(roleId)).equals(0)) {
                     ++addRoleResourceSize;
                 }
             }
         }
         request.getSession().setAttribute("roleId",null);
-        request.setAttribute(RequestConstant.MESSAGE,"成功赋予"+roleService.selectNameById(Integer.parseInt(roleId))+addRoleResourceSize+"个权限");
+        request.setAttribute(RequestConstant.MESSAGE,"成功赋予"+roleService.selectNameById(Long.parseLong(roleId))+addRoleResourceSize+"个权限");
         request.setAttribute(RequestConstant.ROLE_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }

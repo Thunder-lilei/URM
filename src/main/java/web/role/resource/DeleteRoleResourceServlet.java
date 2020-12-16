@@ -35,18 +35,18 @@ public class DeleteRoleResourceServlet extends HttpServlet {
         int deleteRoleResourceSize = 0;
         if (btnResourceId != null){
             for (String s : btnResourceId) {
-                if(!roleResourceService.deleteRoleResource(Integer.parseInt(s),Integer.parseInt(roleId)).equals(0)) {
+                if(!roleResourceService.deleteRoleResource(Long.parseLong(s),Long.parseLong(roleId)).equals(0)) {
                     ++deleteRoleResourceSize;
                 }
-                Resource menuResource = resourceService.getResourceById(resourceService.getResourceById(Integer.parseInt(s)).getMenuResourceId());
-                List<Integer> btnResourceIdList = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId(Integer.parseInt(roleId),menuResource.getId());
+                Resource menuResource = resourceService.getResourceById(resourceService.getResourceById(Long.parseLong(s)).getMenuResourceId());
+                List<Long> btnResourceIdList = resourceService.selectBtnResourcesIdByRoleIdAndMenuResourceId(Long.parseLong(roleId),menuResource.getId());
                 if (btnResourceIdList.isEmpty()) {
-                    roleResourceService.deleteRoleResource(menuResource.getId(),Integer.parseInt(roleId));
+                    roleResourceService.deleteRoleResource(menuResource.getId(),Long.parseLong(roleId));
                 }
             }
         }
         request.setAttribute(RequestConstant.MESSAGE,
-                "成功移除"+roleService.selectNameById(Integer.parseInt(roleId))+deleteRoleResourceSize+"个权限！");
+                "成功移除"+roleService.selectNameById(Long.parseLong(roleId))+deleteRoleResourceSize+"个权限！");
         request.setAttribute(RequestConstant.ROLE_CONTROL_PAGE,true);
         request.getRequestDispatcher(PageUrlConstant.CONTROL_PAGE).forward(request,response);
     }

@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * <h3>URM</h3>
  * <p>删除用户</p>
- * 根据表单中选定的用户id列表删除所有选中的用户
+ * Long.parseLong
  * @author : 李雷
  * @date : 2020-11-30 17:38
  **/
@@ -27,7 +27,7 @@ public class DeleteUserServlet extends HttpServlet {
 
         int deleteSize = 0;
         for (String s : userId) {
-            if (!userService.deleteUser(Integer.parseInt(s)).equals(0)) {
+            if (!userService.deleteUser(Long.parseLong(s)).equals(0)) {
                 ++deleteSize;
             }
         }

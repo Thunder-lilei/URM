@@ -14,9 +14,11 @@ import java.util.List;
 public interface UserService {
     User selectByUsername(String username);
 
-    User selectById(Integer id);
+    User selectByUsernameWithoutId(String username,Long id);
 
-    Integer selectIdByUsername(String username);
+    User selectById(Long id);
+
+    Long selectIdByUsername(String username);
 
     Integer addUser(User user);
 
@@ -24,7 +26,7 @@ public interface UserService {
 
     List<User> selectAllUser();
 
-    Integer deleteUser(Integer id);
+    Integer deleteUser(Long id);
 
     Integer countUser();
 

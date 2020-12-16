@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  * @date : 2020-11-29 00:46
  **/
 public class Role {
-    Integer id;
+    Long id;
     String roleType;
     String roleName;
     Timestamp createTime;
@@ -18,7 +18,7 @@ public class Role {
 
     public Role() {}
 
-    public Role(Integer id, String roleName, String roleType, Timestamp createTime, Timestamp updateTime) {
+    public Role(Long id, String roleName, String roleType, Timestamp createTime, Timestamp updateTime) {
         this.id = id;
         this.roleType = roleType;
         this.roleName = roleName;
@@ -37,11 +37,11 @@ public class Role {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

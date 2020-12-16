@@ -27,7 +27,7 @@ public class AddResourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Resource resource = new Resource();
         String menuResourceIdString = request.getParameter("menuResourceId");
-        Integer menuResourceId = Integer.parseInt(menuResourceIdString);
+        Long menuResourceId = Long.parseLong(menuResourceIdString);
         //接收resource参数
         resource.setMenuResourceId(menuResourceId);
         resource.setResourceName(request.getParameter("resourceName"));
